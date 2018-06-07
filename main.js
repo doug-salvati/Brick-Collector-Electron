@@ -16,9 +16,8 @@ global.connection = mysql.createConnection({
 });
 
 function createWindow () {
-    win = new BrowserWindow({width: 1200, height: 600});
+    win = new BrowserWindow({width: 800, height: 600});
     win.loadURL(path.join('file://', __dirname, '/public/index.html'));
-    win.toggleDevTools();
 }
 
 function setMenu() {
@@ -73,11 +72,11 @@ function setMenu() {
                 {
                     label: 'Browse MOCs', accelerator: 'CmdOrCtrl + 4',
                     click() {console.log("view mocs")}
-                },
+                }
             ]
 
         },
-        {role: 'help', submenu: []}
+        {role: 'help', submenu: [{role: 'toggledevtools'}]}
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   }

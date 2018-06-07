@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import ColorHex from '../../data/colors.js';
 import './Part.css';
-import no_img from './no_img.png'
+import no_img from '../../assets/part_images/no_img.png';
+const elements_dir = require.context('../../assets/part_images/elements');
 
 class Part extends Component {
     render() {
         return (
             <span className='part-block'>
-                <img className='part-img' src={this.props.image ? this.props.image : no_img}
+                <img className='part-img' src={this.props.image ? elements_dir('./' + this.props.image) : no_img}
                     title={'Image of ' + (this.props.name ? this.props.name : 'Unnamed Part')}
                     alt={'Image of ' + (this.props.name ? this.props.name : 'No Name')} />
                 <div className='part-label' title={this.props.name ? this.props.name : 'No Name'}>

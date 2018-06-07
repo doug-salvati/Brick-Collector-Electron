@@ -3,7 +3,10 @@ A work-in-progress LEGO® collection manager currently in developemnt using Reac
 
 ## Running
 You need a MySQL database called `brickcollectordev` initialized with `schema.sql`. Then,
-```npm start & electron .```
+```
+npm run-script watch
+npm start
+```
 
 ## Disclaimer
 This is a non-commercial open-source application currently **in development**.

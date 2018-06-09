@@ -19,7 +19,7 @@ global.connection = mysql.createConnection({
 global.openDialog = {
     "add_part": function() {
         let dialog = new BrowserWindow({parent: global.win, modal: true, width: 400, height: 300});
-        dialog.loadURL(path.join('file://', __dirname, '/public/dialogs/new_part.html'));
+        dialog.loadURL(path.join('file://', __dirname, '/public/index.html?parts_dialog'));
     }
 }
 

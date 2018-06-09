@@ -26,6 +26,7 @@ class App extends Component {
       <div className="App">
         <h1>{this.state.part_count} Parts</h1>
         {part_frames}
+        <button id="add-part-btn" onClick={() => global.openDialog.add_part()}> Add Part... </button>
       </div>
     );
   }

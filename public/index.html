@@ -7,8 +7,9 @@
     <div id="root"></div>
   </body>
   <script>
-    var electron = require("electron");
+    var electron = require('electron');
     var connection = electron.remote.getGlobal('connection');
+    var openDialog = electron.remote.getGlobal('openDialog');
   </script>
   <script src="http://localhost:8080/webpack-dev-server.js"></script>
   <script src="http://localhost:8080/built/bundle.js"></script>

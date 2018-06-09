@@ -15,9 +15,17 @@ global.connection = mysql.createConnection({
     database: 'brickcollectordev'
 });
 
+// Open a new Electron window
+global.openDialog = {
+    "add_part": function() {
+        let dialog = new BrowserWindow({parent: global.win, modal: true, width: 400, height: 300});
+        dialog.loadURL(path.join('file://', __dirname, '/public/dialogs/new_part.html'));
+    }
+}
+
 function createWindow () {
-    win = new BrowserWindow({width: 800, height: 600});
-    win.loadURL(path.join('file://', __dirname, '/public/index.html'));
+    global.win = new BrowserWindow({width: 800, height: 600});
+    global.win.loadURL(path.join('file://', __dirname, '/public/index.html'));
 }
 
 function setMenu() {
@@ -46,7 +54,7 @@ function setMenu() {
                 },
                 {
                     label: 'New Part', accelerator: 'CmdOrCtrl + P',
-                    click() {console.log("Add a part")}
+                    click() {global.openDialog.add_part()}
                 },
                 {
                     label: 'New MOC', accelerator: 'CmdOrCtrl + M',

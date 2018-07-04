@@ -1,0 +1,35 @@
+.contents {
+    text-align: center;
+    font-style: italic;
+    margin-top: 25vh;
+}
+
+#searched-part > .part-block {
+    width: 100vw;
+    height: 100vw;
+}
+
+#part-search {
+    text-align: center;
+    width: 90vw;
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    height: 5vh;
+}
+
+#part-search-go {
+    width: 10vw;
+}
+
+#part-add-cancel {
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+}
+
+#part-add-done {
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+}

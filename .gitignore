@@ -1,3 +1,4 @@
 node_modules/
 .DS_Store
 src/assets/part_images/elements/*.jpg
+package-lock.json

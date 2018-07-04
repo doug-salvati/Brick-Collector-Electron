@@ -6,13 +6,18 @@ const elements_dir = require.context('../../assets/part_images/elements');
 
 class Part extends Component {
     render() {
+        let image = no_img;
+        // Check if image is hosted locally
+        if (this.props.image) {
+            image = (this.props.image.includes('http')) ? this.props.image : elements_dir('./' + this.props.image);
+        }
         return (
             <span className='part-block'>
-                <img className='part-img' src={this.props.image ? elements_dir('./' + this.props.image) : no_img}
+                <img className='part-img' src={image}
                     title={'Image of ' + (this.props.name ? this.props.name : 'Unnamed Part')}
                     alt={'Image of ' + (this.props.name ? this.props.name : 'No Name')} />
                 <div className='part-label' title={this.props.name ? this.props.name : 'No Name'}>
-                    <b>{this.props.qty ? this.props.qty : '?'}x</b> {this.props.name ? this.props.name : 'No Name'}
+                    <b>{this.props.qty ? this.props.qty + 'x ' : ''}</b>{this.props.name ? this.props.name : 'No Name'}
                 </div>
                 <div className='part-color'
                     style={{background: (this.props.color ? ColorHex[this.props.color] : 'rgba(0,0,0,0)')}}

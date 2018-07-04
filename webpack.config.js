@@ -1,9 +1,11 @@
 var webpack = require('webpack');
-var path = require('path')
+var path = require('path');
 
 module.exports = {
   mode: 'development',
-  
+
+  target: 'electron-main',
+
   entry: {
     app: ['webpack/hot/dev-server', './src/index.js']
   },

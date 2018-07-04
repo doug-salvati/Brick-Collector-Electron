@@ -18,8 +18,9 @@ global.connection = mysql.createConnection({
 // Open a new Electron window
 global.openDialog = {
     "add_part": function() {
-        let dialog = new BrowserWindow({parent: global.win, modal: true, width: 400, height: 300});
+        let dialog = new BrowserWindow({parent: global.win, modal: true, show: false, width: 400, height: 500});
         dialog.loadURL(path.join('file://', __dirname, '/public/index.html?parts_dialog'));
+        dialog.once('ready-to-show', () => dialog.show());
     }
 }
 
@@ -43,7 +44,8 @@ function setMenu() {
         },
         {label: 'Edit',
             submenu: [
-                { role: 'copy' }
+                { role: 'copy' },
+                { role: 'paste' }
             ]
         },
         {label: 'Collection',

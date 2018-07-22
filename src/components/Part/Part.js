@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import ColorHex from '../../data/colors.js';
 import './Part.css';
-import no_img from '../../assets/part_images/no_img.png';
-const elements_dir = require.context('../../assets/part_images/elements');
 
 class Part extends Component {
     render() {
-        let image = no_img;
+        let image = 'assets/part_images/no_img.png';
         // Check if image is hosted locally
         if (this.props.image) {
-            image = (this.props.image.includes('http')) ? this.props.image : elements_dir('./' + this.props.image);
+            image = (this.props.image.includes('http')) ? this.props.image : `assets/part_images/elements/${this.props.image}`;
         }
         return (
             <span className='part-block'>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Part from '../../Part/Part';
 import './AddPart.css';
-import fire from '../../../util/event';
+import {ipcRenderer} from 'electron';
+import Rebrickable from '../../../util/rebrickable';
 
 // Modal dialog for adding a single part to inventory
 class AddPart extends Component {
@@ -10,42 +11,28 @@ class AddPart extends Component {
         this.state = {part: 'initial'};
     }
 
-    // Performs API request to Rebrickable (may make separate file for API someday)
     searchPart(part_num) {
-        let url = 'https://rebrickable.com/api/v3/lego/elements/' + part_num;
-        let key = global.rebrickable;
-        let request = url + '?key=' + key;
-        fetch(request).then(res => res.json()).then(
-            (result) => {
-                if (result.part) {
-                    console.log(result);
-                    let new_part = {
-                        p_id: result.part.part_num,
-                        title: result.part.name,
-                        color: result.color.name,
-                        img: result.element_img_url,
-                        quantity: 1,
-                        loose: 1
-                    };
-                    this.setState({part: new_part});
-                } else {
-                    this.setState({part: 'none'});
-                }
-            },
-            (error) => {
-                console.log(error);
+        let success_callback = (result) => {
+            if (result.part) {
+                let new_part = {
+                    p_id: result.part.part_num,
+                    title: result.part.name,
+                    color: result.color.name,
+                    img: result.element_img_url,
+                    quantity: 1,
+                    loose: 1
+                };
+                this.setState({part: new_part});
+            } else {
                 this.setState({part: 'none'});
             }
-        );
-    }
-
-    close = () => {
-        fire('partAdded');
-        current_window.close();
+        }
+        Rebrickable.searchPart(part_num, global.rebrickable, {success: success_callback, error: alert});
     }
 
     handleSubmit = () => {
-        global.connection.addPart(this.state.part, () => this.close());
+        ipcRenderer.send('addPart', Object.assign({}, this.state.part));
+        current_window.close();
     }
 
     render() {

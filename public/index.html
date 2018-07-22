@@ -7,11 +7,7 @@
     <div id="root"></div>
   </body>
   <script>
-    // Loading some electron-related variables to the page
-    // This is a native app so we can have direct database
-    // access from the client.
     var electron = require('electron');
-    var connection = electron.remote.getGlobal('connection');
     var openDialog = electron.remote.getGlobal('openDialog');
     var current_window = electron.remote.getCurrentWindow();
     var rebrickable = electron.remote.getGlobal('rebrickable');

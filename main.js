@@ -3,28 +3,45 @@
 
 const {app, BrowserWindow, Menu, ipcMain} = require('electron');
 const path = require('path');
-const url = require('url');
 const mysql = require('mysql');
 const {systemPreferences} = require('electron');
 const DatabaseAPI = require('./db/api.js').default;
 const fs = require('fs');
+const request = require('request');
 
 // Don't show the 'start speaking' or 'emoji' buttons
 systemPreferences.setUserDefault('NSDisabledDictationMenuItem', 'boolean', true);
 systemPreferences.setUserDefault('NSDisabledCharacterPaletteMenuItem', 'boolean', true);
 
 // Connect to MySQL
-dbConnection = mysql.createConnection({
+const dbConnection = mysql.createConnection({
     host: 'localhost',
     user: 'bc_app',
     password: 'bc_pw',
     database: 'brickcollectordev'
 });
-global.connection = DatabaseAPI(dbConnection);
+const connection = DatabaseAPI(dbConnection);
 
 // Channel for communication between windows
-ipcMain.on('partAdded', function() {
-    global.win.webContents.send('partAdded');
+ipcMain.on('addPart', function(event, part) {
+    const img_src = part.img;
+    const img_dest = `public/assets/part_images/elements/${part.p_id}.jpg`;
+    const final_part = Object.assign({}, part, {img: `${part.p_id}.jpg`});
+    request.head(img_src, () => {
+        request(img_src).pipe(fs.createWriteStream(img_dest)).on('close', () => {
+            connection.addPart(final_part, () => {
+                global.win.webContents.send('newPartSent', final_part);
+            });
+        });
+    });
+});
+
+ipcMain.on('getParts', function(event) {
+    connection.getPartsCount(function(e,r) {
+        connection.getParts(function(e,s) {
+            global.win.webContents.send('partsSent', {part_count: r, parts: s});
+        });
+    });
 });
 
 // Read rebrickable API key

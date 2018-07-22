@@ -4,6 +4,8 @@ import MainScreen from './components/MainScreen/MainScreen';
 import AddPart from './components/dialogs/AddPart/AddPart';
 import './index.css';
 
+// This is essentially a router
+
 let view = window.location.search.substr(1);
 switch (view) {
   case 'parts_dialog':

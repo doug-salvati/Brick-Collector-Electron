@@ -1,21 +1,38 @@
-const {app, BrowserWindow, Menu} = require('electron');
+// This file is the main entry point for Electron.
+// It sets up communication channels, windows, menu, etc.
+
+const {app, BrowserWindow, Menu, ipcMain} = require('electron');
 const path = require('path');
 const url = require('url');
 const mysql = require('mysql');
-const {systemPreferences} = require('electron')
+const {systemPreferences} = require('electron');
+const DatabaseAPI = require('./db/api.js').default;
+const fs = require('fs');
 
-systemPreferences.setUserDefault('NSDisabledDictationMenuItem', 'boolean', true)
-systemPreferences.setUserDefault('NSDisabledCharacterPaletteMenuItem', 'boolean', true)
+// Don't show the 'start speaking' or 'emoji' buttons
+systemPreferences.setUserDefault('NSDisabledDictationMenuItem', 'boolean', true);
+systemPreferences.setUserDefault('NSDisabledCharacterPaletteMenuItem', 'boolean', true);
 
 // Connect to MySQL
-global.connection = mysql.createConnection({
+dbConnection = mysql.createConnection({
     host: 'localhost',
     user: 'bc_app',
     password: 'bc_pw',
     database: 'brickcollectordev'
 });
+global.connection = DatabaseAPI(dbConnection);
 
-// Open a new Electron window
+// Channel for communication between windows
+ipcMain.on('partAdded', function() {
+    global.win.webContents.send('partAdded');
+});
+
+// Read rebrickable API key
+global.rebrickable = fs.readFileSync('./src/data/apikey.txt').toString();
+
+// Modal windows
+// This needs to be at this scope so that callbacks
+// are available in the menu bar, which is outside of React
 global.openDialog = {
     "add_part": function() {
         let dialog = new BrowserWindow({parent: global.win, modal: true, show: false, width: 400, height: 500});
@@ -24,11 +41,13 @@ global.openDialog = {
     }
 }
 
+// Main window
 function createWindow () {
     global.win = new BrowserWindow({width: 800, height: 600});
     global.win.loadURL(path.join('file://', __dirname, '/public/index.html'));
 }
 
+// Menu bar
 function setMenu() {
     const template = [
         {label: 'Brick Collector',
@@ -86,17 +105,22 @@ function setMenu() {
             ]
 
         },
-        {role: 'help', submenu: [{role: 'toggledevtools'}]}
+        {label: 'Develop',
+            submenu: [
+                {role: 'toggledevtools'},
+            ]
+        },
+        {role: 'help'}
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   }
 
 app.on('ready', () => {
-    global.connection.connect();
+    dbConnection.connect();
     createWindow();
     setMenu();
 });
 
 app.on('quit', () => {
-    global.connection.end();
+    dbConnection.end();
 });

@@ -2,7 +2,9 @@
 A work-in-progress LEGO® collection manager currently in developemnt using React and Electron.
 
 ## Running
-You need a MySQL database called `brickcollectordev` initialized with `schema.sql`. Then,
+You need a MySQL database called `brickcollectordev` initialized with `schema.sql`. 
+You also need a [Rebrickable.com](https://rebrickable.com/api/) API key in `src/data/apikey.txt`.
+Then,
 ```
 npm run-script watch
 npm start

@@ -13,9 +13,10 @@ class Part extends Component {
             <span className='part-block'>
                 <img className='part-img' src={image}
                     title={'Image of ' + (this.props.name ? this.props.name : 'Unnamed Part')}
-                    alt={'Image of ' + (this.props.name ? this.props.name : 'No Name')} />
+                    alt={'Image of ' + (this.props.name ? this.props.name : 'No Name')}
+                    onClick={(this.props.handleClick)} />
                 <div className='part-label' title={this.props.name ? this.props.name : 'No Name'}>
-                    <b>{this.props.qty ? this.props.qty + 'x ' : ''}</b>{this.props.name ? this.props.name : 'No Name'}
+                    <b>&nbsp;{this.props.qty ? this.props.qty + 'x ' : ''}</b>{this.props.name ? this.props.name : 'No Name'}
                 </div>
                 <div className='part-color'
                     style={{background: (this.props.color ? ColorHex[this.props.color] : 'rgba(0,0,0,0)')}}

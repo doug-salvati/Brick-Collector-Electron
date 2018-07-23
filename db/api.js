@@ -61,6 +61,22 @@ exports.default = function DatabaseAPI(connection) {
         getSetsCount: createGetMethod(queries.sets_all_count, function(r) {return r[0]['COUNT(*)']}),
         getSets: createGetMethod(queries.sets_all, identity),
         getMocsCount: createGetMethod(queries.mocs_all_count, function(r) {return r[0]['COUNT(*)']}),
-        getMocs: createGetMethod(queries.mocs_all, identity)
+        getMocs: createGetMethod(queries.mocs_all, identity),
+
+        // Update
+        changePartQuantity: function(pt, qty, callback) {
+            const where = 'p_id="' + pt.p_id + '"';
+            const query = 'UPDATE parts SET quantity = ' + qty + ', loose = ' + qty + ' WHERE ' + where;
+            connection.query(query, callback);
+            console.info("[INFO] MySQL << " + query);
+        },
+
+        // Destroy
+        deletePart: function(pt, callback) {
+            const where = 'p_id="' + pt.p_id + '"';
+            const query = 'DELETE FROM parts WHERE ' + where;
+            connection.query(query, callback);
+            console.info("[INFO] MySQL << " + query);
+        }
     };
 };

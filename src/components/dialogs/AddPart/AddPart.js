@@ -13,9 +13,10 @@ class AddPart extends Component {
 
     searchPart(part_num) {
         let success_callback = (result) => {
+            console.log(result);
             if (result.part) {
                 let new_part = {
-                    p_id: result.part.part_num,
+                    p_id: result.element_id,
                     title: result.part.name,
                     color: result.color.name,
                     img: result.element_img_url,
@@ -46,13 +47,14 @@ class AddPart extends Component {
             default:
                 contents = <Part name={part.title} color={part.color} qty={part.quantity} image={part.img} />;
         }
-        const ph = "Enter a LEGO element ID number, e.g. 4533122"
+        const ph = "Enter a LEGO element ID number, e.g. 4656783"
         return (
             <div>
                 <input id='part-search' type='text' placeholder={ph}/><button id='part-search-go' onClick={() => this.searchPart(document.getElementById('part-search').value)}>Go</button><br/>
                 <div id='searched-part'>{contents}</div>
                 <button id='part-add-cancel' onClick={() => current_window.close()}>Cancel</button>
-                <button id='part-add-done' onClick={this.handleSubmit}>Done</button>
+                {this.state.part !== 'initial' && this.state.part !== 'none' ?
+                    <button id='part-add-done' onClick={this.handleSubmit}>Add this Part</button> : ''}
             </div>
         );
     }

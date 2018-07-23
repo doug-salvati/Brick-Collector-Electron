@@ -1,0 +1,9 @@
+#add-part-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.centered-header {
+  text-align: center;
+}

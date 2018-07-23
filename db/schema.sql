@@ -6,8 +6,8 @@
  * Run the following as root
  */
 
-/*CREATE DATABASE brickcollectordev;
-USE brickcollectordev;*/
+CREATE DATABASE brickcollectordev;
+USE brickcollectordev;
 
 /* Sets */
 CREATE TABLE sets (
@@ -39,7 +39,7 @@ CREATE TABLE parts (
     img VARCHAR(200),
     quantity INT NOT NULL,
     loose INT, /* Indicates how many are not part of a set or MOC via the bridge */
-    PRIMARY KEY (p_id, color)
+    PRIMARY KEY (p_id)
 );
 
 /* BRIDGE:
@@ -59,17 +59,6 @@ CREATE TABLE borrowings (
     p_id VARCHAR(25) NOT NULL,    /* this PART                 */
     quantity INT NOT NULL         /* in this QUANTITY."        */
 );
-
-/* TEST */
-INSERT INTO parts
-    VALUES (
-        '18824pr0001',
-        'Snake, Cobra with Tan and Black Print',
-        'Dark Green',
-        NULL,
-        1,
-        1
-    );
 
 /* App user used to connect */
 CREATE USER 'bc_app'@'localhost' IDENTIFIED BY 'bc_pw';

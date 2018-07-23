@@ -3,9 +3,3 @@ body {
     padding: 0;
     font-family: sans-serif;
 }
-
-#add-part-btn {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}

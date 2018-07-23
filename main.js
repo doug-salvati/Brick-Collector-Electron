@@ -35,13 +35,22 @@ ipcMain.on('addPart', function(event, part) {
         });
     });
 });
-
 ipcMain.on('getParts', function(event) {
     connection.getPartsCount(function(e,r) {
         connection.getParts(function(e,s) {
             global.win.webContents.send('partsSent', {part_count: r, parts: s});
         });
     });
+});
+ipcMain.on('deletePart', function(event, part) {
+    connection.deletePart(part, () => {
+        global.win.webContents.send('partDeleted', part);
+    });
+});
+ipcMain.on('changePartQuantity', function(event, part, quantity) {
+    connection.changePartQuantity(part, quantity, () => {
+        global.win.webContents.send('newPartSent', Object.assign({}, part, {quantity: quantity - part.quantity}));
+    })
 });
 
 // Read rebrickable API key

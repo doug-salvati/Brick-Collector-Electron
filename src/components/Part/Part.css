@@ -1,22 +1,42 @@
 .part-block {
     display: inline-block;
-    width: 25vw;
-    height: 25vw;
     box-sizing: border-box;
     border: 1px solid black;
     position: relative;
     background: white;
+    transition: all 0.1s;
 }
-.main-screen > .part-block:hover .part-label {
+.part-block:hover .part-label {
     background: #ececec;
     overflow: scroll;
     text-overflow: clip;
 }
-.main-screen > .part-block:hover ::-webkit-scrollbar {
+.part-block:hover ::-webkit-scrollbar {
     display: none;
 }
-.main-screen > .part-block > .part-img {
+.part-block > .part-img {
     cursor: pointer;
+}
+
+.zoom0 {
+    width: 25vw;
+    height: 25vw;
+}
+.zoom1 {
+    width: 33.333vw;
+    height: 33.333vw;
+}
+.zoom2 {
+    width: 50vw;
+    height: 50vw;
+}
+.zoom-1 {
+    width: 20vw;
+    height: 20vw;
+}
+.zoom-2 {
+    width: 16.666vw;
+    height: 16.666vw;
 }
 
 .part-img {

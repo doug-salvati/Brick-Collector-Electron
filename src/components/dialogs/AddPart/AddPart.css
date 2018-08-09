@@ -9,6 +9,9 @@
     height: 100vw;
 }
 
+#searched-part > .part-block > img {
+    cursor: default;
+}
 #part-search {
     text-align: center;
     width: 90vw;

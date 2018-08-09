@@ -1,0 +1,52 @@
+.filterToolbar {
+  padding: 10px 0 10px 0;
+  border-bottom: 1px solid #dddddd;
+}
+
+.filterToolbarSearch {
+  width: 40%;
+  border: none;
+  padding: 0;
+  background: #eeeeee;
+  margin-left: 14%;
+  outline: none;
+  padding-left: 1%;
+  height: 2em;
+  border-radius: 1em;
+}
+
+.filterToolbarSelect {
+  width: 19%;
+  margin-left: 1%;
+}
+
+.filterToolbarZoom {
+  width: 5%;
+  border: none;
+  padding: 0;
+  height: 2em;
+  overflow: hidden;
+}
+.filterToolbarZoom:focus {
+  outline: none;
+}
+.filterToolbarZoom:hover {
+  cursor: pointer;
+}
+
+.filterToolbarZoom.In {
+  margin-left: 1%;
+  border-radius: 1em 0 0 1em;
+  background: linear-gradient(to right, #eeeeee 98%, white 100%);
+}
+.filterToolbarZoom.In:hover {
+  background: linear-gradient(to right, #dddddd 98%, white 100%);
+}
+
+.filterToolbarZoom.Out {
+  border-radius: 0 1em 1em 0;
+  background: linear-gradient(to left, #eeeeee 98%, white 100%);
+}
+.filterToolbarZoom.Out:hover {
+  background: linear-gradient(to left, #dddddd 98%, white 100%);
+}

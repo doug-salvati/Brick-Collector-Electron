@@ -73,6 +73,14 @@ function createWindow () {
     global.win.loadURL(path.join('file://', __dirname, '/public/index.html'));
 }
 
+// Menu bar functions
+function zoomIn() {
+    global.win.webContents.send('zoomIn');
+}
+function zoomOut() {
+    global.win.webContents.send('zoomOut');
+}
+
 // Menu bar
 function setMenu() {
     const template = [
@@ -127,7 +135,16 @@ function setMenu() {
                 {
                     label: 'Browse MOCs', accelerator: 'CmdOrCtrl + 4',
                     click() {console.log("view mocs")}
-                }
+                },
+                { type: 'separator'},
+                {
+                    label: 'Zoom In', accelerator: 'CmdOrCtrl + =',
+                    click() {zoomIn()}
+                },
+                {
+                    label: 'Zoom Out', accelerator: 'CmdOrCtrl + -',
+                    click() {zoomOut()}
+                },
             ]
 
         },

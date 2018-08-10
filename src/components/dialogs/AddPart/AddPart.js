@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Part from '../../Part/Part';
+import Part from '../../entities/Part/Part';
 import './AddPart.css';
 import {ipcRenderer} from 'electron';
 import Rebrickable from '../../../util/rebrickable';

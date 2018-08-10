@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ColorHex from '../../data/colors.js';
+import ColorHex from '../../../data/colors.js';
 import './Part.css';
 
 class Part extends Component {

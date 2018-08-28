@@ -28,7 +28,9 @@ class SubScreen extends Component {
     }
 
     componentWillUnmount() {
-        removeActions(ipcRenderer, this.props.actions);
+      removeActions(ipcRenderer, this.props.actions);
+      ipc.removeAllListeners('zoomIn');
+      ipc.removeAllListeners('zoomOut');  
     }
 
     createOnClick(item) {

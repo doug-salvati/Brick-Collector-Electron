@@ -1,0 +1,71 @@
+.entity-block {
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid black;
+    position: relative;
+    background: white;
+    transition: all 0.1s;
+}
+.entity-block:hover .entity-label {
+    background: #ececec;
+    overflow: scroll;
+    text-overflow: clip;
+}
+.entity-block:hover ::-webkit-scrollbar {
+    display: none;
+}
+.entity-block > .entity-img {
+    cursor: pointer;
+}
+
+.zoom0 {
+    width: 25vw;
+    height: 25vw;
+}
+.zoom1 {
+    width: 33.333vw;
+    height: 33.333vw;
+}
+.zoom2 {
+    width: 50vw;
+    height: 50vw;
+}
+.zoom-1 {
+    width: 20vw;
+    height: 20vw;
+}
+.zoom-2 {
+    width: 16.666vw;
+    height: 16.666vw;
+}
+
+.entity-img {
+    width: 75%;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+.entity-label {
+    text-align: center;
+    height: 2em;
+    line-height: 2em;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid black;
+    background: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.entity-icon {
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    border: 1px solid black;
+}

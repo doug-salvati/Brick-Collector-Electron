@@ -1,30 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ColorHex from '../../../data/colors.js';
-import './Part.css';
+import Entity from '../Entity/Entity';
 
-class Part extends Component {
-    render() {
-        let image = 'assets/part_images/no_img.png';
-        // Check if image is hosted locally
-        if (this.props.image) {
-            image = (this.props.image.includes('http')) ? this.props.image : `assets/part_images/elements/${this.props.image}`;
-        }
-        return (
-            <span className={`part-block zoom${this.props.zoom}`}>
-                <img className='part-img' src={image}
-                    title={'Image of ' + (this.props.name ? this.props.name : 'Unnamed Part')}
-                    alt={'Image of ' + (this.props.name ? this.props.name : 'No Name')}
-                    onClick={(this.props.handleClick)} />
-                <div className='part-label' onMouseOut={e => e.target.scrollLeft = 0} title={this.props.name ? this.props.name : 'No Name'}>
-                    <b>&nbsp;{this.props.qty ? this.props.qty + 'x ' : ''}</b>{this.props.name ? this.props.name : 'No Name'}&nbsp;
-                </div>
-                <div className='part-color'
-                    style={{background: (this.props.classification ? ColorHex[this.props.classification] : 'rgba(0,0,0,0)')}}
-                    title={this.props.classification ? this.props.classification : 'Color Unknown'}>
-                </div>
-            </span>
-        );
-    }
+const Part = (props) => {
+    const {qty, color, ...rest} = props;
+    return (
+        <Entity
+            imagepath="assets/part_images/elements"
+            number={qty ? `${qty}x ` : undefined}
+            icon={color}
+            icon_tooltip={ColorHex[color]}
+            {...rest}
+        />
+    );
 }
 
 export default Part;

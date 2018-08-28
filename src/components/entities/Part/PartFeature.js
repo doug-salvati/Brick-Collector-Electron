@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {ipcRenderer} from 'electron';
 import ColorHex from '../../../data/colors.js';
-import './Part.css';
+import './PartFeature.css';
 
 class PartFeature extends Component {
     constructor(props) {

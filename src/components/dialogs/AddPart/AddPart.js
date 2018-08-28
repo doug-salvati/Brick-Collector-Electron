@@ -45,7 +45,7 @@ class AddPart extends Component {
             case 'none':
                 contents = <p className='contents'>No results found.</p>; break;
             default:
-                contents = <Part name={part.title} color={part.color} qty={part.quantity} image={part.img} />;
+                contents = <Part name={part.title} classification={part.color} qty={part.quantity} image={part.img} />;
         }
         const ph = "Enter a LEGO element ID number, e.g. 4656783"
         return (

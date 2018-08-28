@@ -19,8 +19,8 @@ class Part extends Component {
                     <b>&nbsp;{this.props.qty ? this.props.qty + 'x ' : ''}</b>{this.props.name ? this.props.name : 'No Name'}&nbsp;
                 </div>
                 <div className='part-color'
-                    style={{background: (this.props.color ? ColorHex[this.props.color] : 'rgba(0,0,0,0)')}}
-                    title={this.props.color ? this.props.color : 'Color Unknown'}>
+                    style={{background: (this.props.classification ? ColorHex[this.props.classification] : 'rgba(0,0,0,0)')}}
+                    title={this.props.classification ? this.props.classification : 'Color Unknown'}>
                 </div>
             </span>
         );

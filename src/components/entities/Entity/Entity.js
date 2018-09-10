@@ -18,7 +18,7 @@ const Entity = (props) => {
             </div>
             <div className='entity-icon'
                 style={{background: (props.icon || 'rgba(0,0,0,0)')}}
-                title={props.icon ? props.icon_tooltip : 'Unknown'}>
+                title={props.icon ? props.iconTooltip : 'Unknown'}>
             </div>
         </span>
     );

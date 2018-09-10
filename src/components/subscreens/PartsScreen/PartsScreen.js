@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PartsScreenActions from './PartsScreenActions';
-import './PartsScreen.css';
 import {ipcRenderer} from 'electron';
 import ColorHex from '../../../data/colors.js';
 import SubScreen from '../SubScreen/SubScreen';

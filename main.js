@@ -42,6 +42,13 @@ ipcMain.on('getParts', function(event) {
         });
     });
 });
+ipcMain.on('getSets', function(event) {
+    connection.getSetsCount(function(e,r) {
+        connection.getSets(function(e,s) {
+            global.win.webContents.send('setsSent', {set_count: r, sets: s});
+        });
+    });
+});
 ipcMain.on('deletePart', function(event, part) {
     connection.deletePart(part, () => {
         global.win.webContents.send('partDeleted', part);
@@ -64,7 +71,12 @@ global.openDialog = {
         let dialog = new BrowserWindow({parent: global.win, modal: true, show: false, width: 400, height: 500});
         dialog.loadURL(path.join('file://', __dirname, '/public/index.html?parts_dialog'));
         dialog.once('ready-to-show', () => dialog.show());
-    }
+    },
+    "add_set": function() {
+        let dialog = new BrowserWindow({parent: global.win, modal: true, show: false, width: 400, height: 500});
+        dialog.loadURL(path.join('file://', __dirname, '/public/index.html?sets_dialog'));
+        dialog.once('ready-to-show', () => dialog.show());
+    },
 }
 
 // Main window
@@ -101,7 +113,7 @@ function setMenu() {
                 { role: 'paste' }
             ]
         },
-        {label: 'Collection',
+        /* {label: 'Collection',
             submenu: [
                 {
                     label: 'New Set', accelerator: 'CmdOrCtrl + S',
@@ -117,7 +129,7 @@ function setMenu() {
                 },
             ]
 
-        },
+        }, */
         {label: 'View',
             submenu: [
                 {

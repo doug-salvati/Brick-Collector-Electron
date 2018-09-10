@@ -1,0 +1,44 @@
+#set-feature-back {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    color: #66bee0;
+    background: none;
+    border: none;
+    font-size: 2em;
+}
+#set-feature-back:focus {
+    outline-width: 0;
+}
+#set-feature-back:hover {
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+.set-feature-header {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    width: 40vw;
+    margin: 5vw;
+}
+
+#set-feature-number {
+    font-size: 2em;
+}
+
+.set-feature-elt-cnt {
+    font-variant: small-caps;
+    color: lightgray;
+}
+
+.set-feature-icon {
+    vertical-align: center;
+}
+
+.set-feature-img {
+    position: absolute;
+    bottom: 20px;
+    width: 40vw;
+    margin: 5vw;
+}

@@ -1,4 +1,4 @@
-#add-part-btn {
+#add-entity-btn {
     position: fixed;
     bottom: 10px;
     right: 10px;
@@ -9,7 +9,7 @@
   text-align: center;
 }
 
-.partFrames {
+.entityFrames {
   line-height: 0;
 }
 

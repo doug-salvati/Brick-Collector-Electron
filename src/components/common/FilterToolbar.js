@@ -11,7 +11,7 @@ class filterToolbar extends Component{
                 <select className='filterToolbarSelect'
                     onChange={e => this.props.handleSelectChange(e.target.value)}
                 >
-                    <option>All Colors</option>
+                    <option>All</option>
                     {this.props.options.map((option) => <option key={option}>{option}</option>)};
                 </select>
                 <button className='filterToolbarZoom In' onClick={this.props.handleZoomOut}>➖</button>

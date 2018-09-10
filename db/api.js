@@ -10,7 +10,7 @@ var queries = {
     parts_all_count: 'SELECT COUNT(*) FROM parts',
     parts_all: 'SELECT * FROM parts',
     sets_all_count: 'SELECT COUNT(*) FROM sets',
-    sets_all: 'SELECT * FROM parts',
+    sets_all: 'SELECT * FROM sets',
     mocs_all_count: 'SELECT COUNT(*) FROM mocs',
     mocs_all: 'SELECT * FROM mocs',
 };
@@ -48,12 +48,6 @@ exports.default = function DatabaseAPI(connection) {
                 console.info("[INFO] MySQL << " + query);
                 connection.query(query, callback);
             });
-        },
-        addSet: function() {
-
-        },
-        addMOC: function() {
-
         },
         // Read
         getPartsCount: createGetMethod(queries.parts_all_count, function(r) {return r[0]['COUNT(*)']}),

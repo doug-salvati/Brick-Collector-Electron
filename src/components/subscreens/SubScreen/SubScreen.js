@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PartFeature from '../../entities/Part/PartFeature';
 import FilterToolbar from '../../common/FilterToolbar';
 import {ipcRenderer} from 'electron';
 import {registerActions, removeActions} from '../../../util/registerActions';
+import './SubScreen.css';
 
 class SubScreen extends Component {
     constructor() {
@@ -29,8 +29,8 @@ class SubScreen extends Component {
 
     componentWillUnmount() {
       removeActions(ipcRenderer, this.props.actions);
-      ipc.removeAllListeners('zoomIn');
-      ipc.removeAllListeners('zoomOut');  
+      ipcRenderer.removeAllListeners('zoomIn');
+      ipcRenderer.removeAllListeners('zoomOut');  
     }
 
     createOnClick(item) {
@@ -102,8 +102,8 @@ class SubScreen extends Component {
               options={this.props.dropDownOptions}
             />
           </div>
-          <div className='partFrames'>{frames}</div>
-          <button id="add-part-btn" onClick={this.props.adder}> Add... </button>
+          <div className='entityFrames'>{frames}</div>
+          <button id="add-entity-btn" onClick={this.props.adder}> Add... </button>
         </div>
       );
     }

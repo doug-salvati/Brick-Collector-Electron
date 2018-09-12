@@ -17,7 +17,11 @@ const Entity = (props) => {
                 <b>&nbsp;{props.number ? props.number : ''}</b>{props.name ? props.name : 'No Name'}&nbsp;
             </div>
             <div className='entity-icon'
-                style={{background: (props.icon || 'rgba(0,0,0,0)')}}
+                style={{
+                    background: (props.icon || 'rgba(0,0,0,0)'),
+                    backgroundSize: '100%',
+                    backgroundRepeat: 'no-repeat',
+                }}
                 title={props.icon ? props.iconTooltip : 'Unknown'}>
             </div>
         </span>

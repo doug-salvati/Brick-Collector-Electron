@@ -1,5 +1,5 @@
-const Themes = {
-    "City": "theme_images/city.png"
+const ThemeImages = {
+    "Minecraft": "set_images/themes/minecraft.png"
 };
 
-export default Themes;
+export default ThemeImages;

@@ -35,21 +35,21 @@ class SetFeature extends Component {
         let set = this.props.item;
         let image = 'assets/set_images/no_img.png';
         // Check if image is hosted locally
-        if (part.img) {
-            image = (part.img.includes('http')) ? part.img : `assets/set_images/sets/${part.img}`;
+        if (set.img) {
+            image = (set.img.includes('http')) ? set.img : `assets/set_images/sets/${set.img}`;
         }
         let theme_image = ThemeImages[set.theme]
-            ? `assets/set_images/themes/${ThemeImages[set.theme]}`
+            ? `assets/${ThemeImages[set.theme]}`
             : 'assets/set_images/themes/no_theme.png';
         return (
             <div>
                 <button id='set-feature-back' onClick={this.props.handleBack}>⬅️</button>
                 <div className='set-feature-header'>
-                    <b id='set-feature-number'>{set.s_id}</b>
+                    <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
                     <br/>{set.title}<br/>
                     <i className='set-feature-elt-cnt'>{set.part_count} pcs</i>
-                    <div className='set-feature-theme-icon'><br/>
-                        <img title={set.theme} alt={set.theme} src={theme_image} />
+                    <div className='set-feature-theme' ><br/>
+                        <img className='set-feature-theme-icon' title={set.theme} alt={set.theme} src={theme_image} />
                         <span>{set.theme}</span>
                     </div>
                 </div>

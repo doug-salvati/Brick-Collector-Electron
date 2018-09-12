@@ -32,8 +32,12 @@
     color: lightgray;
 }
 
-.set-feature-icon {
-    vertical-align: center;
+.set-feature-theme-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    border: 1px solid black;
 }
 
 .set-feature-img {

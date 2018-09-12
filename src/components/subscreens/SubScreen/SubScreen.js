@@ -63,7 +63,7 @@ class SubScreen extends Component {
         const text = item.title.toLowerCase().replace(/\s/g, '');
         return (
           ((textFilter === '') ? true : (text.includes(textFilter))) &&
-          ((this.state.dropDownFilter === 'All') ? true : (item.color === this.state.dropDownFilter))
+          ((this.state.dropDownFilter === 'All') ? true : (item[this.props.classificationType] === this.state.dropDownFilter))
         );
       });
     }
@@ -87,9 +87,10 @@ class SubScreen extends Component {
       for (let i in filtered) {
         const item = filtered[i];
         frames.unshift(<Entity
-          key={i} name={item.title} classification={item[this.props.classificationType]} zoom={this.state.zoomLevel}
+          key={i} xid={item.s_id} name={item.title} classification={item[this.props.classificationType]} zoom={this.state.zoomLevel}
           qty={item.quantity} image={item.img} handleClick={this.createOnClick(item)} />);
         }
+      const all = this.props.classificationType.replace(/^\w/, c => c.toUpperCase())
       return (
         <div className='main-screen'>
           <div className='sticky-header'>
@@ -100,6 +101,7 @@ class SubScreen extends Component {
               handleZoomIn={this.handleZoomIn}
               handleZoomOut={this.handleZoomOut}
               options={this.props.dropDownOptions}
+              optionAll={`All ${all}s`}
             />
           </div>
           <div className='entityFrames'>{frames}</div>

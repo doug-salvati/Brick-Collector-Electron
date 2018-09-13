@@ -4,34 +4,37 @@
     margin-top: 25vh;
 }
 
-#searched-part > .part-block {
+#searched-set > .entity-block {
     width: 100vw;
     height: 100vw;
 }
 
-#searched-part > .part-block > img {
+#searched-set > .entity-block > img {
     cursor: default;
 }
-#part-search {
+#set-search {
     text-align: center;
-    width: 90vw;
+    width: 70vw;
     padding-left: 0;
     padding-right: 0;
     border: none;
     height: 5vh;
 }
+#set-suffix {
+    width: 20vw;
+}
 
-#part-search-go {
+#set-search-go {
     width: 10vw;
 }
 
-#part-add-cancel {
+#set-add-cancel {
     position: absolute;
     left: 5%;
     bottom: 5%;
 }
 
-#part-add-done {
+#set-add-done {
     position: absolute;
     right: 5%;
     bottom: 5%;

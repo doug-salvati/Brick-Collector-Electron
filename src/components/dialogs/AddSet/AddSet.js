@@ -1,63 +1,76 @@
 import React, { Component } from 'react';
-import Part from '../../entities/Part/Part';
+import Set from '../../entities/Set/Set';
 import './AddSet.css';
 import {ipcRenderer} from 'electron';
 import Rebrickable from '../../../util/rebrickable';
 
-// Modal dialog for adding a single part to inventory
-class AddPart extends Component {
+// Modal dialog for adding a single set to inventory
+class AddSet extends Component {
     constructor(props) {
         super(props);
-        this.state = {part: 'initial'};
+        this.state = {set: 'initial'};
     }
 
-    searchPart(part_num) {
+    searchSet(set_num) {
         let success_callback = (result) => {
             console.log(result);
-            if (result.part) {
-                let new_part = {
-                    p_id: result.element_id,
-                    title: result.part.name,
-                    color: result.color.name,
-                    img: result.element_img_url,
+            if (result.set_num) {
+                let new_set = {
+                    s_id: result.set_num,
+                    title: result.name,
+                    theme: result.theme_id,
+                    img: result.set_img_url,
                     quantity: 1,
-                    loose: 1
                 };
-                this.setState({part: new_part});
+                this.setState({set: new_set});
             } else {
-                this.setState({part: 'none'});
+                this.setState({set: 'none'});
             }
         }
-        Rebrickable.searchPart(part_num, global.rebrickable, {success: success_callback, error: alert});
+        Rebrickable.searchSet(set_num, global.rebrickable, {success: success_callback, error: alert});
+    }
+
+    handleGo = () => {
+        const number = document.getElementById('set-search').value;
+        const suffix = document.getElementById('set-suffix').value;
+        const query = `${number}${suffix === "No Suffix" ? '' : suffix}`
+        this.searchSet(query);
     }
 
     handleSubmit = () => {
-        ipcRenderer.send('addPart', Object.assign({}, this.state.part));
+        ipcRenderer.send('addSet', Object.assign({}, this.state.state));
         current_window.close();
     }
 
     render() {
-        var part = this.state.part;
-        var contents = <p></p>;
-        switch (part) {
+        const { set } = this.state;
+        let contents = <p></p>;
+        switch (set) {
             case 'initial':
-                contents = <p className='contents'>Please search a part number above.</p>; break;
+                contents = <p className='contents'>Please search a set number above.</p>; break;
             case 'none':
                 contents = <p className='contents'>No results found.</p>; break;
             default:
-                contents = <Part name={part.title} classification={part.color} qty={part.quantity} image={part.img} />;
+                contents = <Set name={set.title} classification={set.theme} image={set.img} />;
         }
-        const ph = "Enter a LEGO element ID number, e.g. 4656783"
+        const ph = "Enter a LEGO set number, e.g. 70818"
+        const options = Array.from(Array(23)).map((_, idx) => <option>{`-${idx + 2}`}</option>);
         return (
             <div>
-                <input id='part-search' type='text' placeholder={ph}/><button id='part-search-go' onClick={() => this.searchPart(document.getElementById('part-search').value)}>Go</button><br/>
-                <div id='searched-part'>{contents}</div>
-                <button id='part-add-cancel' onClick={() => current_window.close()}>Cancel</button>
-                {this.state.part !== 'initial' && this.state.part !== 'none' ?
-                    <button id='part-add-done' onClick={this.handleSubmit}>Add this Part</button> : ''}
+                <input id='set-search' type='text' placeholder={ph}/>
+                <select id='set-suffix' selected='-1'>
+                    <option>No Suffix</option>
+                    <option selected>-1</option>
+                    {options}
+                </select>
+                <button id='set-search-go' onClick={this.handleGo}>Go</button><br/>
+                <div id='searched-set'>{contents}</div>
+                <button id='set-add-cancel' onClick={() => current_window.close()}>Cancel</button>
+                {set !== 'initial' && set !== 'none' ?
+                    <button id='set-add-done' onClick={this.handleSubmit}>Next</button> : ''}
             </div>
         );
     }
 }
 
-export default AddPart;
+export default AddSet;

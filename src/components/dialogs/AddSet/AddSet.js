@@ -18,7 +18,7 @@ class AddSet extends Component {
                 let new_set = {
                     s_id: result.set_num,
                     title: result.name,
-                    theme: result.theme_id,
+                    theme: result.theme,
                     img: result.set_img_url,
                     quantity: 1,
                 };
@@ -35,6 +35,10 @@ class AddSet extends Component {
         const suffix = document.getElementById('set-suffix').value;
         const query = `${number}${suffix === "No Suffix" ? '' : suffix}`
         this.searchSet(query);
+    }
+
+    handleNext = () => {
+        
     }
 
     handleSubmit = () => {
@@ -67,7 +71,7 @@ class AddSet extends Component {
                 <div id='searched-set'>{contents}</div>
                 <button id='set-add-cancel' onClick={() => current_window.close()}>Cancel</button>
                 {set !== 'initial' && set !== 'none' ?
-                    <button id='set-add-done' onClick={this.handleSubmit}>Next</button> : ''}
+                    <button id='set-add-done' onClick={this.handleNext}>Next</button> : ''}
             </div>
         );
     }

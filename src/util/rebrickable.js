@@ -22,6 +22,14 @@ const Rebrickable = {
             (result) => callback.success({...entity, theme: result.name}),
             (error) => callback.error(error)
         )
+    },
+    getPartsInSet: (set_num, key, callback) => {
+        let url = `https://rebrickable.com/api/v3/lego/sets/${set_num}/parts`;
+        let request = `${url}?key=${key}`;
+        fetch(request).then(res => res.json()).then(
+            (result) => callback.success(result.results),
+            (error) => callback.error(error)
+        )
     }
 };
 

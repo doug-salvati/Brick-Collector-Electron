@@ -8,7 +8,7 @@ const Entity = (props) => {
         image = (props.image.includes('http')) ? props.image : `${props.imagepath}/${props.image}`;
     }
     return (
-        <span className={`entity-block zoom${props.zoom}`}>
+        <span className={`entity-block zoom${props.zoom} ${props.className}`}>
             <img className='entity-img' src={image}
                 title={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
                 alt={'Image of ' + (props.name ? props.name : 'Unnamed Item')}

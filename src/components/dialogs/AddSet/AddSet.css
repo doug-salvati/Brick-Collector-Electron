@@ -29,7 +29,7 @@
 }
 
 #set-add-cancel {
-    position: absolute;
+    position: fixed;
     left: 5%;
     bottom: 5%;
 }

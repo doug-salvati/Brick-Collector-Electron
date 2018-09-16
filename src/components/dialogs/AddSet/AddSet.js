@@ -19,11 +19,12 @@ class AddSet extends Component {
                 let new_set = {
                     s_id: result.set_num,
                     title: result.name,
+                    part_count: result.num_parts,
                     theme: result.theme,
                     img: result.set_img_url,
                     quantity: 1,
                 };
-                this.setState({set: new_set});
+                this.setState({set: new_set, parts: []});
             } else {
                 this.setState({set: 'none'});
             }
@@ -56,7 +57,10 @@ class AddSet extends Component {
     }
 
     handleSubmit = () => {
-        ipcRenderer.send('addSet', Object.assign({}, this.state.state));
+        ipcRenderer.send('addSet', {
+            set: this.state.set,
+            parts: this.state.parts
+        });
         current_window.close();
     }
 
@@ -90,11 +94,11 @@ class AddSet extends Component {
                 </div>
             );
         } else {
-            console.log(this.state.parts);
             return (
                 <div>
                     <GalleryPicker Entity={Part} values={this.state.parts} classificationType='color'/>
                     <button id='set-add-cancel' onClick={() => this.setState({page: 1})}>Back</button>
+                    <button id='set-add-done' onClick={() => this.handleSubmit()}>Accept</button>
                 </div>
             );
         }

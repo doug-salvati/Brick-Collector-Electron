@@ -35,6 +35,18 @@ ipcMain.on('addPart', function(event, part) {
         });
     });
 });
+ipcMain.on('addSet', function(event, {set, parts}) {
+    const img_src = set.img;
+    const img_dest = `public/assets/set_images/sets/${set.s_id}.jpg`;
+    const final_set = Object.assign({}, set, {img: `${set.s_id}.jpg`});
+    request.head(img_src, () => {
+        request(img_src).pipe(fs.createWriteStream(img_dest)).on('close', () => {
+            connection.addSet(final_set, () => {
+                global.win.webContents.send('newSetSent', final_set);
+            });
+        });
+    });
+});
 ipcMain.on('getParts', function(event) {
     connection.getPartsCount(function(e,r) {
         connection.getParts(function(e,s) {

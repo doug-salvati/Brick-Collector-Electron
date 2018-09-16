@@ -1,4 +1,4 @@
-const PartsScreenActions = [
+const SetsScreenActions = [
     {
         type: 'setsSent',
         worker: (event, list) => ({
@@ -6,31 +6,29 @@ const PartsScreenActions = [
             items: list.sets,
         })
     },
-    /* {
+    {
         type: 'newSetSent',
-        worker: (event, new_part, context) => {
+        worker: (event, new_set, context) => {
             let match;
-            if (match = context.state.items.find((elt) => elt.p_id === new_part.p_id)) {
-                console.log('match found');
+            if (match = context.state.items.find((elt) => elt.s_id === new_set.s_id)) {
               let modified = Object.assign({}, match, {
-                quantity: match.quantity + new_part.quantity,
-                loose: match.loose + new_part.loose
+                quantity: match.quantity + 1,
               });
               if (context.state.featured) {
                 context.setState({featured: modified});
               }
-              let new_parts = context.state.items.slice();
-              new_parts[context.state.items.indexOf(match)] = modified;
-              return {items: new_parts};
+              let new_sets = context.state.items.slice();
+              new_sets[context.state.items.indexOf(match)] = modified;
+              return {items: new_sets};
             } else {
               return ((old_state) => ({
                 count: old_state.count + 1,
-                items: old_state.items.concat(new_part)
+                items: old_state.items.concat(new_set)
               }));
             }
           },
     },
-    {
+    /*{
         type: 'partDeleted',
         worker: (event, old_part, context) => {
             const match = context.state.items.find((elt) => elt.p_id === old_part.p_id);
@@ -44,4 +42,4 @@ const PartsScreenActions = [
     } */
 ];
 
-export default PartsScreenActions;
+export default SetsScreenActions;

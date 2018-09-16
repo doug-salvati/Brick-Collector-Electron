@@ -49,6 +49,28 @@ exports.default = function DatabaseAPI(connection) {
                 connection.query(query, callback);
             });
         },
+        // set {p_id, title, part_count, theme, img, quantity}
+        addSet: function(set, callback) {
+            // How many do we have?
+            var where = 's_id="' + set.s_id + '"';
+            connection.query('SELECT quantity FROM sets WHERE ' + where, function(e,r) {
+                if (r.length) {
+                    // if we already have some of this set
+                    var query = 'UPDATE sets SET quantity = quantity + 1, ' + where;
+                } else {
+                    // new set
+                    var query = 'INSERT INTO sets VALUES (';
+                    query += "'" + set.s_id + "', ";
+                    query += set.title ? ("'" + set.title + "', ") : 'NULL,';
+                    query += "'" + set.part_count + "',";
+                    query += "'" + set.theme + "', ";
+                    query += set.img ? ("'" + set.img + "', ") : 'NULL,';
+                    query += '1)';
+                }
+                console.info("[INFO] MySQL << " + query);
+                connection.query(query, callback);
+            });
+        },
         // Read
         getPartsCount: createGetMethod(queries.parts_all_count, function(r) {return r[0]['COUNT(*)']}),
         getParts: createGetMethod(queries.parts_all, identity),

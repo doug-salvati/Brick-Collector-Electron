@@ -27,6 +27,7 @@ exports.default = function DatabaseAPI(connection) {
         // pt {p_id, title, color, img, quantity, loose}
         addPart: function(pt, callback) {
             // How many do we have?
+            // @TODO use ON DUPLICATE KEY
             var where = 'p_id="' + pt.p_id + '" AND color="' + pt.color + '"';
             connection.query('SELECT quantity, loose FROM parts WHERE ' + where, function(e,r) {
                 if (r.length) {
@@ -38,7 +39,7 @@ exports.default = function DatabaseAPI(connection) {
                     // new part
                     var query = 'INSERT INTO parts VALUES ( ';
                     query += "'" + pt.p_id + "', ";
-                    query += pt.title ? ("'" + pt.title + "', ") : 'NULL,';
+                    query += pt.title ? ("'" + pt.title.replace(/\'/g,'') + "', ") : 'NULL,';
                     query += "'" + pt.color + "', ";
                     query += pt.img ? ("'" + pt.img + "', ") : 'NULL,';
                     query += pt.quantity + ', ';
@@ -71,6 +72,33 @@ exports.default = function DatabaseAPI(connection) {
                 connection.query(query, callback);
             });
         },
+        addPartsAndBridge: function(set, parts, callback) {
+            const bridge = [];
+            const adding = parts.map(function(pt) {
+                bridge.push(
+                    "('" + set.s_id + "', " + pt.p_id + ", " + pt.quantity + ", 0)"
+                );
+                return (
+                    "('" + pt.p_id + "', "
+                        + (pt.title ? ("'" + pt.title.replace(/\'/g,'') + "', ") : 'NULL,')
+                        + "'" + pt.color + "', "
+                        + (pt.img ? ("'" + pt.img + "', ") : 'NULL,')
+                        + pt.quantity + ', 0)'
+                );
+            });
+            // Add parts
+            const query1 = 'INSERT INTO parts (p_id, title, color, img, quantity, loose) '
+                + 'VALUES ' + adding + ' '
+                + 'ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)';
+            console.info("[INFO] MySQL << " + query1);
+            connection.query(query1, function() {
+                // Bridge
+                const query2 = 'INSERT INTO bridge VALUES ' + bridge;
+                console.info("[INFO] Bridging: MySQL << " + query2);
+                connection.query(query2, callback);
+            })
+            
+        },
         // Read
         getPartsCount: createGetMethod(queries.parts_all_count, function(r) {return r[0]['COUNT(*)']}),
         getParts: createGetMethod(queries.parts_all, identity),
@@ -93,6 +121,6 @@ exports.default = function DatabaseAPI(connection) {
             const query = 'DELETE FROM parts WHERE ' + where;
             connection.query(query, callback);
             console.info("[INFO] MySQL << " + query);
-        }
+        },
     };
 };

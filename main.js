@@ -36,6 +36,7 @@ ipcMain.on('addPart', function(event, part) {
     });
 });
 ipcMain.on('addSet', function(event, {set, parts}) {
+    // Add entry for the set
     const img_src = set.img;
     const img_dest = `public/assets/set_images/sets/${set.s_id}.jpg`;
     const final_set = Object.assign({}, set, {img: `${set.s_id}.jpg`});
@@ -46,6 +47,14 @@ ipcMain.on('addSet', function(event, {set, parts}) {
             });
         });
     });
+    // Add parts
+    connection.addPartsAndBridge(set, parts, () => {
+        connection.getPartsCount(function(e,r) {
+            connection.getParts(function(e,s) {
+                global.win.webContents.send('partsSent', {part_count: r, parts: s});
+            });
+        });
+    })
 });
 ipcMain.on('getParts', function(event) {
     connection.getPartsCount(function(e,r) {

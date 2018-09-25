@@ -44,6 +44,7 @@ class AddSet extends Component {
             {
                 success: results => {
                     const mappedResults = results.map(result => ({
+                        p_id: result.element_id,
                         title: result.part.name,
                         img: result.part.part_img_url,
                         color: result.color.name,

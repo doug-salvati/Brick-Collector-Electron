@@ -23,6 +23,13 @@ const dbConnection = mysql.createConnection({
 const connection = DatabaseAPI(dbConnection);
 
 // Channel for communication between windows
+
+const downloadImageAsync = (src, dest) => {
+    request.head(src, () => {
+        request(src).pipe(fs.createWriteStream(dest));
+    });
+};
+
 ipcMain.on('addPart', function(event, part) {
     const img_src = part.img;
     const img_dest = `public/assets/part_images/elements/${part.p_id}.jpg`;
@@ -48,6 +55,13 @@ ipcMain.on('addSet', function(event, {set, parts}) {
         });
     });
     // Add parts
+    for (idx in parts) {
+        const part = parts[idx];
+        const src = part.img;
+        const dest = `public/assets/part_images/elements/${part.p_id}.jpg`;
+        downloadImageAsync(src, dest);
+        parts[idx].img = `${part.p_id}.jpg`;
+    }
     connection.addPartsAndBridge(set, parts, () => {
         connection.getPartsCount(function(e,r) {
             connection.getParts(function(e,s) {
@@ -134,11 +148,11 @@ function setMenu() {
                 { role: 'paste' }
             ]
         },
-        /* {label: 'Collection',
+        {label: 'Collection',
             submenu: [
                 {
                     label: 'New Set', accelerator: 'CmdOrCtrl + S',
-                    click() {console.log("Add a set")}
+                    click() {global.openDialog.add_set()}
                 },
                 {
                     label: 'New Part', accelerator: 'CmdOrCtrl + P',
@@ -150,7 +164,7 @@ function setMenu() {
                 },
             ]
 
-        }, */
+        },
         {label: 'View',
             submenu: [
                 {

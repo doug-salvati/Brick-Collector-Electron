@@ -24,11 +24,7 @@ class SetFeature extends Component {
     componentWillUnmount() {
         ipcRenderer.removeAllListeners('partsSent');
     }
-   /* handleChange = (event) => {
-        const value = parseInt(document.getElementById('set-feature-input').value);
-        this.setState({formIsGood: (value && !isNaN(value) &&
-            value !== this.state.quantity && value > 0), formValue: value});
-    }
+   /*
     handleDelete = () => {
         const q = this.state.quantity;
         const deletion_quantity = q === 1 ? 'your' : q === 2 ? 'both' : `all ${q}`
@@ -50,7 +46,7 @@ class SetFeature extends Component {
             : 'assets/set_images/themes/no_theme.png';
         return (
             <div>
-                <div class='left'>
+                <div className='left'>
                     <button id='set-feature-back' onClick={this.props.handleBack}>⬅️</button>
                     <div className='set-feature-header'>
                         <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
@@ -66,7 +62,7 @@ class SetFeature extends Component {
                         alt={'Image of ' + (set.title ? set.title : 'No Name')}
                     />
                 </div>
-                <div class='right'>
+                <div className='right'>
                     <Gallery Entity={Part} values={this.state.parts} classificationType='color' zoom={-2}/>
                 </div>
             </div>

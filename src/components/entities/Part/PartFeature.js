@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {ipcRenderer} from 'electron';
 import ColorHex from '../../../data/colors.js';
+import Set from '../Set/Set';
+import Gallery from '../../common/Gallery';
 import './PartFeature.css';
 
 class PartFeature extends Component {
@@ -9,8 +11,18 @@ class PartFeature extends Component {
         this.state = {
             formIsGood: false,
             formValue: this.props.item.quantity,
-            quantity: this.props.item.quantity
+            quantity: this.props.item.quantity,
+            sets: []
         };
+    }
+    componentDidMount() {
+        ipcRenderer.send('getSetsContainingPart', this.props.item.p_id);
+        ipcRenderer.on('setsSent', (e, r) => {
+            this.setState({sets: r});
+        });
+    }
+    componentWillUnmount() {
+        ipcRenderer.removeAllListeners('setsSent');
     }
     handleChange = (event) => {
         const value = parseInt(document.getElementById('part-feature-input').value);
@@ -43,27 +55,32 @@ class PartFeature extends Component {
             : '';
         return (
             <div>
-                <button id='part-feature-back' onClick={this.props.handleBack}>⬅️</button>
-                <div className='part-feature-header'>
-                    <input
-                    id='part-feature-input' type='number' dir='rtl' onKeyDown={(e) => e.preventDefault()}
-                    defaultValue={part.quantity} min='1' onChange={this.handleChange}
+                <div className="left">
+                    <button id='part-feature-back' onClick={this.props.handleBack}>⬅️</button>
+                    <div className='part-feature-header'>
+                        <input
+                        id='part-feature-input' type='number' dir='rtl' onKeyDown={(e) => e.preventDefault()}
+                        defaultValue={part.quantity} min='1' onChange={this.handleChange}
+                        />
+                        <br/>{part.title}<br/>
+                        <i className='part-feature-elt-num'>Element #{part.p_id}</i>
+                        <div className='part-feature-color'><br/>
+                        <div className='part-feature-color-circle'
+                            style={{background: (part.color ? ColorHex[part.color] : 'rgba(0,0,0,0)')}}
+                            title={part.color ? part.color : 'Color Unknown'}>
+                        </div> <span>{part.color}</span>
+                    </div>
+                    </div>
+                    <img className='part-feature-img' src={image} 
+                        title={'Image of ' + (part.title ? part.title : 'Unnamed Part')}
+                        alt={'Image of ' + (part.title ? part.title : 'No Name')}
                     />
-                    <br/>{part.title}<br/>
-                    <i className='part-feature-elt-num'>Element #{part.p_id}</i>
-                    <div className='part-feature-color'><br/>
-                    <div className='part-feature-color-circle'
-                        style={{background: (part.color ? ColorHex[part.color] : 'rgba(0,0,0,0)')}}
-                        title={part.color ? part.color : 'Color Unknown'}>
-                    </div> <span>{part.color}</span>
+                    <button id='part-feature-delete' onClick={this.handleDelete}>Delete All</button>
+                    {save}
                 </div>
+                <div className="right">
+                    <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={-2}/>
                 </div>
-                <img className='part-feature-img' src={image} 
-                    title={'Image of ' + (part.title ? part.title : 'Unnamed Part')}
-                    alt={'Image of ' + (part.title ? part.title : 'No Name')}
-                />
-                <button id='part-feature-delete' onClick={this.handleDelete}>Delete All</button>
-                {save}
             </div>
         )
     }

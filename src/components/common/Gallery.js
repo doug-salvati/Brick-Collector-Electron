@@ -6,9 +6,8 @@ const Gallery = props => {
     const {Entity, values, classificationType, picker, zoom} = props;
     values.forEach((item, i) => {
         galleryItems.push(
-            <div className='galleryItem'>
+            <div className='galleryItem' key={i}>
                 <Entity
-                    key={i}
                     name={item.title}
                     classification={item[classificationType]}
                     zoom={zoom || 1}
@@ -19,7 +18,7 @@ const Gallery = props => {
             </div>
         );
     });
-    return galleryItems.length ? <div class='gallery'>{galleryItems}</div> : <div>Loading...</div>
+    return galleryItems.length ? <div className='gallery'>{galleryItems}</div> : <div>Loading...</div>
 }
 
 export default Gallery;

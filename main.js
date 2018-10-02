@@ -89,6 +89,14 @@ ipcMain.on('getPartsInSet', function(event, s_id) {
         global.win.webContents.send('partsSent', r);
     });
 });
+ipcMain.on('getSetsContainingPart', function(event, p_id) {
+    connection.getSetsContainingPart(p_id, function(e,r) {
+        console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
+        console.log(e);
+        console.log(r);
+        global.win.webContents.send('setsSent', r);
+    })
+});
 ipcMain.on('deletePart', function(event, part) {
     connection.deletePart(part, () => {
         global.win.webContents.send('partDeleted', part);

@@ -12,15 +12,19 @@ class SetFeature extends Component {
             quantity: this.props.item.quantity
         };
     }
+    componentDidMount() {
+        ipcRenderer.send('getPartsInSet', this.props.item.s_id);
+        ipcRenderer.on('partsSent', (e, r) => {
+            console.log(r)
+        });
+    }
+    componentWillUnmount() {
+        ipcRenderer.removeAllListeners('partsSent');
+    }
    /* handleChange = (event) => {
         const value = parseInt(document.getElementById('set-feature-input').value);
         this.setState({formIsGood: (value && !isNaN(value) &&
             value !== this.state.quantity && value > 0), formValue: value});
-    }
-    handleSave = () => {
-        this.setState({formIsGood: false, quantity: this.state.formValue});
-        let copy = Object.assign({}, this.props.item);
-        ipcRenderer.send('changePartQuantity', copy, this.state.formValue);
     }
     handleDelete = () => {
         const q = this.state.quantity;

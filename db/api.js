@@ -13,12 +13,18 @@ var queries = {
     sets_all: 'SELECT * FROM sets',
     mocs_all_count: 'SELECT COUNT(*) FROM mocs',
     mocs_all: 'SELECT * FROM mocs',
+    parts_in_set: function(s_id) { return `SELECT bridge.quantity, parts.p_id, parts.title, parts.color, parts.img FROM bridge INNER JOIN parts ON bridge.p_id=parts.p_id WHERE x_id='${s_id}';` }
 };
 
 exports.default = function DatabaseAPI(connection) {
     function createGetMethod(query, reducer) {
         return function(callback) {
             connection.query(query, function(e,r) {callback(e, reducer(r))} )
+        }
+    }
+    function createGetMethodWithArg(query, reducer) {
+        return function(arg, callback) {
+            connection.query(query(arg), function(e,r) {callback(e, reducer(r))} )
         }
     }
     function identity(n) {return n;}
@@ -76,7 +82,7 @@ exports.default = function DatabaseAPI(connection) {
             const bridge = [];
             const adding = parts.map(function(pt) {
                 bridge.push(
-                    "('" + set.s_id + "', " + pt.p_id + ", " + pt.quantity + ", 0)"
+                    "('" + set.s_id + "', '" + pt.p_id + "', " + pt.quantity + ", 0)"
                 );
                 return (
                     "('" + pt.p_id + "', "
@@ -102,6 +108,7 @@ exports.default = function DatabaseAPI(connection) {
         // Read
         getPartsCount: createGetMethod(queries.parts_all_count, function(r) {return r[0]['COUNT(*)']}),
         getParts: createGetMethod(queries.parts_all, identity),
+        getPartsInSet: createGetMethodWithArg(queries.parts_in_set, identity),
         getSetsCount: createGetMethod(queries.sets_all_count, function(r) {return r[0]['COUNT(*)']}),
         getSets: createGetMethod(queries.sets_all, identity),
         getMocsCount: createGetMethod(queries.mocs_all_count, function(r) {return r[0]['COUNT(*)']}),

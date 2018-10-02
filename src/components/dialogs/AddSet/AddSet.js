@@ -5,6 +5,7 @@ import './AddSet.css';
 import {ipcRenderer} from 'electron';
 import Rebrickable from '../../../util/rebrickable';
 import GalleryPicker from '../../common/GalleryPicker';
+import removeSpares from '../../../util/removeSpares';
 
 // Modal dialog for adding a single set to inventory
 class AddSet extends Component {
@@ -43,14 +44,8 @@ class AddSet extends Component {
         Rebrickable.getPartsInSet(this.state.set.s_id, global.rebrickable,
             {
                 success: results => {
-                    const mappedResults = results.map(result => ({
-                        p_id: result.element_id,
-                        title: result.part.name,
-                        img: result.part.part_img_url,
-                        color: result.color.name,
-                        quantity: result.quantity,
-                    }));
-                    this.setState({parts: mappedResults});
+                    console.log(results);
+                    this.setState({parts: removeSpares(results)});
                 },
                 error: alert
             });

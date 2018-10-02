@@ -4,7 +4,7 @@ import Part from '../../entities/Part/Part';
 import './AddSet.css';
 import {ipcRenderer} from 'electron';
 import Rebrickable from '../../../util/rebrickable';
-import GalleryPicker from '../../common/GalleryPicker';
+import Gallery from '../../common/Gallery';
 import removeSpares from '../../../util/removeSpares';
 
 // Modal dialog for adding a single set to inventory
@@ -92,7 +92,7 @@ class AddSet extends Component {
         } else {
             return (
                 <div>
-                    <GalleryPicker Entity={Part} values={this.state.parts} classificationType='color'/>
+                    <Gallery picker Entity={Part} values={this.state.parts} classificationType='color'/>
                     <button id='set-add-cancel' onClick={() => this.setState({page: 1})}>Back</button>
                     <button id='set-add-done' onClick={() => this.handleSubmit()}>Accept</button>
                 </div>

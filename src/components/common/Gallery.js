@@ -1,12 +1,12 @@
 import React from 'react';
-import './GalleryPicker.css';
+import './Gallery.css';
 
-const GalleryPicker = props => {
+const Gallery = props => {
     const galleryItems = [];
-    const {Entity, values, classificationType} = props;
+    const {Entity, values, classificationType, picker} = props;
     values.forEach((item, i) => {
         galleryItems.push(
-            <div className='selectableEntity'>
+            <div className='galleryItem'>
                 <Entity
                     key={i}
                     name={item.title}
@@ -15,11 +15,11 @@ const GalleryPicker = props => {
                     qty={item.quantity}
                     image={item.img}
                 />
-                <input className="gpCheckbox" type="checkbox" value={i} defaultChecked />
+                {picker && <input className="galleryCheckbox" type="checkbox" value={i} defaultChecked />}
             </div>
         );
     });
-    return galleryItems.length ? galleryItems : <div>Loading...</div>
+    return galleryItems.length ? <div class='gallery'>{galleryItems}</div> : <div>Loading...</div>
 }
 
-export default GalleryPicker;
+export default Gallery;

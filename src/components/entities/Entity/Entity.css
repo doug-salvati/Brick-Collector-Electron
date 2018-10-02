@@ -1,7 +1,7 @@
 .entity-block {
     display: inline-block;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid lightgray;
     position: relative;
     background: white;
     transition: all 0.1s;
@@ -53,7 +53,7 @@
     width: 100%;
     position: absolute;
     bottom: 0;
-    border-top: 1px solid black;
+    border-top: 1px solid lightgray;
     background: white;
     text-overflow: ellipsis;
     white-space: nowrap;

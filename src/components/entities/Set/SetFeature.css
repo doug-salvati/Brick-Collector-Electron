@@ -46,3 +46,12 @@
     width: 40vw;
     margin: 5vw;
 }
+
+.right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50vw;
+    height: 100vh;
+    overflow: scroll;
+}

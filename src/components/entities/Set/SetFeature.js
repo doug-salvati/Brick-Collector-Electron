@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {ipcRenderer} from 'electron';
 import ThemeImages from '../../../data/themeimages';
+import Part from '../Part/Part';
+import Gallery from '../../common/Gallery';
 import './SetFeature.css';
 
 class SetFeature extends Component {
@@ -9,13 +11,14 @@ class SetFeature extends Component {
         this.state = {
             formIsGood: false,
             formValue: this.props.item.quantity,
-            quantity: this.props.item.quantity
+            quantity: this.props.item.quantity,
+            parts: []
         };
     }
     componentDidMount() {
         ipcRenderer.send('getPartsInSet', this.props.item.s_id);
         ipcRenderer.on('partsSent', (e, r) => {
-            console.log(r)
+            this.setState({parts: r});
         });
     }
     componentWillUnmount() {
@@ -47,20 +50,25 @@ class SetFeature extends Component {
             : 'assets/set_images/themes/no_theme.png';
         return (
             <div>
-                <button id='set-feature-back' onClick={this.props.handleBack}>⬅️</button>
-                <div className='set-feature-header'>
-                    <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
-                    <br/>{set.title}<br/>
-                    <i className='set-feature-elt-cnt'>{set.part_count} pcs</i>
-                    <div className='set-feature-theme' ><br/>
-                        <img className='set-feature-theme-icon' title={set.theme} alt={set.theme} src={theme_image} />
-                        <span>{set.theme}</span>
+                <div class='left'>
+                    <button id='set-feature-back' onClick={this.props.handleBack}>⬅️</button>
+                    <div className='set-feature-header'>
+                        <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
+                        <br/>{set.title}<br/>
+                        <i className='set-feature-elt-cnt'>{set.part_count} pcs</i>
+                        <div className='set-feature-theme' ><br/>
+                            <img className='set-feature-theme-icon' title={set.theme} alt={set.theme} src={theme_image} />
+                            <span>{set.theme}</span>
+                        </div>
                     </div>
+                    <img className='set-feature-img' src={image} 
+                        title={'Image of ' + (set.title ? set.title : 'Unnamed Set')}
+                        alt={'Image of ' + (set.title ? set.title : 'No Name')}
+                    />
                 </div>
-                <img className='set-feature-img' src={image} 
-                    title={'Image of ' + (set.title ? set.title : 'Unnamed Set')}
-                    alt={'Image of ' + (set.title ? set.title : 'No Name')}
-                />
+                <div class='right'>
+                    <Gallery Entity={Part} values={this.state.parts} classificationType='color' zoom={-2}/>
+                </div>
             </div>
         )
     }

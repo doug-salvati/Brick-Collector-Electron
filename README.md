@@ -1,5 +1,5 @@
 # Brick Collector
-A work-in-progress LEGO® collection manager currently in developemnt using React and Electron.
+A work-in-progress LEGO® collection manager currently in development using React and Electron.
 
 ## Running
 You need a MySQL database called `brickcollectordev` initialized with `schema.sql`. 

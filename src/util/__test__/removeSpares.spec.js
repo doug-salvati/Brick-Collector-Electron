@@ -7,7 +7,7 @@ const testData = [
     {p_id: '74632'},
     {p_id: '98765'},
 ];
-const testDataDup = [...testData, {p_id: '74632'}];
+const testDataDup = [...testData, {p_id: '74632'}, {p_id: '74632'}];
 
 const testDataSorted = [
     {p_id: '12345'},

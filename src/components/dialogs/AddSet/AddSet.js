@@ -44,7 +44,6 @@ class AddSet extends Component {
         Rebrickable.getPartsInSet(this.state.set.s_id, global.rebrickable,
             {
                 success: results => {
-                    console.log(results);
                     this.setState({parts: removeSpares(results)});
                 },
                 error: alert
@@ -73,13 +72,13 @@ class AddSet extends Component {
                     contents = <Set name={set.title} xid={set.s_id} classification={set.theme} image={set.img} />;
             }
             const ph = "Enter a LEGO set number, e.g. 70818"
-            const options = Array.from(Array(23)).map((_, idx) => <option>{`-${idx + 2}`}</option>);
+            const options = Array.from(Array(23)).map((_, idx) => <option key={idx}>{`-${idx + 2}`}</option>);
             return (
                 <div>
                     <input id='set-search' type='text' placeholder={ph}/>
-                    <select id='set-suffix' selected='-1'>
+                    <select id='set-suffix' defaultValue='-1'>
                         <option>No Suffix</option>
-                        <option selected>-1</option>
+                        <option>-1</option>
                         {options}
                     </select>
                     <button id='set-search-go' onClick={this.handleGo}>Go</button><br/>

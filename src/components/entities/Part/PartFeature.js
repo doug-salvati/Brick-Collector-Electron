@@ -56,7 +56,9 @@ class PartFeature extends Component {
         return (
             <div>
                 <div className="left">
-                    <button id='part-feature-back' onClick={this.props.handleBack}>⬅️</button>
+                    <button className='top-left blank-button' onClick={this.props.handleBack}>
+                        <img className='img-full' src='assets/ui_icons/back.svg' />
+                    </button>
                     <div className='part-feature-header'>
                         <input
                         id='part-feature-input' type='number' dir='rtl' onKeyDown={(e) => e.preventDefault()}

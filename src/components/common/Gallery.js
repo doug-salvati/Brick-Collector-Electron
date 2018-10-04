@@ -1,12 +1,11 @@
 import React from 'react';
-import './Gallery.css';
 
 const Gallery = props => {
     const galleryItems = [];
     const {Entity, values, classificationType, picker, zoom} = props;
     values.forEach((item, i) => {
         galleryItems.push(
-            <div className='galleryItem' key={i}>
+            <div className='inline-block localize' key={i}>
                 <Entity
                     name={item.title}
                     classification={item[classificationType]}
@@ -14,11 +13,11 @@ const Gallery = props => {
                     qty={item.quantity}
                     image={item.img}
                 />
-                {picker && <input className="galleryCheckbox" type="checkbox" value={i} defaultChecked />}
+                {picker && <input className="top-left" type="checkbox" value={i} defaultChecked />}
             </div>
         );
     });
-    return galleryItems.length ? <div className='gallery'>{galleryItems}</div> : <div>Loading...</div>
+    return galleryItems.length ? <div className="no-spacing">{galleryItems}</div> : <div>Loading...</div>
 }
 
 export default Gallery;

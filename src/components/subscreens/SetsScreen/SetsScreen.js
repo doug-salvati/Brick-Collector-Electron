@@ -1,6 +1,5 @@
 import React from 'react';
 import SetsScreenActions from './SetsScreenActions';
-import './SetsScreen.css';
 import {ipcRenderer} from 'electron';
 import Themes from '../../../data/themes';
 import SubScreen from '../SubScreen/SubScreen';
@@ -16,6 +15,7 @@ const SetsScreen = (props) =>
         Feature={SetFeature}
         classificationType='theme'
         dropDownOptions={Themes}
+        label='Set'
     />
 
 export default SetsScreen;

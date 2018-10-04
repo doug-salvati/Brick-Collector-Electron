@@ -47,7 +47,9 @@ class SetFeature extends Component {
         return (
             <div>
                 <div className='left'>
-                    <button id='set-feature-back' onClick={this.props.handleBack}>⬅️</button>
+                    <button className='top-left blank-button' onClick={this.props.handleBack}>
+                        <img className='img-full' src='assets/ui_icons/back.svg' />
+                    </button>
                     <div className='set-feature-header'>
                         <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
                         <br/>{set.title}<br/>

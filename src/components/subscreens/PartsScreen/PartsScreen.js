@@ -22,6 +22,7 @@ class PartsScreen extends Component {
         Feature={PartFeature}
         classificationType='color'
         dropDownOptions={options}
+        label='Part'
       />
     );
   }

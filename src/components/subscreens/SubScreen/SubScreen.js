@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FilterToolbar from '../../common/FilterToolbar';
 import {ipcRenderer} from 'electron';
 import {registerActions, removeActions} from '../../../util/registerActions';
-import './SubScreen.css';
 
 class SubScreen extends Component {
     constructor() {
@@ -72,7 +71,7 @@ class SubScreen extends Component {
       const { Feature } = this.props;
 
       if (this.state.count < 0) {
-        return <h1 className='centered-header'>Loading...</h1>;
+        return <h1 className='center no-margin lg-padding-top'>Loading...</h1>;
       }
 
       if (this.state.featured) {
@@ -88,13 +87,13 @@ class SubScreen extends Component {
         const item = filtered[i];
         frames.unshift(<Entity
           key={i} xid={item.s_id} name={item.title} classification={item[this.props.classificationType]} zoom={this.state.zoomLevel}
-          qty={item.quantity} image={item.img} handleClick={this.createOnClick(item)} />);
+          qty={item.quantity} image={item.img} handleClick={this.createOnClick(item)} clickable={true} />);
         }
       const all = this.props.classificationType.replace(/^\w/, c => c.toUpperCase())
       return (
         <div className='main-screen'>
-          <div className='sticky-header'>
-            <h1 className='centered-header'>You Own {this.state.count} Unique Items</h1>
+          <div className='stuck-to-top middle-layer solid'>
+            <h1 className='center no-margin lg-padding-top'>You Own {this.state.count} {this.props.label}s</h1>
             <FilterToolbar
               handleSearchChange={this.handleSearchChange}
               handleSelectChange={this.handleSelectChange}
@@ -103,9 +102,11 @@ class SubScreen extends Component {
               options={this.props.dropDownOptions}
               optionAll={`All ${all}s`}
             />
+            <button className='top-right blank-button' onClick={this.props.adder}>
+            <img className='img-full' src='assets/ui_icons/add.svg' />
+          </button>
           </div>
-          <div className='entityFrames'>{frames}</div>
-          <button id="add-entity-btn" onClick={this.props.adder}> Add... </button>
+          <div className='no-spacing'>{frames}</div>
         </div>
       );
     }

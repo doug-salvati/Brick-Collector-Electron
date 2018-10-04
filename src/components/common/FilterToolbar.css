@@ -1,18 +1,19 @@
 .filterToolbar {
-  padding: 10px 0 10px 0;
   border-bottom: 1px solid #dddddd;
 }
 
 .filterToolbarSearch {
   width: 40%;
-  border: none;
-  padding: 0;
-  background: #eeeeee;
   margin-left: 14%;
-  outline: none;
   padding-left: 1%;
   height: 2em;
   border-radius: 1em;
+  border: none;
+  outline: none;
+  background: #eeeeee;
+}
+.filterToolbarSearch:focus {
+  background: #dddddd;
 }
 
 .filterToolbarSelect {
@@ -22,10 +23,8 @@
 
 .filterToolbarZoom {
   width: 5%;
-  border: none;
-  padding: 0;
   height: 2em;
-  overflow: hidden;
+  border: none;
 }
 .filterToolbarZoom:focus {
   outline: none;

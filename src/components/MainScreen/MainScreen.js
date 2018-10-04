@@ -3,7 +3,6 @@ import HomeScreen from '../subscreens/HomeScreen/HomeScreen';
 import MOCsScreen from '../subscreens/MOCsScreen/MOCsScreen';
 import SetsScreen from '../subscreens/SetsScreen/SetsScreen';
 import PartsScreen from '../subscreens/PartsScreen/PartsScreen';
-import './MainScreen.css';
 
 class MainScreen extends Component {
     constructor(props) {
@@ -17,16 +16,25 @@ class MainScreen extends Component {
 
     render() {
         let screen, nav = [];
-        for (let type of ['Home', 'MOCs', 'Sets', 'Parts']) {
-            nav.push(<button key={`nav-${type}`} onClick={this.setScreen(type)}>{type}</button>);
+        for (let type of ['home', 'mocs', 'sets', 'parts']) {
+            nav.push(<button key={`nav-${type}`} className='blank-button' onClick={this.setScreen(type)}>
+                <img className='img-full' src={`assets/ui_icons/${type}.svg`}
+                    title={`${type} tab`} alt={type}/>
+            </button>);
         }
         screen = {
-            Home: <HomeScreen/>,
-            MOCs: <MOCsScreen/>,
-            Sets: <SetsScreen/>,
-            Parts: <PartsScreen/>
+            home: <HomeScreen/>,
+            mocs: <MOCsScreen/>,
+            sets: <SetsScreen/>,
+            parts: <PartsScreen/>
         }[this.state.screen];
-        return (<div>{nav}{screen}</div>);
+        return (
+            <div>
+                <div className='top-middle top-layer'>
+                    {nav}
+                </div>
+                {screen}
+            </div>);
     }
 }
 

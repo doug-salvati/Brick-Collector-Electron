@@ -92,8 +92,8 @@ class AddSet extends Component {
             return (
                 <div>
                     <Gallery picker Entity={Part} values={this.state.parts} classificationType='color'/>
-                    <button id='set-add-cancel' onClick={() => this.setState({page: 1})}>Back</button>
-                    <button id='set-add-done' onClick={() => this.handleSubmit()}>Accept</button>
+                    <button id='set-add-cancel' className='middle-layer' onClick={() => this.setState({page: 1})}>Back</button>
+                    <button id='set-add-done' className='middle-layer' onClick={() => this.handleSubmit()}>Accept</button>
                 </div>
             );
         }

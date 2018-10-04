@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MainScreen from './components/MainScreen/MainScreen';
 import AddPart from './components/dialogs/AddPart/AddPart';
 import AddSet from './components/dialogs/AddSet/AddSet';
-import './index.css';
+import './common.css';
 
 // This is essentially a router
 

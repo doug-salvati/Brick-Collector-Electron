@@ -8,13 +8,13 @@ const Entity = (props) => {
         image = (props.image.includes('http')) ? props.image : `${props.imagepath}/${props.image}`;
     }
     return (
-        <span className={`entity-block zoom${props.zoom} ${props.className}`}>
-            <img className='entity-img' src={image}
+        <span className={`entity-block zoom${props.zoom} ${props.className} ${props.clickable && 'clickable'}`} onClick={(props.handleClick)}>
+            <img className='entity-img img-75' src={image}
                 title={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
                 alt={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
-                onClick={(props.handleClick)} />
-            <div className='entity-label' onMouseOut={e => e.target.scrollLeft = 0} title={props.name ? props.name : 'No Name'}>
-                <b>&nbsp;{props.number ? props.number : ''}</b>{props.name ? props.name : 'No Name'}&nbsp;
+            />
+            <div className='entity-label sm-padding-side' onMouseOut={e => e.target.scrollLeft = 0} title={props.name ? props.name : 'No Name'}>
+                <b>&nbsp;{props.number ? props.number : ''}</b>&nbsp;
             </div>
             <div className='entity-icon'
                 style={{

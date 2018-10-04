@@ -1,0 +1,153 @@
+/* built-in elements */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Ubuntu";
+    overflow-x: hidden;
+}
+
+/* basic elements like links */
+.clickable {
+    cursor: pointer;
+}
+.img-75 {
+    max-height: 75%;
+    max-width: 75%;
+}
+.img-full {
+    height: 100%;
+    width: 100%;
+}
+.blank-button {
+    background: transparent;
+    border: none;
+}
+.blank-button:focus {
+    outline: none;
+}
+
+/* standard margin and padding sizes */
+.lg-margin {
+    margin: 40px;
+}
+.md-margin {
+    margin: 15px;
+}
+.sm-margin {
+    margin: 10px;
+}
+.no-margin {
+    margin: 0;
+}
+.lg-padding {
+    padding: 40px;
+}
+.md-padding {
+    padding: 15px;
+}
+.sm-padding {
+    padding: 10px;
+}
+.lg-padding-top {
+    padding-top: 40px;
+}
+.sm-padding-side {
+    padding: 0 10px;
+}
+.no-padding {
+    padding: 0;
+}
+
+/* absolute positioning */
+.top-left {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+}
+.top-middle {
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    transform: translate(-50%);
+}
+.top-right {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+}
+.bottom-left {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+}
+.bottom-right {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+}
+.inline-block {
+    display: inline-block;
+}
+.fixed-to-top {
+    position: fixed;
+    top: 0;
+}
+.stuck-to-top {
+    position: sticky;
+    top: 0;
+}
+.localize {
+    position: relative;
+}
+
+/* typography */
+.no-spacing {
+    line-height: 0;
+}
+.center {
+    text-align: center;
+}
+
+/* zoom levels */
+.zoom0 {
+    width: 25vw;
+    height: 25vw;
+}
+.zoom1 {
+    width: 33.333vw;
+    height: 33.333vw;
+}
+.zoom2 {
+    width: 50vw;
+    height: 50vw;
+}
+.zoom-1 {
+    width: 20vw;
+    height: 20vw;
+}
+.zoom-2 {
+    width: 16.666vw;
+    height: 16.666vw;
+}
+
+/* z-indices */
+.top-layer {
+    z-index: 3;
+}
+.middle-layer {
+    z-index: 2;
+}
+.bottom-layer {
+    z-index: 1;
+}
+.base-layer {
+    z-index: 0;
+}
+
+/* colors */
+.solid {
+    background: white;
+}
+.transparent {
+    background: transparent;
+}

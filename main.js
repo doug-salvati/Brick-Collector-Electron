@@ -91,9 +91,6 @@ ipcMain.on('getPartsInSet', function(event, s_id) {
 });
 ipcMain.on('getSetsContainingPart', function(event, p_id) {
     connection.getSetsContainingPart(p_id, function(e,r) {
-        console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
-        console.log(e);
-        console.log(r);
         global.win.webContents.send('setsSent', r);
     })
 });

@@ -7,7 +7,7 @@ import PartsScreen from '../subscreens/PartsScreen/PartsScreen';
 class MainScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = { screen: 'Home' };
+        this.state = { screen: 'home' };
     }
 
     setScreen(type) {

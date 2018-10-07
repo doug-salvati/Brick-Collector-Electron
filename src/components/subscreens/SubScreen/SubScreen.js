@@ -99,7 +99,9 @@ class SubScreen extends Component {
               handleSelectChange={this.handleSelectChange}
               handleZoomIn={this.handleZoomIn}
               handleZoomOut={this.handleZoomOut}
+              defaultText={this.state.textFilter}
               options={this.props.dropDownOptions}
+              defaultOption={this.state.dropDownFilter === 'All' ? `All ${all}s` : this.state.dropDownFilter}
               optionAll={`All ${all}s`}
             />
             <button className='top-right blank-button' onClick={this.props.adder}>

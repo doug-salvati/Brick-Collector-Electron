@@ -32,7 +32,14 @@ module.exports = {
           plugins: ['transform-class-properties', 'transform-object-rest-spread']
         }
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.css$/,
+        use: ['style-loader', {
+          loader: 'css-loader',
+          options: {
+            url: false
+          }
+        }]
+      },
       { test: /\.(png|jpg|txt)$/, loader: 'file-loader' },
     ]
   },

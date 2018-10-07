@@ -11,6 +11,7 @@ const Gallery = props => {
                     classification={item[classificationType]}
                     zoom={zoom || 1}
                     qty={item.quantity}
+                    number={item.s_id}
                     image={item.img}
                 />
                 {picker && <input className="top-left" type="checkbox" value={i} defaultChecked />}

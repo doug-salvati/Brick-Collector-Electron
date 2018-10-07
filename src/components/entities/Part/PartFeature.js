@@ -45,13 +45,14 @@ class PartFeature extends Component {
     }
     render() {
         let part = this.props.item;
+        let setcount = this.state.sets.length;
         let image = 'assets/part_images/no_img.png';
         // Check if image is hosted locally
         if (part.img) {
             image = (part.img.includes('http')) ? part.img : `assets/part_images/elements/${part.img}`;
         }
         const save = this.state.formIsGood ?
-            <button id='part-feature-save' onClick={() => this.handleSave()}>Save Changes</button>
+            <button id='part-feature-save' className='bottom-layer' onClick={() => this.handleSave()}>Save Changes</button>
             : '';
         return (
             <div>
@@ -59,29 +60,31 @@ class PartFeature extends Component {
                     <button className='top-left blank-button' onClick={this.props.handleBack}>
                         <img className='img-full' src='assets/ui_icons/back.svg' />
                     </button>
-                    <div className='part-feature-header'>
+                    <div className='lg-margin'>
                         <input
                         id='part-feature-input' type='number' dir='rtl' onKeyDown={(e) => e.preventDefault()}
                         defaultValue={part.quantity} min='1' onChange={this.handleChange}
                         />
                         <br/>{part.title}<br/>
-                        <i className='part-feature-elt-num'>Element #{part.p_id}</i>
-                        <div className='part-feature-color'><br/>
-                        <div className='part-feature-color-circle'
+                        <i className='subtitle'>Element #{part.p_id}</i>
+                        <br/>
+                        <span className='part-feature-color-circle'
                             style={{background: (part.color ? ColorHex[part.color] : 'rgba(0,0,0,0)')}}
-                            title={part.color ? part.color : 'Color Unknown'}>
-                        </div> <span>{part.color}</span>
+                            title={part.color ? part.color : 'Color Unknown'} />
+                        <span> {part.color}</span>
                     </div>
-                    </div>
-                    <img className='part-feature-img' src={image} 
+                    <img className='bottom-left lg-margin' src={image} 
                         title={'Image of ' + (part.title ? part.title : 'Unnamed Part')}
                         alt={'Image of ' + (part.title ? part.title : 'No Name')}
                     />
-                    <button id='part-feature-delete' onClick={this.handleDelete}>Delete All</button>
+                    <button className="bottom-left blank-button sm-margin no-padding trash" onClick={this.handleDelete}></button>
                     {save}
                 </div>
                 <div className="right">
-                    <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={-2}/>
+                    <div className="lg-margin-top">
+                        <div className="center sm-margin">From {setcount} set{setcount > 1 && 's'} + {this.props.item.loose} loose.</div>
+                        <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={-2}/>
+                    </div>
                 </div>
             </div>
         )

@@ -1,18 +1,5 @@
-.set-feature-header {
-    position: absolute;
-    z-index: 2;
-    top: 20px;
-    width: 40vw;
-    margin: 5vw;
-}
-
 #set-feature-number {
     font-size: 2em;
-}
-
-.set-feature-elt-cnt {
-    font-variant: small-caps;
-    color: lightgray;
 }
 
 .set-feature-theme-icon {
@@ -21,20 +8,4 @@
     height: 1em;
     border-radius: 50%;
     border: 1px solid black;
-}
-
-.set-feature-img {
-    position: absolute;
-    bottom: 20px;
-    width: 40vw;
-    margin: 5vw;
-}
-
-.right {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 50vw;
-    height: 100vh;
-    overflow: scroll;
 }

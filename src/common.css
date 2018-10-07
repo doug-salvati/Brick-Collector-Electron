@@ -18,6 +18,9 @@ body {
     height: 100%;
     width: 100%;
 }
+.img-quarter {
+    height: 25vw;
+}
 .blank-button {
     background: transparent;
     border: none;
@@ -175,6 +178,9 @@ body {
 }
 .transparent {
     background: transparent;
+}
+.glow {
+    box-shadow: 0 0 15px 10px white;
 }
 
 /* trash */

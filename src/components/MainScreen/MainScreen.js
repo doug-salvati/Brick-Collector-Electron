@@ -30,7 +30,7 @@ class MainScreen extends Component {
         }[this.state.screen];
         return (
             <div>
-                <div className='top-middle top-layer'>
+                <div className='top-middle top-layer solid glow'>
                     {nav}
                 </div>
                 {screen}

@@ -50,22 +50,24 @@ class SetFeature extends Component {
                     <button className='top-left blank-button' onClick={this.props.handleBack}>
                         <img className='img-full' src='assets/ui_icons/back.svg' />
                     </button>
-                    <div className='set-feature-header'>
+                    <div className='lg-margin'>
                         <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
                         <br/>{set.title}<br/>
-                        <i className='set-feature-elt-cnt'>{set.part_count} pcs</i>
-                        <div className='set-feature-theme' ><br/>
+                        <i className='subtitle'>{set.part_count} pcs</i>
+                        <span className='set-feature-theme' ><br/>
                             <img className='set-feature-theme-icon' title={set.theme} alt={set.theme} src={theme_image} />
-                            <span>{set.theme}</span>
-                        </div>
+                        </span><span>{set.theme}</span>
                     </div>
-                    <img className='set-feature-img' src={image} 
+                    <img className='bottom-left lg-margin img-quarter' src={image} 
                         title={'Image of ' + (set.title ? set.title : 'Unnamed Set')}
                         alt={'Image of ' + (set.title ? set.title : 'No Name')}
                     />
                 </div>
                 <div className='right'>
-                    <Gallery Entity={Part} values={this.state.parts} classificationType='color' zoom={-2}/>
+                    <div className="lg-margin-top">
+                        <div className="center sm-margin">Contains {this.state.parts.length} parts.</div>
+                        <Gallery Entity={Part} values={this.state.parts} classificationType='color' zoom={-2}/>
+                    </div>
                 </div>
             </div>
         )

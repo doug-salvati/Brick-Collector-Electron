@@ -73,7 +73,7 @@ class PartFeature extends Component {
                             title={part.color ? part.color : 'Color Unknown'} />
                         <span> {part.color}</span>
                     </div>
-                    <img className='bottom-left lg-margin' src={image} 
+                    <img className='bottom-left lg-margin img-quarter' src={image} 
                         title={'Image of ' + (part.title ? part.title : 'Unnamed Part')}
                         alt={'Image of ' + (part.title ? part.title : 'No Name')}
                     />

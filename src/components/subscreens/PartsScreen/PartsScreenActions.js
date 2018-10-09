@@ -11,7 +11,6 @@ const PartsScreenActions = [
         worker: (event, new_part, context) => {
             let match;
             if (match = context.state.items.find((elt) => elt.p_id === new_part.p_id)) {
-                console.log('match found');
               let modified = Object.assign({}, match, {
                 quantity: match.quantity + new_part.quantity,
                 loose: match.loose + new_part.loose

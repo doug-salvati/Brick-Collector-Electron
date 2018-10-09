@@ -101,7 +101,7 @@ ipcMain.on('deletePart', function(event, part) {
 });
 ipcMain.on('changePartQuantity', function(event, part, quantity) {
     connection.changePartQuantity(part, quantity, () => {
-        global.win.webContents.send('newPartSent', Object.assign({}, part, {quantity: quantity - part.quantity}));
+        global.win.webContents.send('newPartSent', Object.assign({}, part, {quantity: quantity, loose: quantity}));
     })
 });
 

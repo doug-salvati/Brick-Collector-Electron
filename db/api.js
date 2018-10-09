@@ -119,7 +119,7 @@ exports.default = function DatabaseAPI(connection) {
         // Update
         changePartQuantity: function(pt, qty, callback) {
             const where = 'p_id="' + pt.p_id + '"';
-            const query = 'UPDATE parts SET quantity = ' + qty + ', loose = ' + qty + ' WHERE ' + where;
+            const query = 'UPDATE parts SET quantity = quantity + ' + qty + ', loose = loose + ' + qty + ' WHERE ' + where;
             connection.query(query, callback);
             console.info("[INFO] MySQL << " + query);
         },

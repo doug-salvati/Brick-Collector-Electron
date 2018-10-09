@@ -32,7 +32,7 @@ class PartFeature extends Component {
     handleSave = () => {
         this.setState({formIsGood: false, quantity: this.state.formValue});
         let copy = Object.assign({}, this.props.item);
-        ipcRenderer.send('changePartQuantity', copy, this.state.formValue);
+        ipcRenderer.send('changePartQuantity', copy, this.state.formValue - this.state.quantity);
     }
     handleDelete = () => {
         const q = this.state.quantity;
@@ -46,6 +46,8 @@ class PartFeature extends Component {
     render() {
         let part = this.props.item;
         let setcount = this.state.sets.length;
+        let { loose } = this.props.item;
+        let fromSets = this.props.item.quantity - loose;
         let image = 'assets/part_images/no_img.png';
         // Check if image is hosted locally
         if (part.img) {
@@ -63,7 +65,7 @@ class PartFeature extends Component {
                     <div className='lg-margin'>
                         <input
                         id='part-feature-input' type='number' dir='rtl' onKeyDown={(e) => e.preventDefault()}
-                        defaultValue={part.quantity} min='1' onChange={this.handleChange}
+                        defaultValue={part.quantity} min={fromSets} onChange={this.handleChange}
                         />
                         <br/>{part.title}<br/>
                         <i className='subtitle'>Element #{part.p_id}</i>
@@ -82,7 +84,9 @@ class PartFeature extends Component {
                 </div>
                 <div className="right">
                     <div className="lg-margin-top">
-                        <div className="center sm-margin">From {setcount} set{setcount > 1 && 's'} + {this.props.item.loose} loose.</div>
+                        <div className="center sm-margin">
+                            <b>{fromSets}x</b> from {setcount} set{setcount > 1 && 's'}<br/>
+                            <b>{this.props.item.loose}x</b> loose</div>
                         <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={-2}/>
                     </div>
                 </div>

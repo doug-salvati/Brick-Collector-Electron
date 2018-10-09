@@ -4,7 +4,6 @@ import Entity from '../Entity/Entity';
 
 const Set = (props) => {
     const {xid, classification, ...rest} = props;
-    console.log(props);
     return (
         <Entity
             imagepath="assets/set_images/sets"

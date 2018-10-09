@@ -13,7 +13,6 @@ class AddPart extends Component {
 
     searchPart(part_num) {
         let success_callback = (result) => {
-            console.log(result);
             if (result.part) {
                 let new_part = {
                     p_id: result.element_id,

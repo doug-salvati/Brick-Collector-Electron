@@ -31,6 +31,7 @@
     "ajv": "^6.5.4",
     "electron": "^1.8.8",
     "mysql": "^2.16.0",
+    "mysqldump": "^2.2.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

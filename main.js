@@ -1,25 +1,23 @@
 // This file is the main entry point for Electron.
 // It sets up communication channels, windows, menu, etc.
 
-const {app, BrowserWindow, Menu, ipcMain} = require('electron');
+const {app, BrowserWindow, Menu, ipcMain, dialog} = require('electron');
 const path = require('path');
 const mysql = require('mysql');
+const mysqldump = require('mysqldump');
 const {systemPreferences} = require('electron');
 const DatabaseAPI = require('./db/api.js').default;
 const fs = require('fs');
 const request = require('request');
+const mysqlConfig = require('./config/mysql.config');
+
 
 // Don't show the 'start speaking' or 'emoji' buttons
 systemPreferences.setUserDefault('NSDisabledDictationMenuItem', 'boolean', true);
 systemPreferences.setUserDefault('NSDisabledCharacterPaletteMenuItem', 'boolean', true);
 
 // Connect to MySQL
-const dbConnection = mysql.createConnection({
-    host: 'localhost',
-    user: 'bc_app',
-    password: 'bc_pw',
-    database: 'brickcollectordev'
-});
+const dbConnection = mysql.createConnection(mysqlConfig);
 const connection = DatabaseAPI(dbConnection);
 
 // Channel for communication between windows
@@ -150,6 +148,25 @@ function setMenu() {
                 { role: 'unhide' },
                 { type: 'separator'},
                 { role: 'quit'}
+            ]
+        },
+        {label: 'File',
+            submenu: [
+                {
+                    label: 'Export...', accelerator: 'CmdOrCtrl + E',
+                    click() {
+                        const saveOptions = {
+                            buttonLabel: 'Export',
+                            defaultPath: 'collection'
+                        }
+                        dialog.showSaveDialog(global.win, saveOptions, fileName => {
+                            mysqldump({
+                                connection: mysqlConfig,
+                                dumpToFile: `${fileName}.bcc`,
+                            });
+                        });
+                    }
+                }
             ]
         },
         {label: 'Edit',

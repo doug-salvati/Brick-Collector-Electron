@@ -168,32 +168,11 @@ function setMenu() {
                     label: 'New Part', accelerator: 'CmdOrCtrl + P',
                     click() {global.openDialog.add_part()}
                 },
-                {
-                    label: 'New MOC', accelerator: 'CmdOrCtrl + M',
-                    click() {console.log("Add a moc")}
-                },
             ]
 
         },
         {label: 'View',
             submenu: [
-                {
-                    label: 'Home', accelerator: 'CmdOrCtrl + 1',
-                    click() {console.log("go home")}
-                },
-                {
-                    label: 'Browse Sets', accelerator: 'CmdOrCtrl + 2',
-                    click() {console.log("view sets")}
-                },
-                {
-                    label: 'Browse Parts', accelerator: 'CmdOrCtrl + 3',
-                    click() {console.log("view parts")}
-                },
-                {
-                    label: 'Browse MOCs', accelerator: 'CmdOrCtrl + 4',
-                    click() {console.log("view mocs")}
-                },
-                { type: 'separator'},
                 {
                     label: 'Zoom In', accelerator: 'CmdOrCtrl + =',
                     click() {zoomIn()}

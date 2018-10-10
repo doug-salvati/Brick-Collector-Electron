@@ -48,6 +48,7 @@ class PartFeature extends Component {
         let setcount = this.state.sets.length;
         let { loose } = this.props.item;
         let fromSets = this.props.item.quantity - loose;
+        let prefixes = this.state.sets.map(set => `${set.quantity}x in `);
         let image = 'assets/part_images/no_img.png';
         // Check if image is hosted locally
         if (part.img) {
@@ -87,7 +88,7 @@ class PartFeature extends Component {
                         <div className="center sm-margin">
                             <b>{fromSets}x</b> from {setcount} set{setcount > 1 && 's'}<br/>
                             <b>{this.props.item.loose}x</b> loose</div>
-                        <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={-2}/>
+                        <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={-2} prefixes={prefixes}/>
                     </div>
                 </div>
             </div>

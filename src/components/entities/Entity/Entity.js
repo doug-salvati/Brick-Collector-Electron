@@ -14,7 +14,7 @@ const Entity = (props) => {
                 alt={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
             />
             <div className='entity-label sm-padding-side' onMouseOut={e => e.target.scrollLeft = 0} title={props.name ? props.name : 'No Name'}>
-                <b>&nbsp;{props.number ? props.number : ''}</b>&nbsp;
+                <b>&nbsp;{props.prefix}{props.number ? props.number : ''}</b>&nbsp;
             </div>
             <div className='entity-icon'
                 style={{

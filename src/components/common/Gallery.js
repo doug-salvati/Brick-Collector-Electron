@@ -2,7 +2,7 @@ import React from 'react';
 
 const Gallery = props => {
     const galleryItems = [];
-    const {Entity, values, classificationType, picker, zoom} = props;
+    const {Entity, values, classificationType, picker, zoom, ...rest} = props;
     values.forEach((item, i) => {
         galleryItems.push(
             <div className='inline-block localize' key={i}>
@@ -13,6 +13,7 @@ const Gallery = props => {
                     qty={item.quantity}
                     number={item.s_id}
                     image={item.img}
+                    prefix={props.prefixes && props.prefixes[i]}
                 />
                 {picker && <input className="top-left" type="checkbox" value={i} defaultChecked />}
             </div>

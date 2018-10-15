@@ -2,9 +2,11 @@
     display: inline-block;
     box-sizing: border-box;
     border: 1px solid lightgray;
-    position: relative;
     background: white;
-    transition: all 0.1s;
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
 }
 .entity-block.clickable:hover {
     transform: scale(1.1);

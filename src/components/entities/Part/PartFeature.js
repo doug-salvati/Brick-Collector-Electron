@@ -88,7 +88,7 @@ class PartFeature extends Component {
                         <div className="center sm-margin">
                             <b>{fromSets}x</b> from {setcount} set{setcount > 1 && 's'}<br/>
                             <b>{this.props.item.loose}x</b> loose</div>
-                        <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={-2} prefixes={prefixes}/>
+                        <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={1} prefixes={prefixes}/>
                     </div>
                 </div>
             </div>

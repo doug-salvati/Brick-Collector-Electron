@@ -66,7 +66,7 @@ class SetFeature extends Component {
                 <div className='right'>
                     <div className="lg-margin-top">
                         <div className="center sm-margin">Contains {this.state.parts.length} parts.</div>
-                        <Gallery Entity={Part} values={this.state.parts} classificationType='color' zoom={-2}/>
+                        <Gallery Entity={Part} values={this.state.parts} classificationType='color' zoom={1}/>
                     </div>
                 </div>
             </div>

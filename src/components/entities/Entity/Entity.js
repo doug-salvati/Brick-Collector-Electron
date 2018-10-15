@@ -8,23 +8,25 @@ const Entity = (props) => {
         image = (props.image.includes('http')) ? props.image : `${props.imagepath}/${props.image}`;
     }
     return (
-        <span className={`entity-block zoom${props.zoom} ${props.className} ${props.clickable && 'clickable'}`} onClick={(props.handleClick)}>
-            <img className='entity-img img-75' src={image}
-                title={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
-                alt={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
-            />
-            <div className='entity-label sm-padding-side' onMouseOut={e => e.target.scrollLeft = 0} title={props.name ? props.name : 'No Name'}>
-                <b>&nbsp;{props.prefix}{props.number ? props.number : ''}</b>&nbsp;
-            </div>
-            <div className='entity-icon'
-                style={{
-                    background: (props.icon || 'rgba(0,0,0,0)'),
-                    backgroundSize: '100%',
-                    backgroundRepeat: 'no-repeat',
-                }}
-                title={props.icon ? props.iconTooltip : 'Unknown'}>
-            </div>
-        </span>
+        <div className={`localize inline-block zoom${props.zoom !== undefined ? props.zoom : 3}`}>
+            <span className={`entity-block ${props.className} ${props.clickable && 'clickable'}`} onClick={(props.handleClick)}>
+                <img className='entity-img img-75' src={image}
+                    title={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
+                    alt={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
+                />
+                <div className='entity-label sm-padding-side' onMouseOut={e => e.target.scrollLeft = 0} title={props.name ? props.name : 'No Name'}>
+                    <b>&nbsp;{props.prefix}{props.number ? props.number : ''}</b>&nbsp;
+                </div>
+                <div className='entity-icon'
+                    style={{
+                        background: (props.icon || 'rgba(0,0,0,0)'),
+                        backgroundSize: '100%',
+                        backgroundRepeat: 'no-repeat',
+                    }}
+                    title={props.icon ? props.iconTooltip : 'Unknown'}>
+                </div>
+            </span>
+        </div>
     );
 }
 

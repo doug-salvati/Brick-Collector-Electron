@@ -5,7 +5,7 @@ const Gallery = props => {
     const {Entity, values, classificationType, picker, zoom, ...rest} = props;
     values.forEach((item, i) => {
         galleryItems.push(
-            <div className='inline-block localize' key={i}>
+            <span key={i}>
                 <Entity
                     name={item.title}
                     classification={item[classificationType]}
@@ -16,7 +16,7 @@ const Gallery = props => {
                     prefix={props.prefixes && props.prefixes[i]}
                 />
                 {picker && <input className="top-left" type="checkbox" value={i} defaultChecked />}
-            </div>
+            </span>
         );
     });
     return galleryItems.length ? <div className="no-spacing">{galleryItems}</div> : <div>Loading...</div>

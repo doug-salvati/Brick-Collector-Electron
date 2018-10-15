@@ -137,25 +137,29 @@ body {
 }
 
 /* zoom levels */
-.zoom0 {
-    width: 25vw;
-    height: 25vw;
+.zoom0 { /* 4 / row */
+    width: 25%;
+    padding-top: 25%;
 }
-.zoom1 {
-    width: 33.333vw;
-    height: 33.333vw;
+.zoom1 { /* 3 / row */
+    width: 33.333%;
+    padding-top: 33.333%;
 }
-.zoom2 {
-    width: 50vw;
-    height: 50vw;
+.zoom2 { /* 2 / row */
+    width: 50%;
+    padding-top: 50%;
 }
-.zoom-1 {
-    width: 20vw;
-    height: 20vw;
+.zoom3 { /* 1 / row */
+    width: 100%;
+    padding-top: 100%;
 }
-.zoom-2 {
-    width: 16.666vw;
-    height: 16.666vw;
+.zoom-1 { /* 5 / row */
+    width: 20%;
+    padding-top: 20%;
+}
+.zoom-2 { /* 6 / row */
+    width: 16.666%;
+    padding-top: 16.666%;
 }
 
 /* z-indices */

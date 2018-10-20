@@ -20,9 +20,15 @@ class PartFeature extends Component {
         ipcRenderer.on('setsSent', (e, r) => {
             this.setState({sets: r});
         });
+        this.updateWindowDimensions();
+        window.addEventListener('resize', () => this.updateWindowDimensions());
     }
     componentWillUnmount() {
         ipcRenderer.removeAllListeners('setsSent');
+        window.removeEventListener('resize', () => this.updateWindowDimensions());
+    }
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
     handleChange = (event) => {
         const value = parseInt(document.getElementById('part-feature-input').value);
@@ -84,11 +90,20 @@ class PartFeature extends Component {
                     {save}
                 </div>
                 <div className="right">
-                    <div className="lg-margin-top">
-                        <div className="center sm-margin">
-                            <b>{fromSets}x</b> from {setcount} set{setcount > 1 && 's'}<br/>
-                            <b>{this.props.item.loose}x</b> loose</div>
-                        <Gallery Entity={Set} values={this.state.sets} classificationType='theme' zoom={1} prefixes={prefixes}/>
+                    <div className="ten-pct">
+                        <div className="fill-height localize">
+                            <div className="fill-width no-margin bottom center" >
+                                <b>{fromSets}x</b> from {setcount} set{setcount > 1 && 's'}<br/>
+                                <b>{this.props.item.loose}x</b> loose
+                            </div>    
+                        </div>
+                        <Gallery
+                        Entity={Set}
+                        values={this.state.sets}
+                        classificationType='theme'
+                        width={this.state.width / 2}
+                        height={this.state.height * 0.9}
+                        prefixes={prefixes}/>
                     </div>
                 </div>
             </div>

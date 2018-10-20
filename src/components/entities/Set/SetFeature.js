@@ -20,9 +20,15 @@ class SetFeature extends Component {
         ipcRenderer.on('partsSent', (e, r) => {
             this.setState({parts: r});
         });
+        this.updateWindowDimensions();
+        window.addEventListener('resize', () => this.updateWindowDimensions());
     }
     componentWillUnmount() {
         ipcRenderer.removeAllListeners('partsSent');
+        window.removeEventListener('resize', () => this.updateWindowDimensions());
+    }
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
    /*
     handleDelete = () => {
@@ -64,9 +70,17 @@ class SetFeature extends Component {
                     />
                 </div>
                 <div className='right'>
-                    <div className="lg-margin-top">
-                        <div className="center sm-margin">Contains {this.state.parts.length} parts.</div>
-                        <Gallery Entity={Part} values={this.state.parts} classificationType='color' zoom={1}/>
+                    <div className="ten-pct">
+                        <div className="fill-height localize">
+                            <div className="fill-width no-margin bottom center">Contains {this.state.parts.length} parts.</div>
+                        </div>
+                        <Gallery
+                            Entity={Part}
+                            values={this.state.parts}
+                            classificationType='color'
+                            width={this.state.width / 2}
+                            height={this.state.height * 0.9}
+                        />
                     </div>
                 </div>
             </div>

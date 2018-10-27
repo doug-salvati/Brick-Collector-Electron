@@ -6,7 +6,7 @@ You need a MySQL database called `brickcollectordev` initialized with `schema.sq
 You also need a [Rebrickable.com](https://rebrickable.com/api/) API key in `src/data/apikey.txt`.
 Then,
 ```
-npm run-script watch
+npm run watch
 npm start
 ```
 

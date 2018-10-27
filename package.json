@@ -2,8 +2,8 @@
   "name": "brick-collector",
   "version": "0.1.0",
   "main": "main.js",
-  "description": "App for managing a brick collection",
-  "repository": "TBD",
+  "description": "App for managing a brick collection.",
+  "repository": "https://github.com/doug-salvati/Brick-Collector",
   "devDependencies": {
     "babel-core": "^6.7.2",
     "babel-loader": "^7.1.5",
@@ -19,7 +19,8 @@
     "node-libs-browser": "^2.1.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.20.2",
-    "webpack-dev-server": "^3.1.9"
+    "webpack-dev-server": "^3.1.9",
+    "webpack-cli": "^3.1.1"
   },
   "scripts": {
     "start": "./node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .",
@@ -35,7 +36,6 @@
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-virtualized": "^9.20.1",
-    "webpack-cli": "^3.1.1"
+    "react-virtualized": "^9.20.1"
   }
 }

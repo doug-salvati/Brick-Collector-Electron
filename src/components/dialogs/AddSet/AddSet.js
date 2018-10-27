@@ -30,7 +30,7 @@ class AddSet extends Component {
                 this.setState({set: 'none'});
             }
         }
-        Rebrickable.searchSet(set_num, global.rebrickable, {success: success_callback, error: alert});
+        Rebrickable.searchSet(set_num, {success: success_callback, error: alert});
     }
 
     handleGo = () => {
@@ -41,7 +41,7 @@ class AddSet extends Component {
     }
 
     handleNext = () => {
-        Rebrickable.getPartsInSet(this.state.set.s_id, global.rebrickable,
+        Rebrickable.getPartsInSet(this.state.set.s_id,
             {
                 success: results => {
                     this.setState({parts: removeSpares(results)});
@@ -82,7 +82,7 @@ class AddSet extends Component {
                         {options}
                     </select>
                     <button id='set-search-go' onClick={this.handleGo}>Go</button><br/>
-                    <div id='searched-set'>{contents}</div>
+                    <div id='searched-set' className='fill-width'>{contents}</div>
                     <button id='set-add-cancel' onClick={() => current_window.close()}>Cancel</button>
                     {set !== 'initial' && set !== 'none' ?
                         <button id='set-add-done' onClick={() => this.handleNext()}>Next</button> : ''}

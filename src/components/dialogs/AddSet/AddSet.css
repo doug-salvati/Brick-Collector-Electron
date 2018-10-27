@@ -4,14 +4,6 @@
     margin-top: 25vh;
 }
 
-#searched-set > .entity-block {
-    width: 100vw;
-    height: 100vw;
-}
-
-#searched-set > .entity-block > img {
-    cursor: default;
-}
 #set-search {
     text-align: center;
     width: 70vw;
@@ -20,6 +12,13 @@
     border: none;
     height: 5vh;
 }
+
+#searched-set {
+    height: 95vh;
+    position: absolute;
+    top: 5vh;
+}
+
 #set-suffix {
     width: 20vw;
 }

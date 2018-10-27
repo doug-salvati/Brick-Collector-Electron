@@ -27,7 +27,7 @@ class AddPart extends Component {
                 this.setState({part: 'none'});
             }
         }
-        Rebrickable.searchPart(part_num, global.rebrickable, {success: success_callback, error: alert});
+        Rebrickable.searchPart(part_num, {success: success_callback, error: alert});
     }
 
     handleSubmit = () => {

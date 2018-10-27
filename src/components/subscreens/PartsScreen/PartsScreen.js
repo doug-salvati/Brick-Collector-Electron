@@ -18,7 +18,7 @@ class PartsScreen extends Component {
         actions={PartsScreenActions}
         fetcher={() => ipcRenderer.send('getParts')}
         adder={() => global.openDialog.add_part()}
-        entity={Part}
+        Entity={Part}
         Feature={PartFeature}
         classificationType='color'
         dropDownOptions={options}

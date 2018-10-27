@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import FilterToolbar from '../../common/FilterToolbar';
 import {ipcRenderer} from 'electron';
+import Gallery from '../../common/Gallery';
+import FilterToolbar from '../../common/FilterToolbar';
 import {registerActions, removeActions} from '../../../util/registerActions';
 
 class SubScreen extends Component {
@@ -24,12 +25,19 @@ class SubScreen extends Component {
         ipcRenderer.on('zoomOut', () => {
             this.handleZoomOut();
         });
+        this.updateWindowDimensions();
+        window.addEventListener('resize', () => this.updateWindowDimensions());
     }
 
     componentWillUnmount() {
       removeActions(ipcRenderer, this.props.actions);
       ipcRenderer.removeAllListeners('zoomIn');
-      ipcRenderer.removeAllListeners('zoomOut');  
+      ipcRenderer.removeAllListeners('zoomOut');
+      window.removeEventListener('resize', () => this.updateWindowDimensions());
+    }
+
+    updateWindowDimensions() {
+      this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
     createOnClick(item) {
@@ -68,7 +76,8 @@ class SubScreen extends Component {
     }
 
     render() {
-      const { Feature } = this.props;
+      console.log(`zoom level ${this.state.zoomLevel}`)
+      const { Feature, Entity, classificationType } = this.props;
 
       if (this.state.count < 0) {
         return <h1 className='center no-margin lg-padding-top'>Loading...</h1>;
@@ -80,19 +89,10 @@ class SubScreen extends Component {
           handleBack={() => this.setState({featured: null})}
         />;
       }
-      let frames = [];
-      const filtered = this.filterItems();
-      const Entity = this.props.entity;
-      for (let i in filtered) {
-        const item = filtered[i];
-        frames.unshift(<Entity
-          key={i} xid={item.s_id} name={item.title} classification={item[this.props.classificationType]} zoom={this.state.zoomLevel}
-          qty={item.quantity} image={item.img} handleClick={this.createOnClick(item)} clickable={true} />);
-        }
       const all = this.props.classificationType.replace(/^\w/, c => c.toUpperCase())
       return (
         <div className='main-screen'>
-          <div className='stuck-to-top middle-layer solid'>
+          <div className='stuck-to-top middle-layer solid twenty-pct'>
             <h1 className='center no-margin lg-padding-top'>You Own {this.state.count} {this.props.label}s</h1>
             <FilterToolbar
               handleSearchChange={this.handleSearchChange}
@@ -105,10 +105,18 @@ class SubScreen extends Component {
               optionAll={`All ${all}s`}
             />
             <button className='top-right blank-button' onClick={this.props.adder}>
-            <img className='img-full' src='assets/ui_icons/add.svg' />
-          </button>
+              <img className='img-full' src='assets/ui_icons/add.svg' />
+            </button>
           </div>
-          <div className='no-spacing'>{frames}</div>
+          <Gallery
+            Entity={Entity}
+            values={this.filterItems()}
+            generateClickHandler={item => this.createOnClick(item)}
+            classificationType={classificationType}
+            height={this.state.height * 0.8}
+            width={this.state.width}
+            zoom={this.state.zoomLevel}
+          />
         </div>
       );
     }

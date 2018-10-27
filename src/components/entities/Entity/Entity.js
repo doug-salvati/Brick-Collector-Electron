@@ -8,8 +8,8 @@ const Entity = (props) => {
         image = (props.image.includes('http')) ? props.image : `${props.imagepath}/${props.image}`;
     }
     return (
-        <div className={`localize inline-block zoom${props.zoom !== undefined ? props.zoom : 3}`}>
-            <span className={`entity-block ${props.className} ${props.clickable && 'clickable'}`} onClick={(props.handleClick)}>
+        <div className={'localize inline-block fill-height fill-width'}>
+            <span className={`entity-block ${props.className} ${props.handleClick && 'clickable'}`} onClick={(props.handleClick)}>
                 <img className='entity-img img-75' src={image}
                     title={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
                     alt={'Image of ' + (props.name ? props.name : 'Unnamed Item')}

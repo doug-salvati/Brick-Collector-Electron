@@ -11,7 +11,7 @@ const SetsScreen = (props) =>
         actions={SetsScreenActions}
         fetcher={() => ipcRenderer.send('getSets')}
         adder={() => global.openDialog.add_set()}
-        entity={Set}
+        Entity={Set}
         Feature={SetFeature}
         classificationType='theme'
         dropDownOptions={Themes}

@@ -3,10 +3,19 @@ import PropTypes from 'prop-types';
 import { Grid } from 'react-virtualized';
 
 class Gallery extends React.Component {
-    itemsPerRow = this.props.zoom ? 4 - this.props.zoom  : 4 - 1;
+    constructor(props) {
+        super(props);
+        this.itemsPerRow = (this.props.zoom !== undefined) ? 4 - this.props.zoom  : 4 - 1;
+    }
+
+    componentWillReceiveProps(newProps) {
+        console.log(`receiving zoom lvl ${newProps.zoom}`)
+        this.itemsPerRow = (newProps.zoom !== undefined) ? 4 - newProps.zoom : 4 - 1;
+        console.log(`setting itemsPerRow to ${this.itemsPerRow}`);
+    }
 
     cellRenderer({ columnIndex, key, rowIndex, style }) {
-        const {Entity, values, classificationType, picker, prefixes} = this.props;
+        const {Entity, values, classificationType, picker, prefixes, generateClickHandler} = this.props;
         const linearIndex = rowIndex * this.itemsPerRow + columnIndex;
         const item = values[linearIndex];
         return ( item &&
@@ -14,11 +23,12 @@ class Gallery extends React.Component {
                 <Entity
                     name={item.title}
                     classification={item[classificationType]}
-                    zoom={3}
+                    zoom={this.itemsPerRow}
                     qty={item.quantity}
                     number={item.s_id}
                     image={item.img}
                     prefix={prefixes && prefixes[linearIndex]}
+                    handleClick={generateClickHandler && generateClickHandler(item)}
                 />
                 {picker && <input className="top-left" type="checkbox" value={i} defaultChecked />}
             </span>
@@ -26,7 +36,7 @@ class Gallery extends React.Component {
     }
     render() {
         const {width = 300, height = 300} = this.props;
-        const columnWidth = width ? width / this.itemsPerRow: 100;
+        const columnWidth = width / this.itemsPerRow;
         return this.props.values.length ? (
             <Grid
                 cellRenderer={arg => this.cellRenderer(arg)}
@@ -46,6 +56,8 @@ Gallery.propTypes = {
     Entity: PropTypes.func,
     // Array of the values passed to each square
     values: PropTypes.array,
+    // Creates a callback for when an item is clicked
+    generateClickHandler: PropTypes.func,
     classificationType: PropTypes.string,
     prefixes: PropTypes.array,
     zoom: PropTypes.number,

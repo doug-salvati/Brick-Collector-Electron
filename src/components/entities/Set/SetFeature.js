@@ -54,7 +54,7 @@ class SetFeature extends Component {
             <div>
                 <div className='left'>
                     <button className='top-left blank-button' onClick={this.props.handleBack}>
-                        <img className='img-full' src='assets/ui_icons/back.svg' />
+                    <img className='img-full' src={`assets/ui_icons/${this.state.formIsGood ? 'back-unsaved' : 'back'}.svg`} />
                     </button>
                     <div className='lg-margin'>
                         <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>

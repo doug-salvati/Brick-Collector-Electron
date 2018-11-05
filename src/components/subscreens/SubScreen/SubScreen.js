@@ -86,7 +86,11 @@ class SubScreen extends Component {
       if (this.state.featured) {
         return <Feature
           item={this.state.featured}
-          handleBack={() => this.setState({featured: null})}
+          handleBack={(clean) => {
+            if (!clean || confirm('You will lose your changes if you continue.')) {
+              this.setState({featured: null})
+            }
+          }}
         />;
       }
       const all = this.props.classificationType.replace(/^\w/, c => c.toUpperCase())

@@ -66,8 +66,8 @@ class PartFeature extends Component {
         return (
             <div>
                 <div className="left">
-                    <button className='top-left blank-button' onClick={this.props.handleBack}>
-                        <img className='img-full' src='assets/ui_icons/back.svg' />
+                    <button className='top-left blank-button' onClick={() => this.props.handleBack(this.state.formIsGood)}>
+                        <img className='img-full' src={`assets/ui_icons/${this.state.formIsGood ? 'back-unsaved' : 'back'}.svg`} />
                     </button>
                     <div className='lg-margin'>
                         <input

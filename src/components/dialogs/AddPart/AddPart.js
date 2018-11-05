@@ -50,7 +50,7 @@ class AddPart extends Component {
         return (
             <div>
                 <input id='part-search' type='text' placeholder={ph}/><button id='part-search-go' onClick={() => this.searchPart(document.getElementById('part-search').value)}>Go</button><br/>
-                <div id='searched-part'>{contents}</div>
+                <div id='searched-part' className='fill-width'>{contents}</div>
                 <button id='part-add-cancel' onClick={() => current_window.close()}>Cancel</button>
                 {this.state.part !== 'initial' && this.state.part !== 'none' ?
                     <button id='part-add-done' onClick={this.handleSubmit}>Add this Part</button> : ''}

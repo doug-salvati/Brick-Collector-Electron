@@ -4,14 +4,12 @@
     margin-top: 25vh;
 }
 
-#searched-part > .entity-block {
-    width: 100vw;
-    height: 100vw;
+#searched-part {
+    height: 95vh;
+    position: absolute;
+    top: 5vh;
 }
 
-#searched-part > .entity-block > img {
-    cursor: default;
-}
 #part-search {
     text-align: center;
     width: 90vw;

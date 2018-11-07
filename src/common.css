@@ -5,10 +5,24 @@ body {
     font-family: "Ubuntu";
     overflow: hidden;
 }
+a {
+    font-variant: small-caps;
+    color: #555;
+    font-style: italic;
+}
+a:hover {
+    text-decoration: none;
+}
 
 /* basic elements like links */
 .clickable {
     cursor: pointer;
+}
+.basic-text-input {
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    border: none;
 }
 .img-75 {
     max-height: 75%;
@@ -27,6 +41,9 @@ body {
 }
 .blank-button:focus {
     outline: none;
+}
+.borderless {
+    border: none;
 }
 
 /* layout */
@@ -185,4 +202,27 @@ body {
 }
 .trash:hover {
     background: url(assets/ui_icons/trash-open.svg) no-repeat;
+}
+
+/* bootstrap-style units */
+.bootstrap-12 {
+    width: 100%;
+}
+.bootstrap-10 {
+    width: calc(10 / 12 * 100%);
+}
+.bootstrap-8 {
+    width: calc(8 / 12 * 100%);
+}
+.bootstrap-6 {
+    width: 50%;
+}
+.bootstrap-5 {
+    width: calc(5 / 12 * 100%);
+}
+.bootstrap-4 {
+    width: calc(4 / 12 * 100%);
+}
+.bootstrap-2 {
+    width: calc(2 / 12 * 100%);
 }

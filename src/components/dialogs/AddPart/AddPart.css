@@ -5,22 +5,9 @@
 }
 
 #searched-part {
-    height: 95vh;
+    height: 90vh;
     position: absolute;
-    top: 5vh;
-}
-
-#part-search {
-    text-align: center;
-    width: 90vw;
-    padding-left: 0;
-    padding-right: 0;
-    border: none;
-    height: 5vh;
-}
-
-#part-search-go {
-    width: 10vw;
+    top: 10vh;
 }
 
 #part-add-cancel {

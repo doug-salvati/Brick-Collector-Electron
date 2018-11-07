@@ -1,33 +1,52 @@
 import React, { Component } from 'react';
 import Part from '../../entities/Part/Part';
+import SearchByElement from './SearchByElement';
+import SearchByPartAndColor from './SearchByPartAndColor';
 import './AddPart.css';
 import {ipcRenderer} from 'electron';
-import Rebrickable from '../../../util/rebrickable';
 
 // Modal dialog for adding a single part to inventory
 class AddPart extends Component {
     constructor(props) {
         super(props);
-        this.state = {part: 'initial'};
+        this.state = {part: 'initial', searchBy: 'element'};
     }
 
-    searchPart(part_num) {
-        let success_callback = (result) => {
-            if (result.part) {
-                let new_part = {
-                    p_id: result.element_id,
-                    title: result.part.name,
-                    color: result.color.name,
-                    img: result.element_img_url,
-                    quantity: 1,
-                    loose: 1
-                };
-                this.setState({part: new_part});
-            } else {
-                this.setState({part: 'none'});
-            }
+    componentDidMount() {
+        document.querySelector('#part-search').focus();
+    }
+    componentDidUpdate(_, prevState) {
+        if (prevState.searchBy !== this.state.searchBy) {
+            document.querySelector(
+                this.state.searchBy === 'element' ? '#part-search' : '#part-search-part'
+            ).focus();
         }
-        Rebrickable.searchPart(part_num, {success: success_callback, error: alert});
+    }
+
+    searchSuccess(result) {
+        if (result.part) {
+            let new_part = {
+                p_id: result.element_id,
+                title: result.part.name,
+                color: result.color.name,
+                img: result.element_img_url,
+                quantity: 1,
+                loose: 1
+            };
+            this.setState({part: new_part});
+        } else {
+            this.setState({part: 'none'});
+        }
+    }
+
+    partSearchSuccess(result) {
+        console.log(result);
+    }
+
+    toggleAdvancedSearch() {
+        this.setState(old => ({
+            searchBy: old.searchBy === 'element' ? 'part' : 'element'
+        }));
     }
 
     handleSubmit = () => {
@@ -36,8 +55,8 @@ class AddPart extends Component {
     }
 
     render() {
-        var part = this.state.part;
-        var contents = <p></p>;
+        const { part } = this.state;
+        let contents;
         switch (part) {
             case 'initial':
                 contents = <p className='contents'>Please search a part number above.</p>; break;
@@ -46,10 +65,24 @@ class AddPart extends Component {
             default:
                 contents = <Part name={part.title} classification={part.color} qty={part.quantity} image={part.img} />;
         }
-        const ph = "Enter a LEGO element ID number, e.g. 4656783"
+        const searchBar = this.state.searchBy === 'element'
+            ?
+                <SearchByElement
+                    onSuccess={res => this.searchSuccess(res)}
+                    onFailure={alert}
+                />
+            :
+                <SearchByPartAndColor
+                    onSuccess={res => this.searchSuccess(res)}
+                    onFailure={alert}
+                />;
+
         return (
             <div>
-                <input id='part-search' type='text' placeholder={ph}/><button id='part-search-go' onClick={() => this.searchPart(document.getElementById('part-search').value)}>Go</button><br/>
+                {searchBar}
+                <a className='top-layer' onClick={() => this.toggleAdvancedSearch()} href='#'>
+                    {this.state.searchBy === 'element' ? 'Advanced' : 'Standard'}
+                </a>
                 <div id='searched-part' className='fill-width'>{contents}</div>
                 <button id='part-add-cancel' onClick={() => current_window.close()}>Cancel</button>
                 {this.state.part !== 'initial' && this.state.part !== 'none' ?

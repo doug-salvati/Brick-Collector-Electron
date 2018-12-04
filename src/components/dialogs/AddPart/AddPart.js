@@ -21,6 +21,9 @@ class AddPart extends Component {
                 this.state.searchBy === 'element' ? '#part-search' : '#part-search-part'
             ).focus();
         }
+        if (document.querySelector('#part-add-done')) {
+            document.querySelector('#part-add-done').focus();
+        }
     }
 
     searchSuccess(result) {

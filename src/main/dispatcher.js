@@ -11,15 +11,22 @@ const downloadImageAsync = (src, dest) => {
 module.exports = (connection) => {
     ipcMain.on('addPart', function(_, part) {
         const img_src = part.img;
-        const img_dest = `public/assets/part_images/elements/${part.p_id}.jpg`;
-        const final_part = Object.assign({}, part, {img: `${part.p_id}.jpg`});
-        request.head(img_src, () => {
-            request(img_src).pipe(fs.createWriteStream(img_dest)).on('close', () => {
-                connection.addPart(final_part, () => {
-                    global.win.webContents.send('newPartSent', final_part);
+        const dest_filename = img_src ? `${part.p_id}.jpg` : 'no_img.png';
+        const img_dest = `public/assets/part_images/elements/${dest_filename}`;
+        const final_part = Object.assign({}, part, {img: dest_filename});
+        if (img_src) {
+            request.head(img_src, () => {
+                request(img_src).pipe(fs.createWriteStream(img_dest)).on('close', () => {
+                    connection.addPart(final_part, () => {
+                        global.win.webContents.send('newPartSent', final_part);
+                    });
                 });
             });
-        });
+        } else {
+            connection.addPart(final_part, () => {
+                global.win.webContents.send('newPartSent', final_part);
+            });
+        }
     });
     ipcMain.on('addSet', function(_, {set, parts}) {
         // Add entry for the set

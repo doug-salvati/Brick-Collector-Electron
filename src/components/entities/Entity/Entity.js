@@ -2,7 +2,7 @@ import React from 'react';
 import './Entity.css';
 
 const Entity = (props) => {
-    let image = `${props.imagepath}/../no_img.png`;
+    let image = `${props.imagepath}/no_img.png`;
     // Check if image is hosted locally
     if (props.image) {
         image = (props.image.includes('http')) ? props.image : `${props.imagepath}/${props.image}`;

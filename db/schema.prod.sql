@@ -33,7 +33,7 @@ CREATE TABLE mocs (
 
 /* PARTS */
 CREATE TABLE parts (
-    p_id VARCHAR(25) NOT NULL,
+    p_id VARCHAR(32) NOT NULL,
     title VARCHAR(100),
     color VARCHAR(100) NOT NULL,
     img VARCHAR(200),

@@ -63,6 +63,11 @@ const Collection = {
             label: 'New Part', accelerator: 'CmdOrCtrl + P',
             click() {global.openDialog.add_part()}
         },
+        { type: 'separator'},
+        {
+            label: 'Filter', accelerator: 'CmdOrCtrl + L',
+            click() {global.win.webContents.send('filter')}
+        }
     ]
 };
 

@@ -73,13 +73,19 @@ const Rebrickable = {
         let url = `https://rebrickable.com/api/v3/lego/sets/${set_num}/parts`;
         let request = `${url}?key=${key}&page_size=10000`;
         fetch(request).then(res => res.json()).then(
-            (result) => callback.success(result.results.map(result => ({
-                p_id: result.element_id,
-                title: result.part.name,
-                img: result.part.part_img_url,
-                color: result.color.name,
-                quantity: result.quantity,
-            }))),
+            (result) => callback.success(result.results.map(result => {
+                if (!result.is_spare) {
+                    return {
+                        p_id: result.element_id,
+                        title: result.part.name,
+                        img: result.part.part_img_url,
+                        color: result.color.name,
+                        quantity: result.quantity,
+                    }
+                } else {
+                    return null;
+                }
+            }).filter(elt => elt !== null)),
             (error) => callback.error(error)
         )
     }

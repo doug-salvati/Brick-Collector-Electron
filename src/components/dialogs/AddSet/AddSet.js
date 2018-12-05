@@ -5,7 +5,6 @@ import './AddSet.css';
 import {ipcRenderer} from 'electron';
 import Rebrickable from '../../../util/rebrickable';
 import Gallery from '../../common/Gallery';
-import removeSpares from '../../../util/removeSpares';
 
 // Modal dialog for adding a single set to inventory
 class AddSet extends Component {
@@ -44,7 +43,7 @@ class AddSet extends Component {
         Rebrickable.getPartsInSet(this.state.set.s_id,
             {
                 success: results => {
-                    this.setState({parts: removeSpares(results)});
+                    this.setState({parts: results});
                 },
                 error: alert
             });

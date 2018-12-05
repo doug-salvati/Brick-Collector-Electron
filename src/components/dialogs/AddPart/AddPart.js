@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Part from '../../entities/Part/Part';
 import SearchByElement from './SearchByElement';
 import SearchByPartAndColor from './SearchByPartAndColor';
+import Loader from '../../common/Loader/Loader';
 import './AddPart.css';
 import {ipcRenderer} from 'electron';
 
@@ -65,17 +66,21 @@ class AddPart extends Component {
                 contents = <p className='contents'>Please search a part number above.</p>; break;
             case 'none':
                 contents = <p className='contents'>No results found.</p>; break;
+            case 'loading':
+                contents = <Loader />; break;
             default:
                 contents = <Part name={part.title} classification={part.color} qty={part.quantity} image={part.img} />;
         }
         const searchBar = this.state.searchBy === 'element'
             ?
                 <SearchByElement
+                    onSubmit={() => this.setState({part: 'loading'})}
                     onSuccess={res => this.searchSuccess(res)}
                     onFailure={alert}
                 />
             :
                 <SearchByPartAndColor
+                    onSubmit={() => this.setState({part: 'loading'})}
                     onSuccess={res => this.searchSuccess(res)}
                     onFailure={alert}
                 />;
@@ -88,7 +93,7 @@ class AddPart extends Component {
                 </a>
                 <div id='searched-part' className='fill-width'>{contents}</div>
                 <button id='part-add-cancel' onClick={() => current_window.close()}>Cancel</button>
-                {this.state.part !== 'initial' && this.state.part !== 'none' ?
+                {!['initial', 'loading', 'none'].includes(this.state.part) ?
                     <button id='part-add-done' onClick={this.handleSubmit}>Add this Part</button> : ''}
             </div>
         );

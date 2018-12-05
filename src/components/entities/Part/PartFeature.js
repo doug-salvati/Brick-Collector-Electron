@@ -12,13 +12,14 @@ class PartFeature extends Component {
             formIsGood: false,
             formValue: this.props.item.quantity,
             quantity: this.props.item.quantity,
-            sets: []
+            sets: [],
+            loading: true,
         };
     }
     componentDidMount() {
         ipcRenderer.send('getSetsContainingPart', this.props.item.p_id);
         ipcRenderer.on('setsSent', (e, r) => {
-            this.setState({sets: r});
+            this.setState({sets: r, loading: false});
         });
         this.updateWindowDimensions();
         window.addEventListener('resize', () => this.updateWindowDimensions());
@@ -103,7 +104,8 @@ class PartFeature extends Component {
                         classificationType='theme'
                         width={this.state.width / 2}
                         height={this.state.height * 0.9}
-                        prefixes={prefixes}/>
+                        prefixes={prefixes}
+                        loading={this.state.loading}/>
                     </div>
                 </div>
             </div>

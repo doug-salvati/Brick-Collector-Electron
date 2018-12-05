@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from 'react-virtualized';
+import Loader from '../common/Loader/Loader';
 
 class Gallery extends React.Component {
     constructor(props) {
@@ -9,9 +10,7 @@ class Gallery extends React.Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.log(`receiving zoom lvl ${newProps.zoom}`)
         this.itemsPerRow = (newProps.zoom !== undefined) ? 4 - newProps.zoom : 4 - 1;
-        console.log(`setting itemsPerRow to ${this.itemsPerRow}`);
     }
 
     cellRenderer({ columnIndex, key, rowIndex, style }) {
@@ -37,17 +36,23 @@ class Gallery extends React.Component {
     render() {
         const {width = 300, height = 300} = this.props;
         const columnWidth = width / this.itemsPerRow;
-        return this.props.values.length ? (
-            <Grid
-                cellRenderer={arg => this.cellRenderer(arg)}
-                columnCount={this.itemsPerRow}
-                columnWidth={columnWidth}
-                height={height}
-                rowCount={Math.ceil(this.props.values.length / this.itemsPerRow)}
-                rowHeight={columnWidth}
-                width={width}
-            />
-        ) : <div>Loading...</div>;
+        if (this.props.loading) {
+            return <Loader />;
+        } else if (this.props.values.length) {
+            return (
+                <Grid
+                    cellRenderer={arg => this.cellRenderer(arg)}
+                    columnCount={this.itemsPerRow}
+                    columnWidth={columnWidth}
+                    height={height}
+                    rowCount={Math.ceil(this.props.values.length / this.itemsPerRow)}
+                    rowHeight={columnWidth}
+                    width={width}
+                />
+            );
+        } else {
+            return <div></div>;
+        }
     }
 }
 
@@ -65,6 +70,7 @@ Gallery.propTypes = {
     height: PropTypes.number,
     // Whether to render checkboxes in the squares
     picker: PropTypes.bool,
+    loading: PropTypes.bool
 };
 
 export default Gallery;

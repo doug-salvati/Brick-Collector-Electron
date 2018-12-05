@@ -12,13 +12,14 @@ class SetFeature extends Component {
             formIsGood: false,
             formValue: this.props.item.quantity,
             quantity: this.props.item.quantity,
-            parts: []
+            parts: [],
+            loading: true,
         };
     }
     componentDidMount() {
         ipcRenderer.send('getPartsInSet', this.props.item.s_id);
         ipcRenderer.on('partsSent', (e, r) => {
-            this.setState({parts: r});
+            this.setState({parts: r, loading: false});
         });
         this.updateWindowDimensions();
         window.addEventListener('resize', () => this.updateWindowDimensions());
@@ -80,6 +81,7 @@ class SetFeature extends Component {
                             classificationType='color'
                             width={this.state.width / 2}
                             height={this.state.height * 0.9}
+                            loading={this.state.loading}
                         />
                     </div>
                 </div>

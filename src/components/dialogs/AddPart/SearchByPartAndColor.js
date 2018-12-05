@@ -6,6 +6,7 @@ const SearchByElement = props => {
         <div>
             <form onSubmit={event => {
                 event.preventDefault();
+                props.onSubmit();
                 const partNum = document.querySelector('#part-search-part').value;
                 const color = document.querySelector('#part-search-color').value;
                 Rebrickable.searchPartWithColor(

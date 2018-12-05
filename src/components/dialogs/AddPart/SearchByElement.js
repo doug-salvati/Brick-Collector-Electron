@@ -7,6 +7,7 @@ const SearchByElement = props => {
         <div>
             <form onSubmit={event => {
                 event.preventDefault();
+                props.onSubmit();
                 const eltNum = document.querySelector('#part-search').value;
                 Rebrickable.searchPart(
                     eltNum,

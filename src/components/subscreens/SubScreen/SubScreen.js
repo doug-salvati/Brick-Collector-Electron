@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ipcRenderer} from 'electron';
 import Gallery from '../../common/Gallery';
 import FilterToolbar from '../../common/FilterToolbar';
+import Loader from '../../common/Loader/Loader';
 import {registerActions, removeActions} from '../../../util/registerActions';
 
 class SubScreen extends Component {
@@ -80,7 +81,7 @@ class SubScreen extends Component {
       const { Feature, Entity, classificationType } = this.props;
 
       if (this.state.count < 0) {
-        return <h1 className='center no-margin lg-padding-top'>Loading...</h1>;
+        return <h1></h1>;
       }
 
       if (this.state.featured) {

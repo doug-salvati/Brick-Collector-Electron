@@ -14,19 +14,26 @@
     "css-loader": "^0.28.11",
     "electron-packager": "^12.1.2",
     "electron-rebuild": "^1.8.2",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
     "file-loader": "^1.1.11",
     "jest": "^23.6.0",
     "node-libs-browser": "^2.1.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.20.2",
-    "webpack-dev-server": "^3.1.9",
-    "webpack-cli": "^3.1.1"
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.9"
   },
   "scripts": {
     "start": "./node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .",
     "watch": "./node_modules/.bin/webpack-dev-server",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild",
     "test": "jest"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.css$": "<rootDir>/src/__mocks__/css.js"
+    }
   },
   "dependencies": {
     "ajv": "^6.5.4",

@@ -14,7 +14,7 @@ CREATE TABLE sets (
     s_id VARCHAR(25) NOT NULL,
     title VARCHAR(100),
     part_count INT,
-    theme INT,
+    theme VARCHAR(64),
     img VARCHAR(200), /* Path to image file */
     quantity INT NOT NULL,
     PRIMARY KEY (s_id)

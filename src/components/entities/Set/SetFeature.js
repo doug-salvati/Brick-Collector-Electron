@@ -9,7 +9,6 @@ class SetFeature extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            formIsGood: false,
             formValue: this.props.item.quantity,
             quantity: this.props.item.quantity,
             parts: [],
@@ -31,16 +30,13 @@ class SetFeature extends Component {
     updateWindowDimensions() {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
-   /*
     handleDelete = () => {
-        const q = this.state.quantity;
-        const deletion_quantity = q === 1 ? 'your' : q === 2 ? 'both' : `all ${q}`
-        const warning = `Really delete ${deletion_quantity} ${this.props.item.title}? This cannot be undone.`
+        const warning = `Really delete ${this.props.item.title}? This cannot be undone.`
         if (confirm(warning)) {
-            ipcRenderer.send('deletePart', this.props.item);
+            ipcRenderer.send('deleteSet', this.props.item);
             this.props.handleBack();
         }
-    } */
+    }
     render() {
         let set = this.props.item;
         let image = 'assets/set_images/no_img.png';
@@ -54,8 +50,8 @@ class SetFeature extends Component {
         return (
             <div>
                 <div className='left'>
-                    <button className='top-left blank-button' onClick={this.props.handleBack}>
-                    <img className='img-full' src={`assets/ui_icons/${this.state.formIsGood ? 'back-unsaved' : 'back'}.svg`} />
+                    <button className='top-left blank-button' onClick={() => this.props.handleBack(false)}>
+                    <img className='img-full' src='assets/ui_icons/back.svg' />
                     </button>
                     <div className='lg-margin'>
                         <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
@@ -69,6 +65,7 @@ class SetFeature extends Component {
                         title={'Image of ' + (set.title ? set.title : 'Unnamed Set')}
                         alt={'Image of ' + (set.title ? set.title : 'No Name')}
                     />
+                    <button className="bottom-left blank-button sm-margin no-padding trash" onClick={this.handleDelete}></button>
                 </div>
                 <div className='right'>
                     <div className="ten-pct">

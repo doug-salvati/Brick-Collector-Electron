@@ -85,6 +85,13 @@ module.exports = (connection) => {
             global.win.webContents.send('partDeleted', part);
         });
     });
+    ipcMain.on('deleteSet', function(_, set) {
+        connection.deleteSet(set, () => {
+            connection.deletePartsContainedInSetAndCleanBridge(set, () => {
+                global.win.webContents.send('setDeleted', set);
+            })
+        })
+    })
     ipcMain.on('changePartQuantity', function(_, part, quantity) {
         connection.changePartQuantity(part, quantity, () => {
             global.win.webContents.send('newPartSent', Object.assign({}, part, {quantity: quantity, loose: quantity}));

@@ -131,5 +131,25 @@ exports.default = function DatabaseAPI(connection) {
             connection.query(query, callback);
             console.info("[INFO] MySQL << " + query);
         },
+        deleteSet: function(set, callback) {
+            const where = 's_id="' + set.s_id + '"';
+            const query = 'DELETE FROM sets WHERE ' + where;
+            connection.query(query, callback);
+            console.info("[INFO] MySQL << " + query);
+        },
+        deletePartsContainedInSetAndCleanBridge: function(set, callback) {
+            const where = 'x_id="' + set.s_id + '"';
+            const query1 = 'UPDATE parts INNER JOIN bridge ON bridge.p_id=parts.p_id SET parts.quantity = parts.quantity - bridge.quantity WHERE ' + where;
+            connection.query(query1, function() {
+                const query2 = 'DELETE FROM bridge WHERE ' + where;
+                connection.query(query2, function() {
+                    const query3 = 'DELETE FROM parts WHERE quantity = 0';
+                    connection.query(query3, callback);
+                    console.info("[INFO] MySQL << " + query3);
+                });
+                console.info("[INFO] MySQL << " + query2);
+            });
+            console.info("[INFO] MySQL << " + query1);
+        }
     };
 };

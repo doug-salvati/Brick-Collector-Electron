@@ -77,7 +77,7 @@ const Rebrickable = {
                 if (!result.is_spare) {
                     return {
                         p_id: result.element_id,
-                        title: result.part.name,
+                        title: result.part.name.substring(0, 100),
                         img: result.part.part_img_url,
                         color: result.color.name,
                         quantity: result.quantity,

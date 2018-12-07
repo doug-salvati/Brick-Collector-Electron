@@ -11,7 +11,7 @@ USE brickcollector;
 
 /* Sets */
 CREATE TABLE sets (
-    s_id VARCHAR(25) NOT NULL,
+    s_id VARCHAR(64) NOT NULL,
     title VARCHAR(100),
     part_count INT,
     theme VARCHAR(64),
@@ -22,7 +22,7 @@ CREATE TABLE sets (
 
 /* MOCS */
 CREATE TABLE mocs (
-    m_id VARCHAR(25) NOT NULL,
+    m_id VARCHAR(64) NOT NULL,
     title VARCHAR(100),
     part_count INT,
     created DATE,
@@ -33,7 +33,7 @@ CREATE TABLE mocs (
 
 /* PARTS */
 CREATE TABLE parts (
-    p_id VARCHAR(32) NOT NULL,
+    p_id VARCHAR(64) NOT NULL,
     title VARCHAR(100),
     color VARCHAR(100) NOT NULL,
     img VARCHAR(200),
@@ -45,8 +45,8 @@ CREATE TABLE parts (
 /* BRIDGE:
 Handles many-to-many relationship of sets/MOCs and parts */
 CREATE TABLE bridge (
-    x_id VARCHAR(25) NOT NULL,
-    p_id VARCHAR(25) NOT NULL,
+    x_id VARCHAR(64) NOT NULL,
+    p_id VARCHAR(64) NOT NULL,
     quantity INT NOT NULL,
     lending INT /* Indicates how many are being borrowed for a MOC */
 );
@@ -54,9 +54,9 @@ CREATE TABLE bridge (
 /* BORROWINGS:
 Handles situation where a part was borrowed from a set to a MOC */
 CREATE TABLE borrowings (
-    to_id VARCHAR(25) NOT NULL,   /* "For this MOC             */
-    from_id VARCHAR(25) NOT NULL, /* we borrowed from this SET */
-    p_id VARCHAR(25) NOT NULL,    /* this PART                 */
+    to_id VARCHAR(64) NOT NULL,   /* "For this MOC             */
+    from_id VARCHAR(64) NOT NULL, /* we borrowed from this SET */
+    p_id VARCHAR(64) NOT NULL,    /* this PART                 */
     quantity INT NOT NULL         /* in this QUANTITY."        */
 );
 

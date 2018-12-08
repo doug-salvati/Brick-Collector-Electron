@@ -5,6 +5,8 @@ import './AddSet.css';
 import {ipcRenderer} from 'electron';
 import Rebrickable from '../../../util/rebrickable';
 import Gallery from '../../common/Gallery';
+import SearchBySetNumber from './SearchBySetNumber';
+import Loader from '../../common/Loader/Loader';
 
 // Modal dialog for adding a single set to inventory
 class AddSet extends Component {
@@ -13,30 +15,30 @@ class AddSet extends Component {
         this.state = {set: 'initial', page: 1, parts: []};
     }
 
-    searchSet(set_num) {
-        let success_callback = (result) => {
-            if (result.set_num) {
-                let new_set = {
-                    s_id: result.set_num,
-                    title: result.name,
-                    part_count: result.num_parts,
-                    theme: result.theme,
-                    img: result.set_img_url,
-                    quantity: 1,
-                };
-                this.setState({set: new_set, parts: []});
-            } else {
-                this.setState({set: 'none'});
-            }
-        }
-        Rebrickable.searchSet(set_num, {success: success_callback, error: alert});
+    componentDidMount() {
+        document.querySelector('#set-search').focus();
     }
 
-    handleGo = () => {
-        const number = document.getElementById('set-search').value;
-        const suffix = document.getElementById('set-suffix').value;
-        const query = `${number}${suffix === "No Suffix" ? '' : suffix}`
-        this.searchSet(query);
+    componentDidUpdate() {
+        if (document.querySelector('#set-add-done')) {
+            document.querySelector('#set-add-done').focus();
+        }
+    }
+
+    searchSuccess = (result) => {
+        if (result.set_num) {
+            let new_set = {
+                s_id: result.set_num,
+                title: result.name,
+                part_count: result.num_parts,
+                theme: result.theme,
+                img: result.set_img_url,
+                quantity: 1,
+            };
+            this.setState({set: new_set, parts: []});
+        } else {
+            this.setState({set: 'none'});
+        }
     }
 
     handleNext = () => {
@@ -44,6 +46,11 @@ class AddSet extends Component {
             {
                 success: results => {
                     this.setState({parts: results});
+                    const count = this.state.parts.reduce((sum, next) => sum + next.quantity, 0);
+                    const expectedCount = this.state.set.part_count;
+                    if (count !== 0 && count < expectedCount) {
+                        alert(`WARNING: This set should contain ${expectedCount} parts, but Rebrickable only reported ${count}!`);
+                    }
                 },
                 error: alert
             });
@@ -67,25 +74,23 @@ class AddSet extends Component {
                     contents = <p className='contents'>Please search a set number above.</p>; break;
                 case 'none':
                     contents = <p className='contents'>No results found.</p>; break;
+                case 'loading':
+                    contents = <Loader />; break;
                 default:
                     contents = <Set name={set.title} xid={set.s_id} classification={set.theme} image={set.img} />;
             }
-            const ph = "Enter a LEGO set number, e.g. 70818"
-            const options = Array.from(Array(23)).map((_, idx) => <option key={idx}>{`-${idx + 2}`}</option>);
-            return (
-                <div>
-                    <input id='set-search' type='text' placeholder={ph}/>
-                    <select id='set-suffix' defaultValue='-1'>
-                        <option>No Suffix</option>
-                        <option>-1</option>
-                        {options}
-                    </select>
-                    <button id='set-search-go' onClick={this.handleGo}>Go</button><br/>
-                    <div id='searched-set' className='fill-width'>{contents}</div>
-                    <button id='set-add-cancel' onClick={() => current_window.close()}>Cancel</button>
-                    {set !== 'initial' && set !== 'none' ?
-                        <button id='set-add-done' onClick={() => this.handleNext()}>Next</button> : ''}
-                </div>
+                return (
+                    <div>
+                        <SearchBySetNumber
+                            onSubmit={() => this.setState({set: 'loading'})}
+                            onSuccess={res => this.searchSuccess(res)}
+                            onFailure={alert}
+                        />
+                        <div id='searched-set' className='fill-width'>{contents}</div>
+                        <button id='set-add-cancel' onClick={() => current_window.close()}>Cancel</button>
+                        {!['initial', 'loading', 'none'].includes(this.state.set) ?
+                            <button id='set-add-done' onClick={() => this.handleNext()}>Next</button> : ''}
+                    </div>
             );
         } else {
             return (

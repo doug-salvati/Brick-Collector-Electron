@@ -35,12 +35,12 @@ const Rebrickable = {
                             }
                             else {
                                 callback.success({
-                                    element_id: `${moldResult.part_num} (${color})`,
+                                    element_id: (`${moldResult.part_num} (${color})`).substring(0, 64),
                                     part: {
-                                        name: moldResult.name
+                                        name: moldResult.name.substring(0, 100)
                                     },
                                     color: {
-                                        name: color
+                                        name: color.substring(0, 100)
                                     },
                                     element_img_url: colorResult.part_img_url
                                 })
@@ -76,10 +76,11 @@ const Rebrickable = {
             (result) => callback.success(result.results.map(result => {
                 if (!result.is_spare) {
                     return {
-                        p_id: result.element_id || `${result.part.part_num} (${result.color.name})`,
+                        p_id: result.element_id.substring(0, 64) ||
+                            (`${result.part.part_num} (${result.color.name})`).substring(0, 64),
                         title: result.part.name.substring(0, 100),
                         img: result.part.part_img_url,
-                        color: result.color.name,
+                        color: result.color.name.substring(0, 100),
                         quantity: result.quantity,
                     }
                 } else {

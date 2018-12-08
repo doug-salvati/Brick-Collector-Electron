@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const downloadImageAsync = (src, dest) => {
     request.head(src, () => {
-        request(src).pipe(fs.createWriteStream(dest));
+        request(src).pipe(fs.createWriteStream(dest.substring(0, 200)));
     });
 };
 

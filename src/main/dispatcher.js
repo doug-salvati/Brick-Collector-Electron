@@ -41,14 +41,19 @@ module.exports = (connection) => {
             });
         });
         // Add parts
+        const final_parts = [];
         for (idx in parts) {
             const part = parts[idx];
-            const src = part.img;
-            const dest = `public/assets/part_images/elements/${part.p_id}.jpg`;
-            downloadImageAsync(src, dest);
+            const img_src = part.img;
+            const dest_filename = img_src ? `${part.p_id}.jpg` : 'no_img.png';
+            const img_dest = `public/assets/part_images/elements/${dest_filename}`;
+            final_parts.push(Object.assign({}, part, {img: dest_filename}));
+            if (img_src) {
+                downloadImageAsync(img_src, img_dest);
+            }
             parts[idx].img = `${part.p_id}.jpg`;
         }
-        connection.addPartsAndBridge(set, parts, () => {
+        connection.addPartsAndBridge(set, final_parts, () => {
             connection.getPartsCount(function(e,r) {
                 connection.getParts(function(e,s) {
                     global.win.webContents.send('partsSent', {part_count: r, parts: s});

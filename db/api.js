@@ -69,9 +69,9 @@ exports.default = function DatabaseAPI(connection) {
                     // new set
                     var query = 'INSERT INTO sets VALUES (';
                     query += "'" + set.s_id + "', ";
-                    query += set.title ? ("'" + set.title + "', ") : 'NULL,';
+                    query += set.title ? ("'" + set.title.replace(/\'/g,'') + "', ") : 'NULL,';
                     query += "'" + set.part_count + "',";
-                    query += "'" + set.theme + "', ";
+                    query += "'" + set.theme.replace(/\'/g,'') + "', ";
                     query += set.img ? ("'" + set.img + "', ") : 'NULL,';
                     query += '1)';
                 }

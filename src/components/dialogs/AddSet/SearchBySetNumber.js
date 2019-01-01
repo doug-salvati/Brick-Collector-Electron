@@ -3,7 +3,7 @@ import Rebrickable from '../../../util/rebrickable';
 
 const SearchBySetNumber = props => {
     const ph = "Enter a LEGO set number, e.g. 70818";
-    const options = Array.from(Array(23)).map((_, idx) => <option key={idx}>{`-${idx + 2}`}</option>);
+    const options = Array.from(Array(29)).map((_, idx) => <option key={idx}>{`-${idx + 2}`}</option>);
     return (
         <div>
             <form onSubmit={event => {

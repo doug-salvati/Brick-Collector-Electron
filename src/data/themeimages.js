@@ -4,7 +4,27 @@ const ThemeImages = {
     "Star Wars Episode 4/5/6": "set_images/themes/starwars.png",
     "Ultimate Collector Series": "set_images/themes/starwars.png",
     "Jungle": "set_images/themes/cityjungle.png",
-    "Police": "set_images/themes/citypolice.png"
+    "Police": "set_images/themes/citypolice.png",
+    "Promotional": "set_images/themes/promotional.png",
+    "Ninjago": "set_images/themes/ninjago.png",
+    "Ninjago The Movie": "set_images/themes/ninjagomovie.png",
+    "Creator": "set_images/themes/creator.png",
+    "Creator 3-in-1": "set_images/themes/creator.png",
+    "Creator Expert": "set_images/themes/creator.png",
+    "Creature": "set_images/themes/creator.png",
+    "Basic Model": "set_images/themes/creator.png",
+    "Friends": "set_images/themes/friends.png",
+    "Animals": "set_images/themes/friends.png",
+    "Classic": "set_images/themes/classic.png",
+    "Cars": "set_images/themes/cars.png",
+    "Architecture": "set_images/themes/architecture.png",
+    "LEGO Ideas and CUUSOO": "set_images/themes/ideas.png",
+    "City": "set_images/themes/city.png",
+    "Town": "set_images/themes/creator.png",
+    "Traffic": "set_images/themes/city.png",
+    "Fire": "set_images/themes/city.png",
+    "Coast Guard": "set_images/themes/city.png",
+
 };
 
 export default ThemeImages;

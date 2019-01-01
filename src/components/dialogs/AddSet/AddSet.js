@@ -12,7 +12,7 @@ import Loader from '../../common/Loader/Loader';
 class AddSet extends Component {
     constructor(props) {
         super(props);
-        this.state = {set: 'initial', page: 1, parts: []};
+        this.state = {set: 'initial', page: 1, parts: [], count: 0};
     }
 
     componentDidMount() {
@@ -51,6 +51,7 @@ class AddSet extends Component {
                     if (count !== 0 && count < expectedCount) {
                         alert(`WARNING: This set should contain ${expectedCount} parts, but Rebrickable only reported ${count}!`);
                     }
+                    this.setState({count});
                 },
                 error: alert
             });
@@ -103,7 +104,7 @@ class AddSet extends Component {
                         height={window.innerHeight}    
                     />
                     <button id='set-add-cancel' className='middle-layer' onClick={() => this.setState({page: 1})}>Back</button>
-                    <button id='set-add-done' className='middle-layer' onClick={() => this.handleSubmit()}>Accept</button>
+                    <button id='set-add-done' className='middle-layer' onClick={() => this.handleSubmit()}>{`Add ${this.state.count} Parts`}</button>
                 </div>
             );
         }

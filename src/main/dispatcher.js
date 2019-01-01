@@ -2,10 +2,20 @@ const { ipcMain } = require('electron');
 const request = require('request');
 const fs = require('fs');
 
-const downloadImageAsync = (src, dest) => {
-    request.head(src, () => {
-        request(src).pipe(fs.createWriteStream(dest.substring(0, 200)));
-    });
+async function downloadImagesAsync(images) {
+    console.info(`[INFO] Downloading ${images.length} images.`);
+    for (image of images) {
+        await downloadImage(image.src, image.dest);
+    }
+    console.info(`[INFO] Downloads complete.`);
+}
+
+const downloadImage = (src, dest) => {
+    return new Promise(resolve => {
+        request.head(src, () => {
+            request(src).pipe(fs.createWriteStream(dest.substring(0, 200))).on('close', resolve);
+        });
+    })
 };
 
 module.exports = (connection) => {
@@ -42,17 +52,19 @@ module.exports = (connection) => {
         });
         // Add parts
         const final_parts = [];
+        const images = [];
         for (idx in parts) {
             const part = parts[idx];
             const img_src = part.img;
-            const dest_filename = img_src ? `${part.p_id}.jpg` : 'no_img.png';
+            const dest_filename = img_src ? `${part.p_id.replace(/\//g, '')}.jpg` : 'no_img.png';
             const img_dest = `public/assets/part_images/elements/${dest_filename}`;
             final_parts.push(Object.assign({}, part, {img: dest_filename}));
             if (img_src) {
-                downloadImageAsync(img_src, img_dest);
+                images.push({src: img_src, dest: img_dest});
             }
             parts[idx].img = `${part.p_id}.jpg`;
         }
+        downloadImagesAsync(images);
         connection.addPartsAndBridge(set, final_parts, () => {
             connection.getPartsCount(function(e,r) {
                 connection.getParts(function(e,s) {

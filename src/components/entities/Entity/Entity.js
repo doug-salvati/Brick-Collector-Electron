@@ -18,11 +18,15 @@ const Entity = (props) => {
                     <b>&nbsp;{props.prefix}{props.number ? props.number : ''}</b>&nbsp;
                 </div>
                 <div className='entity-icon'
-                    style={{
-                        background: (props.icon || 'rgba(0,0,0,0)'),
-                        backgroundSize: '100%',
-                        backgroundRepeat: 'no-repeat',
-                    }}
+                    style={ props.icon && props.icon.includes('.png') ?
+                        {
+                            backgroundImage: props.icon,
+                            backgroundSize: 'cover',
+                        } :
+                        {
+                            background: (props.icon || 'rgba(0,0,0,0)')
+                        }
+                    }
                     title={props.icon ? props.iconTooltip : 'Unknown'}>
                 </div>
             </span>

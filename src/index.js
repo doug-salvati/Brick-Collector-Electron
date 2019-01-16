@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MainScreen from './components/MainScreen/MainScreen';
 import AddPart from './components/dialogs/AddPart/AddPart';
 import AddSet from './components/dialogs/AddSet/AddSet';
+import AddPartForm from './components/dialogs/AddPart/AddPartForm';
 import './common.css';
 
 // This is essentially a router
@@ -14,6 +15,9 @@ switch (view) {
     break;
   case 'sets_dialog':
     ReactDOM.render(<AddSet />, document.getElementById('root'));
+    break;
+  case 'parts_form_dialog':
+    ReactDOM.render(<AddPartForm />, document.getElementById('root'));
     break;
   default:
     ReactDOM.render(<MainScreen />, document.getElementById('root'));

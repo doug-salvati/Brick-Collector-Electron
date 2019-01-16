@@ -89,6 +89,15 @@ const Develop = {
     label: 'Develop',
     submenu: [
         {role: 'toggledevtools'},
+        { type: 'separator'},
+        {
+            label: 'Custom Part', accelerator: 'CmdOrCtrl + Shift + P',
+            click() {global.openDialog.add_part_form()}
+        },
+        {
+            label: 'Open Part Images in Finder',
+            click () { shell.openExternal('file:///Users/doug/Code/electron/brick-collector/public/assets/part_images/elements') }
+        }
     ]
 }
 

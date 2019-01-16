@@ -19,6 +19,7 @@ global.rebrickable = fs.readFileSync('./src/data/apikey.txt').toString();
 global.openDialog = {
     "add_part": function() { openInDialog('/public/index.html?parts_dialog') },
     "add_set": function() { openInDialog('/public/index.html?sets_dialog') },
+    "add_part_form": function() { openInDialog('/public/index.html?parts_form_dialog') },
 }
 
 app.on('ready', () => {

@@ -24,7 +24,7 @@ module.exports = (connection) => {
         const dest_filename = img_src ? `${part.p_id}.jpg` : 'no_img.png';
         const img_dest = `public/assets/part_images/elements/${dest_filename}`;
         const final_part = Object.assign({}, part, {img: dest_filename});
-        if (img_src) {
+        if (img_src && img_src.includes('http')) {
             request.head(img_src, () => {
                 request(img_src).pipe(fs.createWriteStream(img_dest)).on('close', () => {
                     connection.addPart(final_part, () => {

@@ -77,7 +77,6 @@ class SubScreen extends Component {
     }
 
     render() {
-      console.log(`zoom level ${this.state.zoomLevel}`)
       const { Feature, Entity, classificationType } = this.props;
 
       if (this.state.count < 0) {

@@ -14,7 +14,7 @@ var queries = {
     mocs_all_count: 'SELECT COUNT(*) FROM mocs',
     mocs_all: 'SELECT * FROM mocs',
     parts_in_set: function(s_id) { return `SELECT bridge.quantity, parts.p_id, parts.title, parts.color, parts.img FROM bridge INNER JOIN parts ON bridge.p_id=parts.p_id WHERE x_id='${s_id}';` },
-    sets_containing_part: function(p_id) { return `SELECT bridge.quantity, sets.s_id, sets.title, sets.theme, sets.img FROM bridge INNER JOIN sets ON bridge.x_id=sets.s_id WHERE p_id='${p_id}';`}
+    sets_containing_part: function(p_id) { return `SELECT bridge.quantity, sets.s_id, sets.title, sets.theme, sets.img, sets.quantity as sets_qty FROM bridge INNER JOIN sets ON bridge.x_id=sets.s_id WHERE p_id='${p_id}';`}
 };
 
 exports.default = function DatabaseAPI(connection) {
@@ -123,6 +123,17 @@ exports.default = function DatabaseAPI(connection) {
             connection.query(query, callback);
             console.info("[INFO] MySQL << " + query);
         },
+        changeSetQuantity: function(set, qty, callback) {
+            const where1 = 's_id="' + set.s_id + '"';
+            const query1 = 'UPDATE sets SET quantity = quantity + ' + qty + ' WHERE ' + where1;
+            console.info("[INFO] MySQL << " + query1);
+            connection.query(query1, function() {
+                const where2 = 'x_id="' + set.s_id + '"';
+                const query2 = 'UPDATE parts INNER JOIN bridge ON bridge.p_id=parts.p_id SET parts.quantity = parts.quantity + ' + qty + ' * bridge.quantity WHERE ' + where2;
+                console.info("[INFO] MySQL << " + query2);
+                connection.query(query2, callback);
+            });
+        },
 
         // Destroy
         deletePart: function(pt, callback) {
@@ -139,7 +150,7 @@ exports.default = function DatabaseAPI(connection) {
         },
         deletePartsContainedInSetAndCleanBridge: function(set, callback) {
             const where = 'x_id="' + set.s_id + '"';
-            const query1 = 'UPDATE parts INNER JOIN bridge ON bridge.p_id=parts.p_id SET parts.quantity = parts.quantity - bridge.quantity WHERE ' + where;
+            const query1 = 'UPDATE parts INNER JOIN bridge ON bridge.p_id=parts.p_id SET parts.quantity = parts.quantity - (bridge.quantity * ' + set.quantity + ') WHERE ' + where;
             connection.query(query1, function() {
                 const query2 = 'DELETE FROM bridge WHERE ' + where;
                 connection.query(query2, function() {

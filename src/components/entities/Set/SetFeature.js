@@ -9,6 +9,7 @@ class SetFeature extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            formIsGood: false,
             formValue: this.props.item.quantity,
             quantity: this.props.item.quantity,
             parts: [],
@@ -30,6 +31,16 @@ class SetFeature extends Component {
     updateWindowDimensions() {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
+    handleChange = (event) => {
+        const value = parseInt(document.getElementById('set-feature-input').value);
+        this.setState({formIsGood: (value && !isNaN(value) &&
+            value !== this.state.quantity && value > 0), formValue: value});
+    }
+    handleSave = () => {
+        this.setState({formIsGood: false, quantity: this.state.formValue});
+        let copy = Object.assign({}, this.props.item);
+        ipcRenderer.send('changeSetQuantity', copy, this.state.formValue - this.state.quantity);
+    }
     handleDelete = () => {
         const warning = `Really delete ${this.props.item.title}? This cannot be undone.`
         if (confirm(warning)) {
@@ -47,6 +58,9 @@ class SetFeature extends Component {
         let theme_image = ThemeImages[set.theme]
             ? `assets/${ThemeImages[set.theme]}`
             : 'assets/set_images/themes/no_theme.png';
+        const save = this.state.formIsGood ?
+            <button id='set-feature-save' className='bottom-layer' onClick={() => this.handleSave()}>Save Changes</button>
+            : '';
         return (
             <div>
                 <div className='left'>
@@ -54,7 +68,11 @@ class SetFeature extends Component {
                     <img className='img-full' src='assets/ui_icons/back.svg' />
                     </button>
                     <div className='lg-margin'>
-                        <b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
+                        <input
+                            id='set-feature-input' type='number' dir='rtl' onKeyDown={(e) => e.preventDefault()}
+                            defaultValue={set.quantity} min={1} onChange={this.handleChange}
+                        />
+                        <br/><b id='set-feature-number'>{set.s_id.split('-')[0]}</b>
                         <br/>{set.title}<br/>
                         <i className='subtitle'>{set.part_count} pcs</i>
                         <span className='set-feature-theme' ><br/>
@@ -66,6 +84,7 @@ class SetFeature extends Component {
                         alt={'Image of ' + (set.title ? set.title : 'No Name')}
                     />
                     <button className="bottom-left blank-button sm-margin no-padding trash" onClick={this.handleDelete}></button>
+                    {save}
                 </div>
                 <div className='right'>
                     <div className="ten-pct">

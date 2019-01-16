@@ -12,7 +12,7 @@ const SetsScreenActions = [
             let match;
             if (match = context.state.items.find((elt) => elt.s_id === new_set.s_id)) {
               let modified = Object.assign({}, match, {
-                quantity: match.quantity + 1,
+                quantity: match.quantity + new_set.quantity,
               });
               if (context.state.featured) {
                 context.setState({featured: modified});

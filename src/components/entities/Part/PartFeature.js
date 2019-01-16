@@ -55,10 +55,7 @@ class PartFeature extends Component {
         let setcount = this.state.sets.length;
         let { loose } = this.props.item;
         let fromSets = this.props.item.quantity - loose;
-        let prefixes = this.state.sets.map(set => `${set.quantity}x in `);
-        if (this.state.sets.length && this.state.sets.reduce((total, current) => total + current.quantity, 0) + loose !== part.quantity) {
-            alert('Something may be wrong with this entry');
-        }
+        let prefixes = this.state.sets.map(set => set.sets_qty > 1 ? `${set.quantity * set.sets_qty}x in ${set.sets_qty}x ` : `${set.quantity}x in `);
         let image = 'assets/part_images/elements/no_img.png';
         // Check if image is hosted locally
         if (part.img) {

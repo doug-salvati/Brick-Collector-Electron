@@ -114,4 +114,9 @@ module.exports = (connection) => {
             global.win.webContents.send('newPartSent', Object.assign({}, part, {quantity: quantity, loose: quantity}));
         })
     });
+    ipcMain.on('changeSetQuantity', function(_, set, quantity) {
+        connection.changeSetQuantity(set, quantity, () => {
+            global.win.webContents.send('newSetSent', Object.assign({}, set, {quantity: quantity}));
+        })
+    });
 };

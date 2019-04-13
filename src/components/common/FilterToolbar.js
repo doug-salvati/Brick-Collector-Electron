@@ -11,17 +11,22 @@ class filterToolbar extends Component{
         ipcRenderer.on('filter', () => {
             this.filter.current.focus();
         });
+        ipcRenderer.on('dropdown', () => {
+            // ref wouldn't work
+            document.getElementById('filterToolbarSelect').focus();
+        })
     }
     componentWillUnmount() {
         ipcRenderer.removeAllListeners('filter');
     }
     render() {
+        console.log('rendering a toolbar')
         return (
             <div className='filterToolbar sm-padding'>
                 <input type='text' placeholder='🔎 Filter' className='filterToolbarSearch sm-padding-side' ref={this.filter}
                     onChange={e => this.props.handleSearchChange(e.target.value)} value={this.props.defaultText}
                 />
-                <select className='filterToolbarSelect'
+                <select className='filterToolbarSelect' id='filterToolbarSelect'
                     onChange={e => this.props.handleSelectChange(e.target.value)}
                     defaultValue={this.props.defaultOption}
                 >

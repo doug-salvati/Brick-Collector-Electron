@@ -67,6 +67,10 @@ const Collection = {
         {
             label: 'Filter', accelerator: 'CmdOrCtrl + L',
             click() {global.win.webContents.send('filter')}
+        },
+        {
+            label: 'Category', accelerator: 'CmdOrCtrl + ;',
+            click() {global.win.webContents.send('dropdown')}
         }
     ]
 };

@@ -1,13 +1,20 @@
+:root {
+    --light-mode-neutral: #e9e9e9;
+    --light-mode-link: #555555;
+    --light-mode-subtitle: lightgray;
+}
+
 /* built-in elements */
 body {
     margin: 0;
     padding: 0;
     font-family: "Ubuntu";
     overflow: hidden;
+    background: var(--light-mode-neutral);
 }
 a {
     font-variant: small-caps;
-    color: #555;
+    color: var(--light-mode-link);
     font-style: italic;
 }
 a:hover {
@@ -60,9 +67,10 @@ a:hover {
     height: 100vh;
     overflow: scroll;
     border-left: 1px solid;
-    border-image: linear-gradient(to bottom, white 0%, lightgray 100%);
+    border-image: linear-gradient(to bottom, var(--light-mode-neutral) 0%, var(--light-mode-subtitle) 100%);
     border-image-slice: 1;
 }
+
 .ten-pct {
     height: 10%;
 }
@@ -166,7 +174,7 @@ a:hover {
 }
 .subtitle {
     font-variant: small-caps;
-    color: lightgray;
+    color: var(--light-mode-subtitle);
 }
 
 /* z-indices */
@@ -185,13 +193,14 @@ a:hover {
 
 /* colors */
 .solid {
-    background: white;
+    background: var(--light-mode-neutral);
 }
+
 .transparent {
     background: transparent;
 }
 .glow {
-    box-shadow: 0 0 15px 10px white;
+    box-shadow: 0 0 15px 10px var(--light-mode-neutral);
 }
 
 /* trash */

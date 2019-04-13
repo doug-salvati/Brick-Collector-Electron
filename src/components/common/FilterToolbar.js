@@ -20,10 +20,9 @@ class filterToolbar extends Component{
         ipcRenderer.removeAllListeners('filter');
     }
     render() {
-        console.log('rendering a toolbar')
         return (
             <div className='filterToolbar sm-padding'>
-                <input type='text' placeholder='🔎 Filter' className='filterToolbarSearch sm-padding-side' ref={this.filter}
+                <input type='text' placeholder='🔎  Filter' className='filterToolbarSearch sm-padding-side' ref={this.filter}
                     onChange={e => this.props.handleSearchChange(e.target.value)} value={this.props.defaultText}
                 />
                 <select className='filterToolbarSelect' id='filterToolbarSelect'

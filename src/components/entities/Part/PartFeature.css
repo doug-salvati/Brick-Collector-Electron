@@ -37,6 +37,7 @@
     cursor: default;
     color: transparent;
     text-shadow: 0 0 0 black;
+    background: transparent;
 }
 #part-feature-input:focus {
     outline-width: 0;

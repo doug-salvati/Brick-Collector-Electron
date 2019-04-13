@@ -18,6 +18,7 @@
     cursor: default;
     color: transparent;
     text-shadow: 0 0 0 black;
+    background: transparent;
 }
 #set-feature-input:focus {
     outline-width: 0;

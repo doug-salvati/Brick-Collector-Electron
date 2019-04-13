@@ -1,5 +1,12 @@
+@import "../../common.css";
+
+:root {
+  --light-mode-unfocused: #dddddd;
+  --light-mode-focused: #cccccc;
+}
+
 .filterToolbar {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid var(--light-mode-focused);
 }
 
 .filterToolbarSearch {
@@ -10,10 +17,10 @@
   border-radius: 1em;
   border: none;
   outline: none;
-  background: #eeeeee;
+  background: var(--light-mode-unfocused);
 }
-.filterToolbarSearch:focus {
-  background: #dddddd;
+.filterToolbarSearch:focus, .filterToolbarSearch:hover {
+  background: var(--light-mode-focused);
 }
 
 .filterToolbarSelect {
@@ -36,16 +43,16 @@
 .filterToolbarZoom.In {
   margin-left: 1%;
   border-radius: 1em 0 0 1em;
-  background: linear-gradient(to right, #eeeeee 98%, white 100%);
+  background: linear-gradient(to right, var(--light-mode-unfocused) 98%, var(--light-mode-neutral) 100%);
 }
 .filterToolbarZoom.In:hover {
-  background: linear-gradient(to right, #dddddd 98%, white 100%);
+  background: linear-gradient(to right, var(--light-mode-focused) 98%, var(--light-mode-neutral) 100%);
 }
 
 .filterToolbarZoom.Out {
   border-radius: 0 1em 1em 0;
-  background: linear-gradient(to left, #eeeeee 98%, white 100%);
+  background: linear-gradient(to left, var(--light-mode-unfocused) 98%, var(--light-mode-neutral) 100%);
 }
 .filterToolbarZoom.Out:hover {
-  background: linear-gradient(to left, #dddddd 98%, white 100%);
+  background: linear-gradient(to left, var(--light-mode-focused) 98%, var(--light-mode-neutral) 100%);
 }

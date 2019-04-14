@@ -3,8 +3,12 @@ const request = require('request');
 const fs = require('fs');
 
 async function downloadImagesAsync(images) {
+    const imageCount = images.length;
     console.info(`[INFO] Downloading ${images.length} images.`);
-    for (image of images) {
+    for (i in images) {
+        const image = images[i];
+        const count = i + 1;
+        console.info(`[INFO] Awaiting ${image.src} (${}/${imageCount})`);
         await downloadImage(image.src, image.dest);
     }
     console.info(`[INFO] Downloads complete.`);
@@ -13,7 +17,11 @@ async function downloadImagesAsync(images) {
 const downloadImage = (src, dest) => {
     return new Promise(resolve => {
         request.head(src, () => {
-            request(src).pipe(fs.createWriteStream(dest.substring(0, 200))).on('close', resolve);
+            try {
+                request(src).pipe(fs.createWriteStream(dest.substring(0, 200))).on('close', resolve);
+            } catch(e) {
+                console.error(`[ERROR] Image download for ${src} failed: ${e}`);
+            }
         });
     })
 };

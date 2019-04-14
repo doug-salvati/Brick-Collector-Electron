@@ -2,6 +2,7 @@ const ThemeImages = {
     "Minecraft": "set_images/themes/minecraft.png",
     "Star Wars": "set_images/themes/starwars.png",
     "Star Wars Episode 4/5/6": "set_images/themes/starwars.png",
+    "Mini": "set_images/themes/starwars.png",
     "Ultimate Collector Series": "set_images/themes/starwars.png",
     "Jungle": "set_images/themes/cityjungle.png",
     "Police": "set_images/themes/citypolice.png",
@@ -11,6 +12,8 @@ const ThemeImages = {
     "Creator": "set_images/themes/creator.png",
     "Creator 3-in-1": "set_images/themes/creator.png",
     "Creator Expert": "set_images/themes/creator.png",
+    "Modular Buildings": "set_images/themes/creator.png",
+    "Sculptures": "set_images/themes/creator.png",
     "Creature": "set_images/themes/creator.png",
     "Basic Model": "set_images/themes/creator.png",
     "Friends": "set_images/themes/friends.png",
@@ -24,7 +27,9 @@ const ThemeImages = {
     "Traffic": "set_images/themes/city.png",
     "Fire": "set_images/themes/city.png",
     "Coast Guard": "set_images/themes/city.png",
-
+    "Monster Fighters": "set_images/themes/monsterfighters.png",
+    "Arctic": "set_images/themes/arctic.png",
+    "Nexo Knights": "set_images/themes/nexoknights.png",
 };
 
 export default ThemeImages;

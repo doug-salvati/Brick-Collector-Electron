@@ -45,7 +45,7 @@
   border-radius: 1em 0 0 1em;
   background: linear-gradient(to right, var(--light-mode-unfocused) 98%, var(--light-mode-neutral) 100%);
 }
-.filterToolbarZoom.In:hover {
+.filterToolbarZoom.In:hover, .filterToolbarZoom.In:focus {
   background: linear-gradient(to right, var(--light-mode-focused) 98%, var(--light-mode-neutral) 100%);
 }
 
@@ -53,6 +53,6 @@
   border-radius: 0 1em 1em 0;
   background: linear-gradient(to left, var(--light-mode-unfocused) 98%, var(--light-mode-neutral) 100%);
 }
-.filterToolbarZoom.Out:hover {
+.filterToolbarZoom.Out:hover, .filterToolbarZoom.Out:focus {
   background: linear-gradient(to left, var(--light-mode-focused) 98%, var(--light-mode-neutral) 100%);
 }

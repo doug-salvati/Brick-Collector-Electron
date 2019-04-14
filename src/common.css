@@ -22,6 +22,12 @@ a:hover {
 }
 
 /* basic elements like links */
+.highlight-on-focus:focus, .nav-active {
+    border-bottom: 1px solid #6D9EEB !important;
+}
+.nav-active:focus {
+    border-bottom: 2px solid #6D9EEB !important;
+}
 .clickable {
     cursor: pointer;
 }

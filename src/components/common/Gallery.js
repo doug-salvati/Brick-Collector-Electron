@@ -48,6 +48,8 @@ class Gallery extends React.Component {
                     rowCount={Math.ceil(this.props.values.length / this.itemsPerRow)}
                     rowHeight={columnWidth}
                     width={width}
+                    className="blank-button"
+                    tabIndex={-1}
                 />
             );
         } else {
@@ -70,7 +72,7 @@ Gallery.propTypes = {
     height: PropTypes.number,
     // Whether to render checkboxes in the squares
     picker: PropTypes.bool,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
 };
 
 export default Gallery;

@@ -17,7 +17,7 @@ class MainScreen extends Component {
     render() {
         let screen, nav = [];
         for (let type of ['home', 'mocs', 'sets', 'parts']) {
-            nav.push(<button key={`nav-${type}`} className='blank-button' onClick={this.setScreen(type)}>
+            nav.push(<button key={`nav-${type}`} className={`blank-button highlight-on-focus ${this.state.screen === type && 'nav-active'}`} onClick={this.setScreen(type)}>
                 <img className='img-full' src={`assets/ui_icons/${type}.svg`}
                     title={`${type} tab`} alt={type}/>
             </button>);

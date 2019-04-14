@@ -9,9 +9,13 @@
     width: 100%;
     transition: all 0.1s;
 }
-.entity-block.clickable:hover {
+.entity-block.clickable:hover, .entity-block.clickable:focus {
     transform: scale(1.1);
     z-index: 1;
+    outline: none;
+}
+.entity-block.clickable:focus .entity-label {
+    background: #ececec;
 }
 .entity-block.clickable:hover .entity-label {
     background: #ececec;

@@ -8,7 +8,7 @@ async function downloadImagesAsync(images) {
     for (i in images) {
         const image = images[i];
         const count = i + 1;
-        console.info(`[INFO] Awaiting ${image.src} (${}/${imageCount})`);
+        console.info(`[INFO] Awaiting ${image.src} (${count}/${imageCount})`);
         await downloadImage(image.src, image.dest);
     }
     console.info(`[INFO] Downloads complete.`);

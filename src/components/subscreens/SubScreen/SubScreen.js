@@ -108,7 +108,7 @@ class SubScreen extends Component {
               defaultOption={this.state.dropDownFilter === 'All' ? `All ${all}s` : this.state.dropDownFilter}
               optionAll={`All ${all}s`}
             />
-            <button className='top-right blank-button' onClick={this.props.adder}>
+            <button className='top-right blank-button highlight-on-focus' onClick={this.props.adder} tabIndex="1">
               <img className='img-full' src='assets/ui_icons/add.svg' />
             </button>
           </div>

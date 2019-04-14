@@ -9,7 +9,12 @@ const Entity = (props) => {
     }
     return (
         <div className={'localize inline-block fill-height fill-width'}>
-            <span className={`entity-block ${props.className} ${props.handleClick && 'clickable'}`} onClick={(props.handleClick)}>
+            <span
+                className={`entity-block ${props.className} ${props.handleClick && 'clickable'}`}
+                onKeyDown={event => event.key === 'Enter' && props.handleClick()}
+                onClick={(props.handleClick)}
+                tabIndex={props.handleClick && "1"}
+            >
                 <img className='entity-img img-75' src={image}
                     title={'Image of ' + (props.name ? props.name : 'Unnamed Item')}
                     alt={'Image of ' + (props.name ? props.name : 'Unnamed Item')}

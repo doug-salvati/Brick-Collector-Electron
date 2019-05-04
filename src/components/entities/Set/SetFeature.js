@@ -21,6 +21,14 @@ class SetFeature extends Component {
         ipcRenderer.on('partsSent', (e, r) => {
             this.setState({parts: r, loading: false});
         });
+        ipcRenderer.on('increaseQuantity', () => {
+            document.getElementById('set-feature-input').stepUp();
+            this.handleChange();
+        });
+        ipcRenderer.on('decreaseQuantity', () => {
+            document.getElementById('set-feature-input').stepDown();
+            this.handleChange();
+        });
         this.updateWindowDimensions();
         window.addEventListener('resize', () => this.updateWindowDimensions());
     }

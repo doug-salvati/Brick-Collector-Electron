@@ -65,6 +65,15 @@ const Collection = {
         },
         { type: 'separator'},
         {
+            label: 'Increase Quantity', accelerator: 'CmdOrCtrl + ]',
+            click() {global.win.webContents.send('increaseQuantity')}
+        },
+        {
+            label: 'Decrease Quantity', accelerator: 'CmdOrCtrl + [',
+            click() {global.win.webContents.send('decreaseQuantity')}
+        },
+        { type: 'separator'},
+        {
             label: 'Filter', accelerator: 'CmdOrCtrl + L',
             click() {global.win.webContents.send('filter')}
         },

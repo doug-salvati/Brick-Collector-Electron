@@ -21,6 +21,14 @@ class PartFeature extends Component {
         ipcRenderer.on('setsSent', (e, r) => {
             this.setState({sets: r, loading: false});
         });
+        ipcRenderer.on('increaseQuantity', () => {
+            document.getElementById('part-feature-input').stepUp();
+            this.handleChange();
+        });
+        ipcRenderer.on('decreaseQuantity', () => {
+            document.getElementById('part-feature-input').stepDown();
+            this.handleChange();
+        });
         this.updateWindowDimensions();
         window.addEventListener('resize', () => this.updateWindowDimensions());
     }

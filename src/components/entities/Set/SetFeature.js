@@ -34,6 +34,8 @@ class SetFeature extends Component {
     }
     componentWillUnmount() {
         ipcRenderer.removeAllListeners('partsSent');
+        ipcRenderer.removeAllListeners('increaseQuantity');
+        ipcRenderer.removeAllListeners('decreaseQuantity');
         window.removeEventListener('resize', () => this.updateWindowDimensions());
     }
     updateWindowDimensions() {

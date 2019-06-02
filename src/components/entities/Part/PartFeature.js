@@ -15,6 +15,7 @@ class PartFeature extends Component {
             sets: [],
             loading: true,
         };
+        this.handleKeypress = this.handleKeypress.bind(this);
     }
     componentDidMount() {
         ipcRenderer.send('getSetsContainingPart', this.props.item.p_id);
@@ -31,15 +32,30 @@ class PartFeature extends Component {
         });
         this.updateWindowDimensions();
         window.addEventListener('resize', () => this.updateWindowDimensions());
+        window.addEventListener('keydown', this.handleKeypress);
     }
     componentWillUnmount() {
         ipcRenderer.removeAllListeners('setsSent');
         ipcRenderer.removeAllListeners('increaseQuantity');
         ipcRenderer.removeAllListeners('decreaseQuantity');
         window.removeEventListener('resize', () => this.updateWindowDimensions());
+        window.removeEventListener('keydown', this.handleKeypress);
     }
     updateWindowDimensions() {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
+    }
+    handleKeypress = (event) => {
+        switch(event.keyCode) {
+            case 8:
+                this.props.handleBack(this.state.formIsGood);
+                break;
+            case 13:
+                if (this.state.formIsGood) this.handleSave();
+                break;
+            case 46:
+                this.handleDelete();
+                break;
+        }
     }
     handleChange = (event) => {
         const value = parseInt(document.getElementById('part-feature-input').value);
@@ -47,9 +63,9 @@ class PartFeature extends Component {
             value !== this.state.quantity && value > 0), formValue: value});
     }
     handleSave = () => {
-        this.setState({formIsGood: false, quantity: this.state.formValue});
         let copy = Object.assign({}, this.props.item);
         ipcRenderer.send('changePartQuantity', copy, this.state.formValue - this.state.quantity);
+        this.setState({formIsGood: false, quantity: this.state.formValue});
     }
     handleDelete = () => {
         const q = this.state.quantity;

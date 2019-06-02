@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {ipcRenderer} from 'electron';
 import HomeScreen from '../subscreens/HomeScreen/HomeScreen';
 import MOCsScreen from '../subscreens/MOCsScreen/MOCsScreen';
 import SetsScreen from '../subscreens/SetsScreen/SetsScreen';
@@ -10,6 +11,28 @@ class MainScreen extends Component {
         this.state = { screen: 'home' };
     }
 
+    componentDidMount() {
+        ipcRenderer.on('goToHome', () => {
+            this.setState({screen: 'home'});
+        });
+        ipcRenderer.on('goToMOCs', () => {
+            this.setState({screen: 'mocs'});
+        });
+        ipcRenderer.on('goToSets', () => {
+            this.setState({screen: 'sets'});
+        });
+        ipcRenderer.on('goToParts', () => {
+            this.setState({screen: 'parts'});
+        });
+    }
+
+    componentWillUnmount() {
+        ipcRenderer.removeAllListeners('goToHome');
+        ipcRenderer.removeAllListeners('goToMOCs');
+        ipcRenderer.removeAllListeners('goToSets');
+        ipcRenderer.removeAllListeners('goToParts');
+    }
+    
     setScreen(type) {
         return () => this.setState({screen: type});
     }

@@ -88,6 +88,23 @@ const View = {
     label: 'View',
     submenu: [
         {
+            label: 'Home', accelerator: 'CmdOrCtrl + 1',
+            click() {global.win.webContents.send('goToHome')}
+        },
+        {
+            label: 'MOCs', accelerator: 'CmdOrCtrl + 2',
+            click() {global.win.webContents.send('goToMOCs')}
+        },
+        {
+            label: 'Sets', accelerator: 'CmdOrCtrl + 3',
+            click() {global.win.webContents.send('goToSets')}
+        },
+        {
+            label: 'Parts', accelerator: 'CmdOrCtrl + 4',
+            click() {global.win.webContents.send('goToParts')}
+        },
+        { type: 'separator'},
+        {
             label: 'Zoom In', accelerator: 'CmdOrCtrl + =',
             click() {global.win.webContents.send('zoomIn')}
         },

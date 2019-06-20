@@ -1,7 +1,13 @@
 const ThemeImages = {
     "Minecraft": "set_images/themes/minecraft.png",
     "Star Wars": "set_images/themes/starwars.png",
+    "Star Wars Episode 2": "set_images/themes/starwars.png",
+    "Solo": "set_images/themes/starwars.png",
+    "Star Wars Rogue One": "set_images/themes/starwars.png",
+    "Star Wars Rebels": "set_images/themes/starwars.png",
     "Star Wars Episode 4/5/6": "set_images/themes/starwars.png",
+    "Star Wars Episode 7": "set_images/themes/starwars.png",
+    "Star Wars Episode 8": "set_images/themes/starwars.png",
     "Mini": "set_images/themes/starwars.png",
     "Ultimate Collector Series": "set_images/themes/starwars.png",
     "Jungle": "set_images/themes/cityjungle.png",

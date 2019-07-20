@@ -135,7 +135,8 @@ const ColorHex = {
   "ABB Blue": "#039CBD",
   "ABB Green": "#1E601E",
   "ABB Red": "#CA1F08",
-  "ABB Yellow": "#F3C305"
+  "ABB Yellow": "#F3C305",
+  "Coral": "#FF698F"
 };
 
 export const ColorIDs = {
@@ -276,6 +277,7 @@ export const ColorIDs = {
   "ABB Green": "1009",
   "ABB Red": "1010",
   "ABB Yellow": "1011",
+  "Coral": "1050"
 }
 
 export default ColorHex;

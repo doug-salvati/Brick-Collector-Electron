@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ipcRenderer} from 'electron';
+import {ipcRenderer, shell} from 'electron';
 import ThemeImages from '../../../data/themeimages';
 import Part from '../Part/Part';
 import Gallery from '../../common/Gallery';
@@ -29,6 +29,7 @@ class SetFeature extends Component {
             document.getElementById('set-feature-input').stepDown();
             this.handleChange();
         });
+        ipcRenderer.on('openExternalSite', (e, r) => this.openExternalSite(r));
         this.updateWindowDimensions();
         window.addEventListener('resize', () => this.updateWindowDimensions());
     }
@@ -36,6 +37,7 @@ class SetFeature extends Component {
         ipcRenderer.removeAllListeners('partsSent');
         ipcRenderer.removeAllListeners('increaseQuantity');
         ipcRenderer.removeAllListeners('decreaseQuantity');
+        ipcRenderer.removeAllListeners('openExternalSite');
         window.removeEventListener('resize', () => this.updateWindowDimensions());
     }
     updateWindowDimensions() {
@@ -56,6 +58,19 @@ class SetFeature extends Component {
         if (confirm(warning)) {
             ipcRenderer.send('deleteSet', this.props.item);
             this.props.handleBack();
+        }
+    }
+    openExternalSite = (site) => {
+        switch (site) {
+            case 'rebrickable':
+                shell.openExternal(`https://rebrickable.com/sets/${this.props.item.s_id}`);
+                break;
+            case 'bricklink':
+                shell.openExternal(`https://www.bricklink.com/v2/catalog/catalogitem.page?S=${this.props.item.s_id}`);
+                break;
+            case 'instructions':
+                shell.openExternal(`https://www.lego.com/en-us/service/buildinginstructions/search#?search&text=${this.props.item.s_id.split('-')[0]}`);
+                break;
         }
     }
     render() {

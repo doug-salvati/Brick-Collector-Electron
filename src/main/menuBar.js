@@ -103,7 +103,7 @@ const View = {
             label: 'Parts', accelerator: 'CmdOrCtrl + 4',
             click() {global.win.webContents.send('goToParts')}
         },
-        { type: 'separator'},
+        { type: 'separator' },
         {
             label: 'Zoom In', accelerator: 'CmdOrCtrl + =',
             click() {global.win.webContents.send('zoomIn')}
@@ -111,6 +111,19 @@ const View = {
         {
             label: 'Zoom Out', accelerator: 'CmdOrCtrl + -',
             click() {global.win.webContents.send('zoomOut')}
+        },
+        { type: 'separator' },
+        {
+            label: '⇱ Item In Bricklink',
+            click() {global.win.webContents.send('openExternalSite', 'bricklink')}
+        },
+        {
+            label: '⇱ Item In Rebrickable',
+            click() {global.win.webContents.send('openExternalSite', 'rebrickable')}
+        },
+        {
+            label: '⇱ Instructions',
+            click() {global.win.webContents.send('openExternalSite', 'instructions')}
         },
     ]
 };
@@ -134,6 +147,10 @@ const Develop = {
 const Help = {
     role: 'help',
     submenu: [
+        {
+            label: 'Documentation',
+            click () { shell.openExternal('https://github.com/doug-salvati/Brick-Collector/blob/master/README.md') }
+        },
         {
             label: 'About Rebrickable API',
             click () { shell.openExternal('https://rebrickable.com/api/') }

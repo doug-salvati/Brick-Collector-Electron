@@ -9,20 +9,14 @@ const fs = require('fs');
 const mysqlConfig = require('./config/mysql.config');
 const menuBar = require('./src/main/menuBar');
 const ipcDispatcher = require('./src/main/dispatcher');
-const openInDialog = require('./src/main/openInDialog');
+const createDialogs = require('./src/main/dialogs');
 
 const dbConnection = mysql.createConnection(mysqlConfig);
 ipcDispatcher(DatabaseAPI(dbConnection));
 global.rebrickable = fs.readFileSync('./src/data/apikey.txt').toString();
 
-// Modal windows
-global.openDialog = {
-    "add_part": function() { openInDialog('/public/index.html?parts_dialog') },
-    "add_set": function() { openInDialog('/public/index.html?sets_dialog') },
-    "add_part_form": function() { openInDialog('/public/index.html?parts_form_dialog') },
-}
-
 app.on('ready', () => {
+    createDialogs();
     dbConnection.connect();
     global.win = new BrowserWindow({width: 800, height: 600});
     global.win.loadURL(path.join('file://', __dirname, '/public/index.html'));

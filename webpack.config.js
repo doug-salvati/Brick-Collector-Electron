@@ -28,7 +28,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['react', 'es2015'],
+          presets: ['@babel/preset-env', '@babel/preset-react'],
           plugins: ['transform-class-properties', 'transform-object-rest-spread']
         }
       },

@@ -11,7 +11,7 @@ describe('loader', () => {
         expect(classNames).toMatch(/generic.*?(red|green|blue)/);
     });
     it('renders a specific loader', () => {
-        const loader = Enzyme.shallow(<Loader variety='blue' />);
+        const loader = Enzyme.shallow(<Loader variety='generic blue' />);
         const classNames = loader.find('div').props('className').className;
         expect(classNames).toEqual('generic blue');
     });

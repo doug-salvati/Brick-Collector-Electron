@@ -14,9 +14,9 @@ const createDialogs = require('./src/main/dialogs');
 const dbConnection = mysql.createConnection(mysqlConfig);
 ipcDispatcher(DatabaseAPI(dbConnection));
 global.rebrickable = fs.readFileSync('./src/data/apikey.txt').toString();
+createDialogs();
 
 app.on('ready', () => {
-    createDialogs();
     dbConnection.connect();
     global.win = new BrowserWindow({width: 800, height: 600});
     global.win.loadURL(path.join('file://', __dirname, '/public/index.html'));

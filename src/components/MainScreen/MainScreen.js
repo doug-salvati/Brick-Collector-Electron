@@ -8,15 +8,15 @@ import PartsScreen from '../subscreens/PartsScreen/PartsScreen';
 class MainScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = { screen: 'home' };
+        this.state = { screen: 'sets' };
     }
 
     componentDidMount() {
         ipcRenderer.on('goToHome', () => {
-            this.setState({screen: 'home'});
+            // this.setState({screen: 'home'});
         });
         ipcRenderer.on('goToMOCs', () => {
-            this.setState({screen: 'mocs'});
+            // this.setState({screen: 'mocs'});
         });
         ipcRenderer.on('goToSets', () => {
             this.setState({screen: 'sets'});
@@ -39,7 +39,7 @@ class MainScreen extends Component {
 
     render() {
         let screen, nav = [];
-        for (let type of ['home', 'mocs', 'sets', 'parts']) {
+        for (let type of [/*'home', 'mocs',*/ 'sets', 'parts']) {
             nav.push(<button key={`nav-${type}`} className={`blank-button highlight-on-focus ${this.state.screen === type && 'nav-active'}`} onClick={this.setScreen(type)}>
                 <img className='img-full' src={`assets/ui_icons/${type}.svg`}
                     title={`${type} tab`} alt={type}/>

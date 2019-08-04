@@ -36,6 +36,7 @@ const ThemeImages = {
     "Monster Fighters": "set_images/themes/monsterfighters.png",
     "Arctic": "set_images/themes/arctic.png",
     "Nexo Knights": "set_images/themes/nexoknights.png",
+    "Harry Potter": "set_images/themes/harrypotter.png",
 };
 
 export default ThemeImages;

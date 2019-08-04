@@ -1,9 +1,10 @@
 {
   "name": "brick-collector",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "main": "main.js",
   "description": "App for managing a brick collection.",
   "repository": "https://github.com/doug-salvati/Brick-Collector",
+  "author": "Doug Salvati",
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
@@ -12,8 +13,9 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "css-loader": "^3.1.0",
+    "electron": "^1.8.8",
+    "electron-builder": "^21.2.0",
     "electron-packager": "^12.1.2",
-    "electron-rebuild": "^1.8.2",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "file-loader": "^1.1.11",
@@ -27,8 +29,8 @@
   "scripts": {
     "start": "./node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .",
     "watch": "./node_modules/.bin/webpack-dev-server",
-    "electron-rebuild": "./node_modules/.bin/electron-rebuild",
-    "test": "jest"
+    "test": "jest",
+    "dist": "electron-builder"
   },
   "jest": {
     "moduleNameMapper": {
@@ -37,12 +39,20 @@
   },
   "dependencies": {
     "ajv": "^6.5.4",
-    "electron": "^1.8.8",
     "mysql": "^2.16.0",
     "mysqldump": "^2.2.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-virtualized": "^9.20.1"
-  }
+    "react-virtualized": "^9.20.1",
+    "request": "^2.88.0"
+  },
+  "build": {
+    "appId": "com.dsalvati.brickcollector",
+    "productName": "Brick Collector",
+    "mac": {
+      "category": "public.app-category.lifestyle"
+    }
+  },
+  "postinstall": "electron-builder install-app-deps"
 }

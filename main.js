@@ -13,7 +13,7 @@ const createDialogs = require('./src/main/dialogs');
 
 const dbConnection = mysql.createConnection(mysqlConfig);
 ipcDispatcher(DatabaseAPI(dbConnection));
-global.rebrickable = fs.readFileSync('./src/data/apikey.txt').toString();
+global.rebrickable = fs.readFileSync(path.join(__dirname, 'src/data/apikey.txt')).toString();
 createDialogs();
 
 app.on('ready', () => {

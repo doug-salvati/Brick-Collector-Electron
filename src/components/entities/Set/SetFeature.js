@@ -78,7 +78,7 @@ class SetFeature extends Component {
         let image = 'assets/set_images/no_img.png';
         // Check if image is hosted locally
         if (set.img) {
-            image = (set.img.includes('http')) ? set.img : `assets/set_images/sets/${set.img}`;
+            image = (set.img.includes('http')) ? set.img : `/Library/Application Support/com.dsalvati.brickcollector/set_images/${set.img}`;
         }
         let theme_image = ThemeImages[set.theme]
             ? `assets/${ThemeImages[set.theme]}`

@@ -6,7 +6,7 @@ const Set = (props) => {
     const {xid, classification, ...rest} = props;
     return (
         <Entity
-            imagepath="assets/set_images/sets"
+            imagepath="/Library/Application Support/com.dsalvati.brickcollector/set_images"
             number={xid ? `${xid.split('-')[0]} ` : undefined}
             icon={`url(assets/${ThemeImages[classification]})`}
             iconTooltip={classification}

@@ -6,7 +6,7 @@ const Part = (props) => {
     const {qty, classification, number, ...rest} = props;
     return (
         <Entity
-            imagepath="assets/part_images/elements"
+            imagepath="/Library/Application Support/com.dsalvati.brickcollector/part_images"
             number={number || (qty ? `${qty}x ` : undefined)}
             icon={ColorHex[classification]}
             iconTooltip={classification}

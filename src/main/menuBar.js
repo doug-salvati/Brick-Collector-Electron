@@ -139,7 +139,7 @@ const Develop = {
         },
         {
             label: 'Open Part Images in Finder',
-            click () { shell.openExternal('file:///Users/doug/Code/electron/brick-collector/public/assets/part_images/elements') }
+            click () { shell.openExternal('file:///Library/Application Support/com.dsalvati.brickcollector/part_images') }
         }
     ]
 }

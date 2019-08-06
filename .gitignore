@@ -1,7 +1,5 @@
 node_modules/
 .DS_Store
-public/assets/part_images/elements/*.jpg
-public/assets/set_images/sets/*.jpg
 src/data/apikey.txt
 db/MySQLWorkbench
 config/mysql.config.js

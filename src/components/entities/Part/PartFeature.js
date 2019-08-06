@@ -85,7 +85,7 @@ class PartFeature extends Component {
         let image = 'assets/part_images/elements/no_img.png';
         // Check if image is hosted locally
         if (part.img) {
-            image = (part.img.includes('http')) ? part.img : `assets/part_images/elements/${part.img}`;
+            image = (part.img.includes('http')) ? part.img : `/Library/Application Support/com.dsalvati.brickcollector/part_images/${part.img}`;
         }
         const save = this.state.formIsGood ?
             <button id='part-feature-save' className='bottom-layer' onClick={() => this.handleSave()}>Save Changes</button>

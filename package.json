@@ -23,14 +23,14 @@
     "node-libs-browser": "^2.1.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.1",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-cli": "^3.1.1"
   },
   "scripts": {
-    "start": "./node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .",
-    "watch": "./node_modules/.bin/webpack-dev-server",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "NODE_ENV=development ./node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .",
     "test": "jest",
-    "dist": "electron-builder"
+    "dist": "npm test && webpack && electron-builder"
   },
   "jest": {
     "moduleNameMapper": {

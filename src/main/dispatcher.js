@@ -1,4 +1,5 @@
 const { ipcMain } = require('electron');
+const path = require('path');
 const request = require('request');
 const fs = require('fs');
 
@@ -34,7 +35,7 @@ module.exports = (connection) => {
         const final_part = Object.assign({}, part, {img: dest_filename});
         if (img_src && img_src.includes('http')) {
             request.head(img_src, () => {
-                request(img_src).pipe(fs.createWriteStream(img_dest)).on('close', () => {
+                request(img_src).pipe(fs.createWriteStream(path.join(__dirname, '../..', img_dest))).on('close', () => {
                     connection.addPart(final_part, () => {
                         global.win.webContents.send('newPartSent', final_part);
                     });
@@ -52,7 +53,7 @@ module.exports = (connection) => {
         const img_dest = `public/assets/set_images/sets/${set.s_id}.jpg`;
         const final_set = Object.assign({}, set, {img: `${set.s_id}.jpg`});
         request.head(img_src, () => {
-            request(img_src).pipe(fs.createWriteStream(img_dest)).on('close', () => {
+            request(img_src).pipe(fs.createWriteStream(path.join(__dirname, '../..', img_dest))).on('close', () => {
                 connection.addSet(final_set, () => {
                     global.win.webContents.send('newSetSent', final_set);
                 });
@@ -68,7 +69,7 @@ module.exports = (connection) => {
             const img_dest = `public/assets/part_images/elements/${dest_filename}`;
             final_parts.push(Object.assign({}, part, {img: dest_filename}));
             if (img_src) {
-                images.push({src: img_src, dest: img_dest});
+                images.push({src: img_src, dest: path.join(__dirname, '../..', img_dest)});
             }
             parts[idx].img = `${part.p_id}.jpg`;
         }

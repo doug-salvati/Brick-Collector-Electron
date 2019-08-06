@@ -6,3 +6,4 @@ src/data/apikey.txt
 db/MySQLWorkbench
 config/mysql.config.js
 dist/
+public/built

@@ -7,7 +7,7 @@ module.exports = {
   target: 'electron-main',
 
   entry: {
-    app: ['webpack/hot/dev-server', './src/index.js']
+    app: ['./src/index.js']
   },
 
   output: {

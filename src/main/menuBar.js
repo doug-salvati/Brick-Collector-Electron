@@ -158,12 +158,17 @@ const Help = {
     ]
 };
 
-module.exports = [
+const baseMenu = [
     BrickCollector,
     File,
     Edit,
     Collection,
     View,
-    Develop,
     Help
 ];
+
+if (process.env.NODE_ENV === 'development') {
+    baseMenu.push(Develop);
+}
+
+module.exports = baseMenu;

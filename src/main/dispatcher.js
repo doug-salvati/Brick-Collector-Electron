@@ -29,7 +29,7 @@ const downloadImage = (src, dest) => {
 module.exports = (connection) => {
     ipcMain.on('addPart', function(_, part) {
         const img_src = part.img;
-        const dest_filename = img_src ? `${part.p_id}.jpg` : 'no_img.png';
+        const dest_filename = img_src ? `${part.p_id.replace(/\//g, '')}.jpg` : 'no_img.png';
         const img_dest = `/Library/Application Support/com.dsalvati.brickcollector/part_images/${dest_filename}`;
         const final_part = Object.assign({}, part, {img: dest_filename});
         if (img_src && img_src.includes('http')) {

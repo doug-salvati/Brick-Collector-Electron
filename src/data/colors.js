@@ -1,4 +1,5 @@
 const ColorHex = {
+  "[No Color/Any Color]": "#000000",
   "Black": "#05131D",
   "Blue": "#0055BF",
   "Green": "#237841",
@@ -140,6 +141,7 @@ const ColorHex = {
 };
 
 export const ColorIDs = {
+  "[No Color/Any Color]": "9999",
   "Black": "0",
   "Blue": "1",
   "Green": "2",

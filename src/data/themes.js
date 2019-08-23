@@ -148,6 +148,7 @@ const Themes = [
     'Harry Potter and Fantastic Beasts',
     'Hero Factory',
     'Heroes',
+    'Hidden Side',
     'Hobby Sets',
     'Hockey',
     'Holiday',

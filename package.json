@@ -1,6 +1,6 @@
 {
   "name": "brick-collector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "main.js",
   "description": "App for managing a brick collection.",
   "repository": "https://github.com/doug-salvati/Brick-Collector",

@@ -37,6 +37,7 @@ const ThemeImages = {
     "Arctic": "themes/arctic.png",
     "Nexo Knights": "themes/nexoknights.png",
     "Harry Potter": "themes/harrypotter.png",
+    "Hidden Side": "themes/hiddenside.png",
 };
 
 export default ThemeImages;

@@ -1,5 +1,5 @@
 const key = global.rebrickable;
-import { ColorIDs } from '../data/colors';
+import { ColorIDs } from '../constants/colors';
 
 const Rebrickable = {
     searchPart: (part_num, callback) => {

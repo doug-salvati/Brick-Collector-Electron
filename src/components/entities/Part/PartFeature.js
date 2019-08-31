@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ipcRenderer} from 'electron';
-import ColorHex from '../../../data/colors.js';
+import ColorHex from '../../../constants/colors.js';
 import Set from '../Set/Set';
 import Gallery from '../../common/Gallery';
 import './PartFeature.css';
@@ -94,7 +94,7 @@ class PartFeature extends Component {
             <div>
                 <div className="left">
                     <button className='top-left blank-button' onClick={() => this.props.handleBack(this.state.formIsGood)}>
-                        <img className='img-full' src={`assets/ui_icons/${this.state.formIsGood ? 'back-unsaved' : 'back'}.svg`} />
+                        <img className='img-full' src={`assets/ui/${this.state.formIsGood ? 'back-unsaved' : 'back'}.svg`} />
                     </button>
                     <div className='lg-margin'>
                         <input

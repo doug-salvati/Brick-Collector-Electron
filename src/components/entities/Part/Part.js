@@ -1,5 +1,5 @@
 import React from 'react';
-import ColorHex from '../../../data/colors.js';
+import ColorHex from '../../../constants/colors.js';
 import Entity from '../Entity/Entity';
 
 const Part = (props) => {

@@ -6,7 +6,7 @@ Releases will be distributed here shortly. In the meantime, if you want to try t
 
 ## Running
 You need a MySQL initialized with `schema.sql` with `config/mysql.config.js` set up appropriately from the template. 
-You also need a [Rebrickable.com](https://rebrickable.com/api/) API key in `src/data/apikey.txt`.
+You also need a [Rebrickable.com](https://rebrickable.com/api/) API key in `src/constants/apikey.txt`.
 Then,
 ```
 npm run watch

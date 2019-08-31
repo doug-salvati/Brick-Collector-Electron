@@ -1,5 +1,5 @@
 import React from 'react';
-import ThemeImages from '../../../data/themeimages.js';
+import ThemeImages from '../../../constants/themeimages.js';
 import Entity from '../Entity/Entity';
 
 const Set = (props) => {

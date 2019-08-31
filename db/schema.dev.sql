@@ -6,8 +6,8 @@
  * Run the following as root
  */
 
-CREATE DATABASE brickcollector;
-USE brickcollector;
+CREATE DATABASE brickcollectordev;
+USE brickcollectordev;
 
 /* Sets */
 CREATE TABLE sets (
@@ -62,4 +62,4 @@ CREATE TABLE borrowings (
 
 /* App user used to connect */
 CREATE USER 'bc_app'@'localhost' IDENTIFIED BY 'bc_pw';
-GRANT ALL PRIVILEGES ON brickcollector.* TO 'bc_app'@'localhost';
+GRANT ALL PRIVILEGES ON brickcollectordev.* TO 'bc_app'@'localhost';

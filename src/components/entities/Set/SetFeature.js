@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ipcRenderer, shell} from 'electron';
-import ThemeImages from '../../../data/themeimages';
+import ThemeImages from '../../../constants/themeimages';
 import Part from '../Part/Part';
 import Gallery from '../../common/Gallery';
 import './SetFeature.css';
@@ -90,7 +90,7 @@ class SetFeature extends Component {
             <div>
                 <div className='left'>
                     <button className='top-left blank-button' onClick={() => this.props.handleBack(false)}>
-                    <img className='img-full' src='assets/ui_icons/back.svg' />
+                    <img className='img-full' src='assets/ui/back.svg' />
                     </button>
                     <div className='lg-margin'>
                         <input

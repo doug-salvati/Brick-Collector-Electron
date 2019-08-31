@@ -1,6 +1,6 @@
 node_modules/
 .DS_Store
-src/data/apikey.txt
+src/constants/apikey.txt
 db/MySQLWorkbench
 config/mysql.config.js
 dist/

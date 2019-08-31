@@ -211,12 +211,12 @@ a:hover {
 
 /* trash */
 .trash {
-    background: url(assets/ui_icons/trash.svg) no-repeat;
+    background: url(assets/ui/trash.svg) no-repeat;
     height: 25px;
     width: 25px;
 }
 .trash:hover {
-    background: url(assets/ui_icons/trash-open.svg) no-repeat;
+    background: url(assets/ui/trash-open.svg) no-repeat;
 }
 
 /* bootstrap-style units */

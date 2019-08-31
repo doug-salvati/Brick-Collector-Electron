@@ -109,7 +109,7 @@ class SubScreen extends Component {
               optionAll={`All ${all}s`}
             />
             <button className='top-right blank-button highlight-on-focus' onClick={this.props.adder} tabIndex="1">
-              <img className='img-full' src='assets/ui_icons/add.svg' />
+              <img className='img-full' src='assets/ui/add.svg' />
             </button>
           </div>
           <Gallery

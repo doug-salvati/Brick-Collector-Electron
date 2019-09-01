@@ -1,6 +1,7 @@
 const ThemeImages = {
     "Minecraft": "themes/minecraft.png",
     "Star Wars": "themes/starwars.png",
+    "Star Wars Episode 1": "themes/starwars.png",
     "Star Wars Episode 2": "themes/starwars.png",
     "Solo": "themes/starwars.png",
     "Star Wars Rogue One": "themes/starwars.png",
@@ -13,9 +14,11 @@ const ThemeImages = {
     "Jungle": "themes/cityjungle.png",
     "Police": "themes/citypolice.png",
     "Promotional": "themes/promotional.png",
+    "LEGO Brand Store": "themes/promotional.png",
     "Ninjago": "themes/ninjago.png",
     "Ninjago The Movie": "themes/ninjagomovie.png",
     "Creator": "themes/creator.png",
+    "Early Creator": "themes/creator.png",
     "Creator 3-in-1": "themes/creator.png",
     "Creator Expert": "themes/creator.png",
     "Modular Buildings": "themes/creator.png",
@@ -32,12 +35,22 @@ const ThemeImages = {
     "Town": "themes/creator.png",
     "Traffic": "themes/city.png",
     "Fire": "themes/city.png",
+    "Space Port": "themes/city.png",
     "Coast Guard": "themes/city.png",
+    "Train": "themes/city.png",
+    "Hospital": "themes/city.png",
     "Monster Fighters": "themes/monsterfighters.png",
     "Arctic": "themes/arctic.png",
     "Nexo Knights": "themes/nexoknights.png",
     "Harry Potter": "themes/harrypotter.png",
+    "Harry Potter and Fantastic Beasts": "themes/harrypotter.png",
     "Hidden Side": "themes/hiddenside.png",
+    "Toy Story": "themes/toystory.png",
+    "Disney": "themes/disney.png",
+    "Disney Princess": "themes/disney.png",
+    "Disney Series 2": "themes/disney.png",
+    "SpongeBob SquarePants": "themes/spongebob.png",
+    
 };
 
 export default ThemeImages;

@@ -11,13 +11,13 @@ USE brickcollector;
 
 /* Sets */
 CREATE TABLE sets (
-    s_id VARCHAR(64) NOT NULL,
+    id VARCHAR(64) NOT NULL,
     title VARCHAR(100),
     part_count INT,
     theme VARCHAR(64),
     img VARCHAR(200), /* Path to image file */
     quantity INT NOT NULL,
-    PRIMARY KEY (s_id)
+    PRIMARY KEY (id)
 );
 
 /* MOCS */
@@ -33,13 +33,13 @@ CREATE TABLE mocs (
 
 /* PARTS */
 CREATE TABLE parts (
-    p_id VARCHAR(64) NOT NULL,
+    id VARCHAR(64) NOT NULL,
     title VARCHAR(100),
     color VARCHAR(100) NOT NULL,
     img VARCHAR(200),
     quantity INT NOT NULL,
     loose INT, /* Indicates how many are not part of a set or MOC via the bridge */
-    PRIMARY KEY (p_id)
+    PRIMARY KEY (id)
 );
 
 /* BRIDGE:

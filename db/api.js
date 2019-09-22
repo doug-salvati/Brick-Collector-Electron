@@ -13,8 +13,8 @@ var queries = {
     sets_all: 'SELECT * FROM sets',
     mocs_all_count: 'SELECT COUNT(*) FROM mocs',
     mocs_all: 'SELECT * FROM mocs',
-    parts_in_set: function(s_id) { return `SELECT bridge.quantity, parts.p_id, parts.title, parts.color, parts.img FROM bridge INNER JOIN parts ON bridge.p_id=parts.p_id WHERE x_id='${s_id}';` },
-    sets_containing_part: function(p_id) { return `SELECT bridge.quantity, sets.s_id, sets.title, sets.theme, sets.img, sets.quantity as sets_qty FROM bridge INNER JOIN sets ON bridge.x_id=sets.s_id WHERE p_id='${p_id}';`}
+    parts_in_set: function(id) { return `SELECT bridge.quantity, parts.id, parts.title, parts.color, parts.img FROM bridge INNER JOIN parts ON bridge.p_id=parts.id WHERE x_id='${id}';` },
+    sets_containing_part: function(id) { return `SELECT bridge.quantity, sets.id, sets.title, sets.theme, sets.img, sets.quantity as sets_qty FROM bridge INNER JOIN sets ON bridge.x_id=sets.id WHERE p_id='${id}';`}
 };
 
 exports.default = function DatabaseAPI(connection) {
@@ -31,21 +31,21 @@ exports.default = function DatabaseAPI(connection) {
     function identity(n) {return n;}
     return {
         // Create
-        // pt {p_id, title, color, img, quantity, loose}
+        // pt {id, title, color, img, quantity, loose}
         addPart: function(pt, callback) {
             // How many do we have?
-            // @TODO use ON DUPLICATE KEY
-            var where = 'p_id="' + pt.p_id + '" AND color="' + pt.color + '"';
+            // TODO use ON DUPLICATE KEY
+            var where = 'id="' + pt.id + '" AND color="' + pt.color + '"';
             connection.query('SELECT quantity, loose FROM parts WHERE ' + where, function(e,r) {
                 if (r.length) {
                     // if we already have some of this part
                     var query = 'UPDATE parts SET quantity = quantity + ' + pt.quantity + ', ';
                     query += 'loose = loose + ' + pt.loose + ' ';
-                    query += 'WHERE p_id="' + pt.p_id +'"';
+                    query += 'WHERE id="' + pt.id +'"';
                 } else {
                     // new part
                     var query = 'INSERT INTO parts VALUES ( ';
-                    query += "'" + pt.p_id + "', ";
+                    query += "'" + pt.id + "', ";
                     query += pt.title ? ("'" + pt.title.replace(/\'/g,'') + "', ") : 'NULL,';
                     query += "'" + pt.color + "', ";
                     query += pt.img ? ("'" + pt.img + "', ") : 'NULL,';
@@ -57,10 +57,10 @@ exports.default = function DatabaseAPI(connection) {
                 connection.query(query, callback);
             });
         },
-        // set {p_id, title, part_count, theme, img, quantity}
+        // set {id, title, part_count, theme, img, quantity}
         addSet: function(set, callback) {
             // How many do we have?
-            var where = 's_id="' + set.s_id + '"';
+            var where = 'id="' + set.id + '"';
             connection.query('SELECT quantity FROM sets WHERE ' + where, function(e,r) {
                 if (r.length) {
                     // if we already have some of this set
@@ -68,7 +68,7 @@ exports.default = function DatabaseAPI(connection) {
                 } else {
                     // new set
                     var query = 'INSERT INTO sets VALUES (';
-                    query += "'" + set.s_id + "', ";
+                    query += "'" + set.id + "', ";
                     query += set.title ? ("'" + set.title.replace(/\'/g,'') + "', ") : 'NULL,';
                     query += "'" + set.part_count + "',";
                     query += "'" + set.theme.replace(/\'/g,'') + "', ";
@@ -83,10 +83,10 @@ exports.default = function DatabaseAPI(connection) {
             const bridge = [];
             const adding = parts.map(function(pt) {
                 bridge.push(
-                    "('" + set.s_id + "', '" + pt.p_id + "', " + pt.quantity + ", 0)"
+                    "('" + set.id + "', '" + pt.id + "', " + pt.quantity + ", 0)"
                 );
                 return (
-                    "('" + pt.p_id + "', "
+                    "('" + pt.id + "', "
                         + (pt.title ? ("'" + pt.title.replace(/\'/g,'') + "', ") : 'NULL,')
                         + "'" + pt.color + "', "
                         + (pt.img ? ("'" + pt.img + "', ") : 'NULL,')
@@ -94,7 +94,7 @@ exports.default = function DatabaseAPI(connection) {
                 );
             });
             // Add parts
-            const query1 = 'INSERT INTO parts (p_id, title, color, img, quantity, loose) '
+            const query1 = 'INSERT INTO parts (id, title, color, img, quantity, loose) '
                 + 'VALUES ' + adding + ' '
                 + 'ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)';
             console.info("[INFO] MySQL << " + query1);
@@ -118,18 +118,18 @@ exports.default = function DatabaseAPI(connection) {
 
         // Update
         changePartQuantity: function(pt, qty, callback) {
-            const where = 'p_id="' + pt.p_id + '"';
+            const where = 'id="' + pt.id + '"';
             const query = 'UPDATE parts SET quantity = quantity + ' + qty + ', loose = loose + ' + qty + ' WHERE ' + where;
             connection.query(query, callback);
             console.info("[INFO] MySQL << " + query);
         },
         changeSetQuantity: function(set, qty, callback) {
-            const where1 = 's_id="' + set.s_id + '"';
+            const where1 = 'id="' + set.id + '"';
             const query1 = 'UPDATE sets SET quantity = quantity + ' + qty + ' WHERE ' + where1;
             console.info("[INFO] MySQL << " + query1);
             connection.query(query1, function() {
-                const where2 = 'x_id="' + set.s_id + '"';
-                const query2 = 'UPDATE parts INNER JOIN bridge ON bridge.p_id=parts.p_id SET parts.quantity = parts.quantity + ' + qty + ' * bridge.quantity WHERE ' + where2;
+                const where2 = 'x_id="' + set.id + '"';
+                const query2 = 'UPDATE parts INNER JOIN bridge ON bridge.p_id=parts.id SET parts.quantity = parts.quantity + ' + qty + ' * bridge.quantity WHERE ' + where2;
                 console.info("[INFO] MySQL << " + query2);
                 connection.query(query2, callback);
             });
@@ -137,20 +137,20 @@ exports.default = function DatabaseAPI(connection) {
 
         // Destroy
         deletePart: function(pt, callback) {
-            const where = 'p_id="' + pt.p_id + '"';
+            const where = 'id="' + pt.id + '"';
             const query = 'DELETE FROM parts WHERE ' + where;
             connection.query(query, callback);
             console.info("[INFO] MySQL << " + query);
         },
         deleteSet: function(set, callback) {
-            const where = 's_id="' + set.s_id + '"';
+            const where = 'id="' + set.id + '"';
             const query = 'DELETE FROM sets WHERE ' + where;
             connection.query(query, callback);
             console.info("[INFO] MySQL << " + query);
         },
         deletePartsContainedInSetAndCleanBridge: function(set, callback) {
-            const where = 'x_id="' + set.s_id + '"';
-            const query1 = 'UPDATE parts INNER JOIN bridge ON bridge.p_id=parts.p_id SET parts.quantity = parts.quantity - (bridge.quantity * ' + set.quantity + ') WHERE ' + where;
+            const where = 'x_id="' + set.id + '"';
+            const query1 = 'UPDATE parts INNER JOIN bridge ON bridge.p_id=parts.id SET parts.quantity = parts.quantity - (bridge.quantity * ' + set.quantity + ') WHERE ' + where;
             connection.query(query1, function() {
                 const query2 = 'DELETE FROM bridge WHERE ' + where;
                 connection.query(query2, function() {

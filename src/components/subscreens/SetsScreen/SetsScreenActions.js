@@ -10,7 +10,7 @@ const SetsScreenActions = [
         type: 'newSetSent',
         worker: (event, new_set, context) => {
             let match;
-            if (match = context.state.items.find((elt) => elt.s_id === new_set.s_id)) {
+            if (match = context.state.items.find((elt) => elt.id === new_set.id)) {
               let modified = Object.assign({}, match, {
                 quantity: match.quantity + new_set.quantity,
               });
@@ -31,7 +31,7 @@ const SetsScreenActions = [
     {
         type: 'setDeleted',
         worker: (event, old_set, context) => {
-            const match = context.state.items.find((elt) => elt.s_id === old_set.s_id);
+            const match = context.state.items.find((elt) => elt.id === old_set.id);
             const idx = context.state.items.indexOf(match);
             let new_sets = context.state.items.slice();
             new_sets.splice(idx, 1);

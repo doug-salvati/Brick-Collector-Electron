@@ -1,142 +1,52 @@
 import React, { Component } from 'react';
+import PartFeatureActions from './PartActions';
 import {ipcRenderer} from 'electron';
+import EntityFeature from '../Entity/EntityFeature';
 import ColorHex from '../../../constants/colors.js';
 import Set from '../Set/Set';
-import Gallery from '../../common/Gallery';
-import './PartFeature.css';
+
+const Detail = props => {
+  const { item, count } = props;
+  const fromSets = item.quantity - item.loose;
+  return (
+    <React.Fragment>
+      <b>{fromSets}x</b> from {count} set{count > 1 && 's'}<br/>
+      <b>{item.loose}x</b> loose
+    </React.Fragment>
+  );                             
+}
+
+const getPrefixes = sets =>
+  sets.map(set => set.sets_qty > 1 ? `${set.quantity * set.sets_qty}x in ${set.sets_qty}x ` : `${set.quantity}x in `);
 
 class PartFeature extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            formIsGood: false,
-            formValue: this.props.item.quantity,
-            quantity: this.props.item.quantity,
-            sets: [],
-            loading: true,
-        };
-        this.handleKeypress = this.handleKeypress.bind(this);
-    }
-    componentDidMount() {
-        ipcRenderer.send('getSetsContainingPart', this.props.item.p_id);
-        ipcRenderer.on('setsSent', (e, r) => {
-            this.setState({sets: r, loading: false});
-        });
-        ipcRenderer.on('increaseQuantity', () => {
-            document.getElementById('part-feature-input').stepUp();
-            this.handleChange();
-        });
-        ipcRenderer.on('decreaseQuantity', () => {
-            document.getElementById('part-feature-input').stepDown();
-            this.handleChange();
-        });
-        this.updateWindowDimensions();
-        window.addEventListener('resize', () => this.updateWindowDimensions());
-        window.addEventListener('keydown', this.handleKeypress);
-    }
-    componentWillUnmount() {
-        ipcRenderer.removeAllListeners('setsSent');
-        ipcRenderer.removeAllListeners('increaseQuantity');
-        ipcRenderer.removeAllListeners('decreaseQuantity');
-        window.removeEventListener('resize', () => this.updateWindowDimensions());
-        window.removeEventListener('keydown', this.handleKeypress);
-    }
-    updateWindowDimensions() {
-        this.setState({ width: window.innerWidth, height: window.innerHeight });
-    }
-    handleKeypress = (event) => {
-        switch(event.keyCode) {
-            case 8:
-                this.props.handleBack(this.state.formIsGood);
-                break;
-            case 13:
-                if (this.state.formIsGood) this.handleSave();
-                break;
-            case 46:
-                this.handleDelete();
-                break;
-        }
-    }
-    handleChange = (event) => {
-        const value = parseInt(document.getElementById('part-feature-input').value);
-        this.setState({formIsGood: (value && !isNaN(value) &&
-            value !== this.state.quantity && value > 0), formValue: value});
-    }
-    handleSave = () => {
-        let copy = Object.assign({}, this.props.item);
-        ipcRenderer.send('changePartQuantity', copy, this.state.formValue - this.state.quantity);
-        this.setState({formIsGood: false, quantity: this.state.formValue});
-    }
-    handleDelete = () => {
-        const q = this.state.quantity;
-        const deletion_quantity = q === 1 ? 'your' : q === 2 ? 'both' : `all ${q}`
-        const warning = `Really delete ${deletion_quantity} ${this.props.item.title}? This cannot be undone.`
-        if (confirm(warning)) {
-            ipcRenderer.send('deletePart', this.props.item);
-            this.props.handleBack();
-        }
-    }
-    render() {
-        let part = this.props.item;
-        let setcount = this.state.sets.length;
-        let { loose } = this.props.item;
-        let fromSets = this.props.item.quantity - loose;
-        let prefixes = this.state.sets.map(set => set.sets_qty > 1 ? `${set.quantity * set.sets_qty}x in ${set.sets_qty}x ` : `${set.quantity}x in `);
-        let image = 'assets/part_images/elements/no_img.png';
-        // Check if image is hosted locally
-        if (part.img) {
-            image = (part.img.includes('http')) ? part.img : `/Library/Application Support/com.dsalvati.brickcollector/part_images/${part.img}`;
-        }
-        const save = this.state.formIsGood ?
-            <button id='part-feature-save' className='bottom-layer' onClick={() => this.handleSave()}>Save Changes</button>
-            : '';
-        return (
-            <div>
-                <div className="left">
-                    <button className='top-left blank-button' onClick={() => this.props.handleBack(this.state.formIsGood)}>
-                        <img className='img-full' src={`assets/ui/${this.state.formIsGood ? 'back-unsaved' : 'back'}.svg`} />
-                    </button>
-                    <div className='lg-margin'>
-                        <input
-                        id='part-feature-input' type='number' dir='rtl' onKeyDown={(e) => e.preventDefault()}
-                        defaultValue={part.quantity} min={fromSets} onChange={this.handleChange}
-                        />
-                        <br/>{part.title}<br/>
-                        <i className='subtitle'>Element #{part.p_id}</i>
-                        <br/>
-                        <span className='part-feature-color-circle'
-                            style={{background: (part.color ? ColorHex[part.color] : 'rgba(0,0,0,0)')}}
-                            title={part.color ? part.color : 'Color Unknown'} />
-                        <span> {part.color}</span>
-                    </div>
-                    <img className='bottom-left lg-margin img-quarter' src={image} 
-                        title={'Image of ' + (part.title ? part.title : 'Unnamed Part')}
-                        alt={'Image of ' + (part.title ? part.title : 'No Name')}
-                    />
-                    <button className="bottom-left blank-button sm-margin no-padding trash" onClick={this.handleDelete}></button>
-                    {save}
-                </div>
-                <div className="right">
-                    <div className="ten-pct">
-                        <div className="fill-height localize">
-                            <div className="fill-width no-margin bottom center" >
-                                <b>{fromSets}x</b> from {setcount} set{setcount > 1 && 's'}<br/>
-                                <b>{this.props.item.loose}x</b> loose
-                            </div>    
-                        </div>
-                        <Gallery
-                        Entity={Set}
-                        values={this.state.sets}
-                        classificationType='theme'
-                        width={this.state.width / 2}
-                        height={this.state.height * 0.9}
-                        prefixes={prefixes}
-                        loading={this.state.loading}/>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+  render() {
+    const { item } = this.props;
+    const bubble = <span
+      className='category-circle'
+      style={{background: (item.color ? ColorHex[item.color] : 'rgba(0,0,0,0)')}}
+      title={item.color ? item.color : 'Color Unknown'}
+    />;
+    return (
+      <EntityFeature
+        fetcher={id => ipcRenderer.send('getSetsContainingPart', id)}
+        actions={PartFeatureActions}
+        updateAction="changePartQuantity"
+        deleteAction="deletePart"
+        imgDir="part_images"
+        Entity={Set}
+        Detail={Detail}
+        classificationType='color'
+        entityClassificationType='theme'
+        subtitle={`Element #${item.id}`}
+        bubble={bubble}
+        min={item.quantity - item.loose}
+        getPrefixes={getPrefixes}
+        /* Item and Handle-Back are passed through */
+        {...this.props}
+      />
+    );
+  }
 }
 
 export default PartFeature;

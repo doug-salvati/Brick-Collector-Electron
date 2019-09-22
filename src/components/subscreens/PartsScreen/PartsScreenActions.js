@@ -10,7 +10,7 @@ const PartsScreenActions = [
         type: 'newPartSent',
         worker: (event, new_part, context) => {
             let match;
-            if (match = context.state.items.find((elt) => elt.p_id === new_part.p_id)) {
+            if (match = context.state.items.find((elt) => elt.id === new_part.id)) {
               let modified = Object.assign({}, match, {
                 quantity: match.quantity + new_part.quantity,
                 loose: match.loose + new_part.loose
@@ -32,7 +32,7 @@ const PartsScreenActions = [
     {
         type: 'partDeleted',
         worker: (event, old_part, context) => {
-            const match = context.state.items.find((elt) => elt.p_id === old_part.p_id);
+            const match = context.state.items.find((elt) => elt.id === old_part.id);
             const idx = context.state.items.indexOf(match);
             let new_parts = context.state.items.slice();
             new_parts.splice(idx, 1);

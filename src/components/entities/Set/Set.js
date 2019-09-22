@@ -3,11 +3,11 @@ import ThemeImages from '../../../constants/themeimages.js';
 import Entity from '../Entity/Entity';
 
 const Set = (props) => {
-    const {xid, classification, ...rest} = props;
+    const {id, classification, ...rest} = props;
     return (
         <Entity
             imagepath="/Library/Application Support/com.dsalvati.brickcollector/set_images"
-            number={xid ? `${xid.split('-')[0]} ` : undefined}
+            number={id}
             icon={`url(assets/${ThemeImages[classification]})`}
             iconTooltip={classification}
             className="setEntity"

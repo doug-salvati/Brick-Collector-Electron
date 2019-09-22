@@ -2,6 +2,7 @@ export function registerActions(ipc, actions, context) {
     for (let action of actions) {
         ipc.on(action.type, (event, payload) => {
             console.info(`[INFO] inbound event: ${action.type}`);
+            console.log(payload);
             context.setState(action.worker(event, payload, context));
         });
     }

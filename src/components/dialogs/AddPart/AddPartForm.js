@@ -4,7 +4,7 @@ import {ipcRenderer} from 'electron';
 class AddPartForm extends Component {
     handleSubmit() {
         let new_part = {
-            p_id: document.getElementById('form-pid').value,
+            id: document.getElementById('form-pid').value,
             title: document.getElementById('form-title').value,
             color: document.getElementById('form-color').value,
             img: 'will be overridden',

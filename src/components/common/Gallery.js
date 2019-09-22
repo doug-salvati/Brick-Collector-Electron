@@ -17,6 +17,8 @@ class Gallery extends React.Component {
         const {Entity, values, classificationType, picker, prefixes, generateClickHandler} = this.props;
         const linearIndex = rowIndex * this.itemsPerRow + columnIndex;
         const item = values[linearIndex];
+        console.log('item >>>>', item);
+        console.log('classificationType >>>>', classificationType);
         return ( item &&
             <span key={key} style={style}>
                 <Entity
@@ -24,7 +26,7 @@ class Gallery extends React.Component {
                     classification={item[classificationType]}
                     zoom={this.itemsPerRow}
                     qty={item.quantity}
-                    number={item.s_id}
+                    id={item.id}
                     image={item.img}
                     prefix={prefixes && prefixes[linearIndex]}
                     handleClick={generateClickHandler && generateClickHandler(item)}

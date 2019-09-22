@@ -29,7 +29,7 @@ const downloadImage = (src, dest) => {
 module.exports = (connection) => {
     ipcMain.on('addPart', function(_, part) {
         const img_src = part.img;
-        const dest_filename = img_src ? `${part.p_id.replace(/\//g, '')}.jpg` : 'no_img.png';
+        const dest_filename = img_src ? `${part.id.replace(/\//g, '')}.jpg` : 'no_img.png';
         const img_dest = `/Library/Application Support/com.dsalvati.brickcollector/part_images/${dest_filename}`;
         const final_part = Object.assign({}, part, {img: dest_filename});
         if (img_src && img_src.includes('http')) {
@@ -49,8 +49,8 @@ module.exports = (connection) => {
     ipcMain.on('addSet', function(_, {set, parts}) {
         // Add entry for the set
         const img_src = set.img;
-        const img_dest = `/Library/Application Support/com.dsalvati.brickcollector/set_images/${set.s_id}.jpg`;
-        const final_set = Object.assign({}, set, {img: `${set.s_id}.jpg`});
+        const img_dest = `/Library/Application Support/com.dsalvati.brickcollector/set_images/${set.id}.jpg`;
+        const final_set = Object.assign({}, set, {img: `${set.id}.jpg`});
         request.head(img_src, () => {
             request(img_src).pipe(fs.createWriteStream(img_dest)).on('close', () => {
                 connection.addSet(final_set, () => {
@@ -64,13 +64,13 @@ module.exports = (connection) => {
         for (idx in parts) {
             const part = parts[idx];
             const img_src = part.img;
-            const dest_filename = img_src ? `${part.p_id.replace(/\//g, '')}.jpg` : 'no_img.png';
+            const dest_filename = img_src ? `${part.id.replace(/\//g, '')}.jpg` : 'no_img.png';
             const img_dest = `/Library/Application Support/com.dsalvati.brickcollector/part_images/${dest_filename}`;
             final_parts.push(Object.assign({}, part, {img: dest_filename}));
             if (img_src) {
                 images.push({src: img_src, dest: img_dest});
             }
-            parts[idx].img = `${part.p_id}.jpg`;
+            parts[idx].img = `${part.id}.jpg`;
         }
         downloadImagesAsync(images);
         connection.addPartsAndBridge(set, final_parts, () => {
@@ -95,13 +95,13 @@ module.exports = (connection) => {
             });
         });
     });
-    ipcMain.on('getPartsInSet', function(_, s_id) {
-        connection.getPartsInSet(s_id, function(_,r) {
+    ipcMain.on('getPartsInSet', function(_, id) {
+        connection.getPartsInSet(id, function(_,r) {
             global.win.webContents.send('partsSent', r);
         });
     });
-    ipcMain.on('getSetsContainingPart', function(_, p_id) {
-        connection.getSetsContainingPart(p_id, function(e,r) {
+    ipcMain.on('getSetsContainingPart', function(_, id) {
+        connection.getSetsContainingPart(id, function(e,r) {
             global.win.webContents.send('setsSent', r);
         })
     });

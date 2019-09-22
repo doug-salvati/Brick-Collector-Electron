@@ -30,7 +30,7 @@ class AddPart extends Component {
     searchSuccess(result) {
         if (result.part) {
             let new_part = {
-                p_id: result.element_id,
+                id: result.element_id,
                 title: result.part.name,
                 color: result.color.name,
                 img: result.element_img_url,

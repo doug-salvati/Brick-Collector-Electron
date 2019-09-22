@@ -28,7 +28,7 @@ class AddSet extends Component {
     searchSuccess = (result) => {
         if (result.set_num) {
             let new_set = {
-                s_id: result.set_num,
+                id: result.set_num,
                 title: result.name,
                 part_count: result.num_parts,
                 theme: result.theme,
@@ -42,7 +42,7 @@ class AddSet extends Component {
     }
 
     handleNext = () => {
-        Rebrickable.getPartsInSet(this.state.set.s_id,
+        Rebrickable.getPartsInSet(this.state.set.id,
             {
                 success: results => {
                     this.setState({parts: results});
@@ -78,7 +78,7 @@ class AddSet extends Component {
                 case 'loading':
                     contents = <Loader />; break;
                 default:
-                    contents = <Set name={set.title} xid={set.s_id} classification={set.theme} image={set.img} />;
+                    contents = <Set name={set.title} xid={set.id} classification={set.theme} image={set.img} />;
             }
                 return (
                     <div>

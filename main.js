@@ -18,7 +18,11 @@ createDialogs();
 
 app.on('ready', () => {
     dbConnection.connect();
-    global.win = new BrowserWindow({width: 800, height: 600});
+    global.win = new BrowserWindow({width: 800, height: 600,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
     global.win.loadURL(path.join('file://', __dirname, '/public/index.html'));
     Menu.setApplicationMenu(Menu.buildFromTemplate(menuBar));
 });

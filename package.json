@@ -1,6 +1,6 @@
 {
   "name": "brick-collector",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "main.js",
   "description": "App for managing a brick collection.",
   "repository": "https://github.com/doug-salvati/Brick-Collector",
@@ -13,7 +13,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "css-loader": "^3.1.0",
-    "electron": "^1.8.8",
+    "electron": "^7.1.7",
     "electron-builder": "^21.2.0",
     "electron-packager": "^12.1.2",
     "enzyme": "^3.7.0",

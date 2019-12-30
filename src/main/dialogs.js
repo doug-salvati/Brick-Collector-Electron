@@ -18,7 +18,10 @@ const openInDialog = pathName => {
         show: false,
         width: dialogWidth,
         height: dialogHeight,
-        resizable: false
+        resizable: false,
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
     dialog.loadURL(path.join('file://', __dirname, '../..', pathName));
     dialog.once('ready-to-show', () => dialog.show());

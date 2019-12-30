@@ -79,6 +79,22 @@ exports.default = function DatabaseAPI(connection) {
                 connection.query(query, callback);
             });
         },
+        addParts: function(parts, callback) {
+            const adding = parts.map(function(pt) {
+                return (
+                    "('" + pt.id + "', "
+                        + (pt.title ? ("'" + pt.title.replace(/\'/g,'') + "', ") : 'NULL,')
+                        + "'" + pt.color + "', "
+                        + (pt.img ? ("'" + pt.img + "', ") : 'NULL,')
+                        + pt.quantity + ', ' + pt.quantity + ')'
+                );
+            });
+            const query = 'INSERT INTO parts (id, title, color, img, quantity, loose) '
+                + 'VALUES ' + adding + ' '
+                + 'ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity), loose = loose + VALUES(loose)';
+            console.info("[INFO] MySQL << " + query);
+            connection.query(query, callback);
+        },
         addPartsAndBridge: function(set, parts, callback) {
             const bridge = [];
             const adding = parts.map(function(pt) {

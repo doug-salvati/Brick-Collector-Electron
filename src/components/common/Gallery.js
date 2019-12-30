@@ -14,13 +14,11 @@ class Gallery extends React.Component {
     }
 
     cellRenderer({ columnIndex, key, rowIndex, style }) {
-        const {Entity, values, classificationType, picker, prefixes, generateClickHandler} = this.props;
+        const {Entity, values, classificationType, onSelect, prefixes, generateClickHandler} = this.props;
         const linearIndex = rowIndex * this.itemsPerRow + columnIndex;
         const item = values[linearIndex];
-        console.log('item >>>>', item);
-        console.log('classificationType >>>>', classificationType);
         return ( item &&
-            <span key={key} style={style}>
+            <span key={key} style={style} className="localize">
                 <Entity
                     name={item.title}
                     classification={item[classificationType]}
@@ -31,7 +29,7 @@ class Gallery extends React.Component {
                     prefix={prefixes && prefixes[linearIndex]}
                     handleClick={generateClickHandler && generateClickHandler(item)}
                 />
-                {picker && <input className="top-left" type="checkbox" value={i} defaultChecked />}
+                {onSelect && <input className="top-left" type="checkbox" value={key} defaultChecked={item.enabled} onClick={() => onSelect(item.id)}/>}
             </span>
         );
     }

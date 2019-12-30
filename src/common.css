@@ -127,7 +127,7 @@ a:hover {
 
 /* absolute positioning */
 .top-left {
-    position: fixed;
+    position: absolute;
     top: 5px;
     left: 5px;
 }

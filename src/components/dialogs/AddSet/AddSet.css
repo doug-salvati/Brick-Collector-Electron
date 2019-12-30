@@ -19,5 +19,11 @@
 #set-add-done {
     position: absolute;
     right: 5%;
+    bottom: calc(5% + 20px);
+}
+
+#set-add-loose {
+    position: absolute;
+    right: 5%;
     bottom: 5%;
 }

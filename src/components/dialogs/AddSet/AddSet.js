@@ -13,6 +13,7 @@ class AddSet extends Component {
     constructor(props) {
         super(props);
         this.state = {set: 'initial', page: 1, parts: [], count: 0};
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
     componentDidMount() {
@@ -45,6 +46,7 @@ class AddSet extends Component {
         Rebrickable.getPartsInSet(this.state.set.id,
             {
                 success: results => {
+                    results.forEach(result => result.enabled = true);
                     this.setState({parts: results});
                     const count = this.state.parts.reduce((sum, next) => sum + next.quantity, 0);
                     const expectedCount = this.state.set.part_count;
@@ -64,6 +66,19 @@ class AddSet extends Component {
             parts: this.state.parts
         });
         current_window.close();
+    }
+
+    handleSubmitLoose = () => {
+        ipcRenderer.send('addParts', this.state.parts.filter(part => part.enabled));
+        current_window.close();
+    }
+
+    handleSelect(id) {
+        const { parts } = this.state;
+        const part = parts[parts.findIndex(elt => elt.id === id)];
+        part.enabled = !part.enabled;
+        const count = parts.reduce((sum, next) => sum + next.quantity * (next.enabled ? 1 : 0), 0);
+        this.setState({parts, count});
     }
 
     render() {
@@ -101,10 +116,12 @@ class AddSet extends Component {
                         values={this.state.parts}
                         classificationType='color'
                         width={window.innerWidth}
-                        height={window.innerHeight}    
+                        height={window.innerHeight}
+                        onSelect={this.handleSelect}
                     />
                     <button id='set-add-cancel' className='middle-layer' onClick={() => this.setState({page: 1})}>Back</button>
-                    <button id='set-add-done' className='middle-layer' onClick={() => this.handleSubmit()}>{`Add ${this.state.count} Parts`}</button>
+                    <button id='set-add-done' className='middle-layer' onClick={() => this.handleSubmit()}>{`Add Set`}</button>
+                    <button id='set-add-loose' className='middle-layer' onClick={() => this.handleSubmitLoose()}>{`Add as ${this.state.count} Loose Parts`}</button>
                 </div>
             );
         }

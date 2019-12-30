@@ -25,10 +25,15 @@ const File = {
                     buttonLabel: 'Export',
                     defaultPath: 'collection'
                 }
-                dialog.showSaveDialog(global.win, saveOptions, fileName => {
+                dialog.showSaveDialog(global.win, saveOptions).then(({filePath}) => {
                     mysqldump({
                         connection: mysqlConfig,
-                        dumpToFile: `${fileName}.bcc`,
+                        dumpToFile: `${filePath}.bcc`,
+                        dump: {
+                            data: {
+                                format: false,
+                            }
+                        }
                     });
                 });
             }

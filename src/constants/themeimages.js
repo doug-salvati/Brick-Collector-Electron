@@ -50,7 +50,9 @@ const ThemeImages = {
     "Disney Princess": "themes/disney.png",
     "Disney Series 2": "themes/disney.png",
     "SpongeBob SquarePants": "themes/spongebob.png",
-    
+    "Jurassic World": "themes/jurassicworld.png",
+    "Jurassic World: Fallen Kingdom": "themes/jurassicworld.png",
+    "Trolls: World Tour": "themes/trolls.png"
 };
 
 export default ThemeImages;

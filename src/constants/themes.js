@@ -401,6 +401,7 @@ const Themes = [
     'Traffic',
     'Train',
     'Trains',
+    'Trolls: World Tour',
     'Turaga',
     'UFO',
     'Ultimate Collector Series',

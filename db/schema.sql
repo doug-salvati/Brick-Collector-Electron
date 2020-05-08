@@ -23,7 +23,7 @@ CREATE TABLE sets (
 /* MOCS */
 CREATE TABLE mocs (
     m_id VARCHAR(64) NOT NULL,
-    title VARCHAR(100),
+    title VARCHAR(200),
     part_count INT,
     created DATE,
     img VARCHAR(200),

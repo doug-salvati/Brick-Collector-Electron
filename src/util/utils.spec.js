@@ -1,4 +1,4 @@
-import { mapObject } from './utils';
+const { mapObject } = require('./utils');
 
 describe('utils', () => {
     describe('mapObject', () => {

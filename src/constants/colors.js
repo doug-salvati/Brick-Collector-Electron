@@ -282,4 +282,6 @@ export const ColorIDs = {
   "Coral": "1050"
 }
 
+export const getColorCodeByName = name => ColorIDs[name] || ColorIDs["[No Color/Any Color]"];
+
 export default ColorHex;

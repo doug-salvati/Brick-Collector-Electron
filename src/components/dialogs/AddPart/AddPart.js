@@ -3,6 +3,7 @@ import Part from '../../entities/Part/Part';
 import SearchByElement from './SearchByElement';
 import SearchByPartAndColor from './SearchByPartAndColor';
 import Loader from '../../common/Loader/Loader';
+import PartModel from '../../../data/part';
 import './AddPart.css';
 import {ipcRenderer} from 'electron';
 
@@ -30,22 +31,11 @@ class AddPart extends Component {
 
     searchSuccess(result) {
         if (result.part) {
-            let new_part = {
-                id: result.element_id,
-                title: result.part.name,
-                color: result.color.name,
-                img: result.element_img_url,
-                quantity: 1,
-                loose: 1
-            };
+            let new_part = PartModel.mapPart(result, 1, 1);
             this.setState({part: new_part});
         } else {
             this.setState({part: 'none'});
         }
-    }
-
-    partSearchSuccess(result) {
-        console.log(result);
     }
 
     toggleAdvancedSearch() {
@@ -77,13 +67,13 @@ class AddPart extends Component {
                 <SearchByElement
                     onSubmit={() => this.setState({part: 'loading'})}
                     onSuccess={res => this.searchSuccess(res)}
-                    onFailure={alert}
+                    onFailure={err => alert(err)}
                 />
             :
                 <SearchByPartAndColor
                     onSubmit={() => this.setState({part: 'loading'})}
                     onSuccess={res => this.searchSuccess(res)}
-                    onFailure={alert}
+                    onFailure={err => alert(err)}
                 />;
 
         return (

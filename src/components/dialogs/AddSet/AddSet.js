@@ -14,7 +14,7 @@ class AddSet extends Component {
         super(props);
         this.state = {set: 'initial', page: 1, parts: [], count: 0};
         this.handleSelect = this.handleSelect.bind(this);
-        this.searchSuccess = this.handleSelect.bind(this);
+        this.searchSuccess = this.searchSuccess.bind(this);
         this.handleNext = this.handleNext.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSubmitLoose = this.handleSubmitLoose.bind(this);
@@ -59,7 +59,7 @@ class AddSet extends Component {
                     }
                     this.setState({count});
                 },
-                error: alert
+                error: err => alert(err)
             });
         this.setState({page: 2});
     }
@@ -104,7 +104,7 @@ class AddSet extends Component {
                         <SearchBySetNumber
                             onSubmit={() => this.setState({set: 'loading'})}
                             onSuccess={res => this.searchSuccess(res)}
-                            onFailure={alert}
+                            onFailure={err => alert(err)}
                         />
                         <div id='searched-set' className='fill-width'>{contents}</div>
                         <button id='set-add-cancel' onClick={() => current_window.close()}>Cancel</button>

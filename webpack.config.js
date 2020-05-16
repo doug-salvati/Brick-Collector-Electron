@@ -28,8 +28,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
-          plugins: ['transform-class-properties', 'transform-object-rest-spread']
+          plugins: ['@babel/plugin-transform-react-jsx']
         }
       },
       { test: /\.css$/,

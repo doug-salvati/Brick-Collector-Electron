@@ -16,6 +16,10 @@ class SubScreen extends Component {
             dropDownFilter: 'All',
             zoomLevel: 0
         };
+        this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleZoomIn = this.handleZoomIn.bind(this);
+        this.handleZoomOut = this.handleZoomOut.bind(this);
     }
     componentDidMount() {
         this.props.fetcher();
@@ -45,20 +49,20 @@ class SubScreen extends Component {
       return () => this.setState({featured: item});
     }
 
-    handleSearchChange = (val) => {
+    handleSearchChange(val) {
       this.setState({textFilter: val});
     }
 
-    handleSelectChange = (val) => {
+    handleSelectChange(val) {
       val = (val.includes('All') ? 'All' : val);
       this.setState({dropDownFilter: val});
     }
 
-    handleZoomIn = () => {
+    handleZoomIn() {
       this.setState({zoomLevel: Math.min(this.state.zoomLevel + 1, 2)});
     }
 
-    handleZoomOut = () => {
+    handleZoomOut() {
       this.setState({zoomLevel: Math.max(this.state.zoomLevel - 1, -2)});
     }
 

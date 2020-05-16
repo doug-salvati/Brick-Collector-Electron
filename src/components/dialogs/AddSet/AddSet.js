@@ -14,6 +14,10 @@ class AddSet extends Component {
         super(props);
         this.state = {set: 'initial', page: 1, parts: [], count: 0};
         this.handleSelect = this.handleSelect.bind(this);
+        this.searchSuccess = this.handleSelect.bind(this);
+        this.handleNext = this.handleNext.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitLoose = this.handleSubmitLoose.bind(this);
     }
 
     componentDidMount() {
@@ -26,7 +30,7 @@ class AddSet extends Component {
         }
     }
 
-    searchSuccess = (result) => {
+    searchSuccess(result) {
         if (result.set_num) {
             let new_set = {
                 id: result.set_num,
@@ -42,7 +46,7 @@ class AddSet extends Component {
         }
     }
 
-    handleNext = () => {
+    handleNext() {
         Rebrickable.getPartsInSet(this.state.set.id,
             {
                 success: results => {
@@ -60,7 +64,7 @@ class AddSet extends Component {
         this.setState({page: 2});
     }
 
-    handleSubmit = () => {
+    handleSubmit() {
         ipcRenderer.send('addSet', {
             set: this.state.set,
             parts: this.state.parts
@@ -68,7 +72,7 @@ class AddSet extends Component {
         current_window.close();
     }
 
-    handleSubmitLoose = () => {
+    handleSubmitLoose() {
         ipcRenderer.send('addParts', this.state.parts.filter(part => part.enabled));
         current_window.close();
     }

@@ -15,6 +15,9 @@ class EntityFeature extends Component {
             loading: true,
         };
         this.handleKeypress = this.handleKeypress.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSave = this.handleSave.bind(this)
+        this.handleDelete = this.handleDelete.bind(this);
     }
     componentDidMount() {
         console.log(`fetch relations to item with ID ${this.props.item.id}`, this.props.item);
@@ -42,7 +45,7 @@ class EntityFeature extends Component {
     updateWindowDimensions() {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
-    handleKeypress = (event) => {
+    handleKeypress(event) {
         switch(event.keyCode) {
             case 8:
                 this.props.handleBack(this.state.formIsGood);
@@ -55,17 +58,17 @@ class EntityFeature extends Component {
                 break;
         }
     }
-    handleChange = (event) => {
+    handleChange(event) {
         const value = parseInt(document.getElementById('entity-feature-input').value);
         this.setState({formIsGood: (value && !isNaN(value) &&
             value !== this.state.quantity && value > 0), formValue: value});
     }
-    handleSave = () => {
+    handleSave() {
         let copy = Object.assign({}, this.props.item);
         ipcRenderer.send(this.props.updateAction, copy, this.state.formValue - this.state.quantity);
         this.setState({formIsGood: false, quantity: this.state.formValue});
     }
-    handleDelete = () => {
+    handleDelete() {
         const q = this.state.quantity;
         const deletion_quantity = q === 1 ? 'your' : q === 2 ? 'both' : `all ${q}`
         const warning = `Really delete ${deletion_quantity} ${this.props.item.title}? This cannot be undone.`

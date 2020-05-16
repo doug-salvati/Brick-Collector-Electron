@@ -11,6 +11,7 @@ class AddPart extends Component {
     constructor(props) {
         super(props);
         this.state = {part: 'initial', searchBy: 'element'};
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -53,7 +54,7 @@ class AddPart extends Component {
         }));
     }
 
-    handleSubmit = () => {
+    handleSubmit() {
         ipcRenderer.send('addPart', Object.assign({}, this.state.part));
         current_window.close();
     }

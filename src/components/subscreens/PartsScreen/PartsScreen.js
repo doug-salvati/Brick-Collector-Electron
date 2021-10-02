@@ -17,7 +17,7 @@ class PartsScreen extends Component {
       <SubScreen
         actions={PartsScreenActions}
         fetcher={() => ipcRenderer.send('getParts')}
-        adder={() => global.openDialog.add_part()}
+        adder={() => require('@electron/remote').getGlobal('openDialog').add_part()}
         Entity={Part}
         Feature={PartFeature}
         classificationType='color'

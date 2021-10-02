@@ -10,7 +10,7 @@ const SetsScreen = (props) =>
     <SubScreen
         actions={SetsScreenActions}
         fetcher={() => ipcRenderer.send('getSets')}
-        adder={() => global.openDialog.add_set()}
+        adder={() => require('@electron/remote').getGlobal('openDialog').add_set()}
         Entity={Set}
         Feature={SetFeature}
         classificationType='theme'

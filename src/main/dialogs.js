@@ -20,10 +20,12 @@ const openInDialog = pathName => {
         height: dialogHeight,
         resizable: false,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     });
     dialog.loadURL(path.join('file://', __dirname, '../..', pathName));
+    require("@electron/remote/main").enable(dialog.webContents);
     dialog.once('ready-to-show', () => dialog.show());
 };
 

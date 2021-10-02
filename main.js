@@ -2,6 +2,7 @@
 // It sets up communication channels, windows, menu, etc.
 
 const {app, BrowserWindow, Menu} = require('electron');
+require('@electron/remote/main').initialize()
 const path = require('path');
 const mysql = require('mysql');
 const DatabaseAPI = require('./db/api.js').default;
@@ -20,10 +21,12 @@ app.on('ready', () => {
     dbConnection.connect();
     global.win = new BrowserWindow({width: 800, height: 600,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     });
     global.win.loadURL(path.join('file://', __dirname, '/public/index.html'));
+    require("@electron/remote/main").enable(win.webContents);
     Menu.setApplicationMenu(Menu.buildFromTemplate(menuBar));
 });
 

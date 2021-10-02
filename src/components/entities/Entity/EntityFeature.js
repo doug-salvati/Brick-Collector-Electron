@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {ipcRenderer, remote} from 'electron';
+import {ipcRenderer} from 'electron';
+import {remote} from '@electron/remote';
 import Gallery from '../../common/Gallery';
 import {registerActions, removeActions} from '../../../util/registerActions';
 import './EntityFeature.css';

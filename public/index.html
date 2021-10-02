@@ -8,10 +8,10 @@
     <div id="root"></div>
   </body>
   <script>
-    var electron = require('electron');
-    var openDialog = electron.remote.getGlobal('openDialog');
-    var current_window = electron.remote.getCurrentWindow();
-    var rebrickable = electron.remote.getGlobal('rebrickable');
+    var remote = require('@electron/remote');
+    var openDialog = remote.getGlobal('openDialog');
+    var current_window = remote.getCurrentWindow();
+    var rebrickable = remote.getGlobal('rebrickable');
   </script>
   <script src="./built/bundle.js"></script>
 </html>

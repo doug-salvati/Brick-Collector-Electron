@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {ipcRenderer} from 'electron';
-import {remote} from '@electron/remote';
 import Gallery from '../../common/Gallery';
 import {registerActions, removeActions} from '../../../util/registerActions';
 import './EntityFeature.css';
@@ -73,7 +72,7 @@ class EntityFeature extends Component {
         const q = this.state.quantity;
         const deletion_quantity = q === 1 ? 'your' : q === 2 ? 'both' : `all ${q}`
         const warning = `Really delete ${deletion_quantity} ${this.props.item.title}? This cannot be undone.`
-        if (remote.dialog.showMessageBoxSync({
+        if (require('@electron/remote').dialog.showMessageBoxSync({
             type: "question",
             buttons: ["Cancel", "OK"],
             defaultId: 1,

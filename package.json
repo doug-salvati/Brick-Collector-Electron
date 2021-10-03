@@ -1,6 +1,6 @@
 {
   "name": "brick-collector",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "main.js",
   "description": "App for managing a brick collection.",
   "repository": "https://github.com/doug-salvati/Brick-Collector",
@@ -8,7 +8,6 @@
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/plugin-transform-react-jsx": "^7.14.9",
-    "@electron/remote": "^2.0.1",
     "babel-loader": "^8.2.2",
     "css-loader": "^3.5.3",
     "electron": "^15.1.0",
@@ -36,6 +35,7 @@
     }
   },
   "dependencies": {
+    "@electron/remote": "^2.0.1",
     "ajv": "^6.12.2",
     "mysql": "^2.18.1",
     "mysqldump": "^2.2.1",

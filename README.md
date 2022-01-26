@@ -1,9 +1,6 @@
 # Brick Collector
 A LEGO® collection manager no longer in development (see https://github.com/doug-salvati/Brick-Collector instead) using React and Electron. More detailed information will be added to this page when builds are ready for release.
 
-## Installing
-Releases will be distributed here shortly. In the meantime, if you want to try the latest version, see the Production Build instructions below.
-
 ## Running
 You need a MySQL initialized with `schema.sql` with `config/mysql.config.js` set up appropriately from the template. 
 You also need a [Rebrickable.com](https://rebrickable.com/api/) API key in `src/constants/apikey.txt`.

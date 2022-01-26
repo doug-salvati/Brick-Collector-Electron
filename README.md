@@ -1,5 +1,5 @@
 # Brick Collector
-A LEGO® collection manager currently in development using React and Electron. More detailed information will be added to this page when builds are ready for release.
+A LEGO® collection manager no longer in development (see https://github.com/doug-salvati/Brick-Collector instead) using React and Electron. More detailed information will be added to this page when builds are ready for release.
 
 ## Installing
 Releases will be distributed here shortly. In the meantime, if you want to try the latest version, see the Production Build instructions below.

@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2.0.1",
-    "ajv": "^6.12.2",
+    "ajv": "^6.12.3",
     "mysql": "^2.18.1",
     "mysqldump": "^2.2.1",
     "prop-types": "^15.6.2",
